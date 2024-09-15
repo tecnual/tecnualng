@@ -1,13 +1,18 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  },
   "newProjectRoot": "projects",
   "projects": {
     "tng-breadcrumbs": {
       "projectType": "library",
       "root": "projects/tng-breadcrumbs",
       "sourceRoot": "projects/tng-breadcrumbs/src",
-      "prefix": "lib",
+      "prefix": "tng",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -32,6 +37,12 @@
               "zone.js",
               "zone.js/testing"
             ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/tng-breadcrumbs/src/**/*.ts", "projects/tng-breadcrumbs/src/**/*.html"]
           }
         }
       }
@@ -127,6 +138,12 @@
               "projects/demo/src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/demo/src/**/*.ts", "projects/demo/src/**/*.html"]
           }
         }
       }

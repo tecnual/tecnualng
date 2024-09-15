@@ -4,13 +4,7 @@ import { Component } from '@angular/core';
   selector: 'tng-breadcrumbs',
   standalone: true,
   imports: [],
-  template: `
-    <p>
-      tng-breadcrumbs works!
-    </p>
-  `,
+  template: ` <p>tng-breadcrumbs works!</p> `,
   styles: ``
 })
-export class TngBreadcrumbsComponent {
-
-}
+export class TngBreadcrumbsComponent {}

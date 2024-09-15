@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TngBreadcrumbsComponent } from "../../../tng-breadcrumbs/src/lib/tng-breadcrumbs.component";
+import { TngBreadcrumbsComponent } from '../../../tng-breadcrumbs/src/lib/tng-breadcrumbs.component';
 
 @Component({
   selector: 'app-root',

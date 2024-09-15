@@ -9,8 +9,7 @@ describe('TngBreadcrumbsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TngBreadcrumbsComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TngBreadcrumbsComponent);
     component = fixture.componentInstance;
