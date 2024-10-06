@@ -1,0 +1,77 @@
+.content {
+  border: 1px solid red;
+  display: grid;
+
+ /*  grid-template-areas:
+    "card-1 card-1 card-1"
+    "card-2 card-2 card-4"
+    "card-3 card-3 card-4"; */
+
+  grid-auto-rows: 10rem;
+  //grid-template: auto 1fr auto / auto 1fr auto;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+  //grid-template-rows: 5rem 1fr 5rem;
+  grid-gap: 1rem;
+}
+
+.card-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-3 {
+  display: flex;
+  grid-row: span 4;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-7 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-8 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-9 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.card-10 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
