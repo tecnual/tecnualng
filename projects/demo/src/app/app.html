@@ -1,4 +1,63 @@
-<h1>App</h1>
-<button routerLink="/empty">Go to Empty</button>
+<!-- Header fijo -->
+<header class="app-header">
+  <button class="icon-btn" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
+    <span class="material-icons">menu</span>
+  </button>
+  <span class="app-title">TecnualNG</span>
+  <span class="spacer"></span>
+  <button class="icon-btn" (click)="toggleRightSidebar()" aria-label="Toggle widgets">
+    <span class="material-icons">dashboard</span>
+  </button>
+</header>
 
-<router-outlet />
+<!-- Contenedor principal -->
+<div class="app-container">
+  
+  <!-- Sidebar Izquierdo (Navegación) -->
+  <aside class="app-sidebar left" [class.open]="leftSidebarOpen()">
+    <nav class="nav-list">
+      <div class="nav-header">Menu</div>
+      <a routerLink="/empty" class="nav-item">
+        <span class="material-icons">home</span>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="material-icons">category</span>
+        <span>Components</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="material-icons">settings</span>
+        <span>Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Contenido Central -->
+  <main class="app-content">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+      
+      <div class="demo-actions">
+        <h3>Demo Actions</h3>
+        <button tngButton>Tng Button</button>
+        <button class="custom-btn">Custom Button</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sidebar Derecho (Widgets) -->
+  <aside class="app-sidebar right" [class.open]="rightSidebarOpen()">
+    <div class="widgets-panel">
+      <h3>Widgets</h3>
+      <div class="widget-item">
+        <span class="title">System Status</span>
+        <span class="subtitle">Online</span>
+      </div>
+      <div class="widget-item">
+        <span class="title">Notifications</span>
+        <span class="subtitle">3 new messages</span>
+      </div>
+    </div>
+  </aside>
+
+</div>

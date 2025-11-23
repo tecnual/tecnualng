@@ -1,0 +1,218 @@
+// Variables
+$header-height: 64px;
+$sidebar-width: 250px;
+$primary-color: #3f51b5;
+$accent-color: #ff4081;
+$bg-color: #f5f5f5;
+$text-color: #333;
+$border-color: rgba(0,0,0,0.12);
+
+// Global
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  color: $text-color;
+}
+
+// Header
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
+  background-color: $primary-color;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+  .app-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 16px;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+  }
+}
+
+// Container
+.app-container {
+  margin-top: $header-height;
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background-color: $bg-color;
+}
+
+// Sidebars
+.app-sidebar {
+  position: fixed;
+  top: $header-height;
+  bottom: 0;
+  background: white;
+  width: $sidebar-width;
+  z-index: 900;
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow-y: auto;
+
+  &.left {
+    left: 0;
+    transform: translateX(-100%);
+    border-right: 1px solid $border-color;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  &.right {
+    right: 0;
+    transform: translateX(100%);
+    border-left: 1px solid $border-color;
+    width: 300px;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Navigation List
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+
+  .nav-header {
+    padding: 16px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.54);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: $text-color;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.04);
+    }
+
+    .material-icons {
+      margin-right: 16px;
+      color: rgba(0,0,0,0.54);
+    }
+  }
+}
+
+// Content
+.app-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  transition: margin 0.3s ease;
+  
+  // Desktop layout: push content when left sidebar is open
+  @media (min-width: 960px) {
+    margin-left: 0; // Default closed
+  }
+}
+
+// Desktop specific adjustments
+@media (min-width: 960px) {
+  .app-sidebar.left {
+    // On desktop, left sidebar pushes content
+    &.open ~ .app-content {
+      margin-left: $sidebar-width;
+    }
+    
+    // Optional: Make left sidebar static on desktop instead of fixed overlay
+    // But for simplicity keeping fixed behavior with margin push
+  }
+}
+
+// Widgets Panel
+.widgets-panel {
+  padding: 16px;
+
+  h3 {
+    margin-top: 0;
+    color: $primary-color;
+  }
+
+  .widget-item {
+    padding: 12px 0;
+    border-bottom: 1px solid $border-color;
+
+    .title {
+      display: block;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      display: block;
+      font-size: 0.875rem;
+      color: rgba(0,0,0,0.6);
+    }
+  }
+}
+
+// Demo Actions
+.demo-actions {
+  margin-top: 32px;
+  padding: 24px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  h3 { margin-top: 0; }
+
+  button {
+    margin-right: 16px;
+  }
+
+  .custom-btn {
+    background-color: $accent-color;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+    &:hover {
+      background-color: #c2185b;
+    }
+  }
+}
