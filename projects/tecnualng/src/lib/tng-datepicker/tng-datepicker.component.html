@@ -1,0 +1,44 @@
+<div class="tng-datepicker-container" [class.focused]="isOpen()" [class.has-value]="formattedValue" [class.disabled]="disabled()">
+  <!-- Trigger Field (Reusing Input Style) -->
+  <div class="tng-input-trigger" (click)="toggleCalendar()">
+    <fieldset class="tng-fieldset" aria-hidden="true">
+      <legend class="tng-legend"><span>{{ label() }}</span></legend>
+    </fieldset>
+    <label class="tng-label">{{ label() }}</label>
+    <div class="tng-input-display">
+      {{ formattedValue || (isOpen() ? placeholder() : '') }}
+    </div>
+    <span class="material-icons tng-icon">calendar_today</span>
+  </div>
+
+  <!-- Calendar Popup -->
+  <div class="tng-calendar-popup" *ngIf="isOpen()">
+    <div class="tng-calendar-header">
+      <button type="button" class="nav-btn" (click)="prevMonth($event)">
+        <span class="material-icons">chevron_left</span>
+      </button>
+      <span class="current-month">{{ currentMonthYear }}</span>
+      <button type="button" class="nav-btn" (click)="nextMonth($event)">
+        <span class="material-icons">chevron_right</span>
+      </button>
+    </div>
+
+    <div class="tng-calendar-grid">
+      <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
+      <div
+        class="day-cell"
+        *ngFor="let date of calendarDays()"
+        [class.not-current-month]="!isCurrentMonth(date)"
+        [class.today]="isToday(date)"
+        [class.selected]="isSelected(date)"
+        [class.in-range]="isInRange(date)"
+        [class.range-start]="mode() === 'range' && isSameDay(date, rangeValue.start)"
+        [class.range-end]="mode() === 'range' && isSameDay(date, rangeValue.end)"
+        [class.disabled]="isDisabled(date)"
+        (click)="selectDate(date)"
+      >
+        {{ date.getDate() }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
+//@import 'tecnualng/styles/theming';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+  height: 100%; 
+  margin: 0;
+}
+
+body { 
+  font-family: var(--tng-font-family, 'Roboto', "Helvetica Neue", sans-serif);
+  background: var(--tng-background, #fafafa);
+  color: var(--tng-text, #333);
+}
+
+* {
+  box-sizing: border-box;
+}

@@ -1,20 +1,15 @@
-// Variables
+// Layout Variables
 $header-height: 64px;
 $footer-height: 64px;
 $sidebar-width: 250px;
-$primary-color: #3f51b5;
-$accent-color: #ff4081;
-$bg-color: #f5f5f5;
-$text-color: #333;
-$border-color: rgba(0,0,0,0.12);
 
 // Global
 :host {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  font-family: 'Roboto', sans-serif;
-  color: $text-color;
+  font-family: var(--tng-font-family, 'Roboto', sans-serif);
+  color: var(--tng-text, #333);
 }
 
 // Header
@@ -24,7 +19,7 @@ $border-color: rgba(0,0,0,0.12);
   left: 0;
   right: 0;
   height: $header-height;
-  background-color: $primary-color;
+  background-color: var(--tng-primary, #3f51b5);
   color: white;
   display: flex;
   align-items: center;
@@ -67,7 +62,7 @@ $border-color: rgba(0,0,0,0.12);
   flex: 1;
   position: relative;
   overflow: hidden;
-  background-color: $bg-color;
+  background-color: var(--tng-background, #f5f5f5);
 }
 
 // Sidebars
@@ -75,17 +70,17 @@ $border-color: rgba(0,0,0,0.12);
   position: fixed;
   top: $header-height;
   bottom: 0;
-  background: white;
+  background: var(--tng-surface, white);
   width: $sidebar-width;
   z-index: 900;
   transition: transform 0.3s ease;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: var(--tng-shadow-md, 0 0 10px rgba(0,0,0,0.1));
   overflow-y: auto;
 
   &.left {
     left: 0;
     transform: translateX(-100%);
-    border-right: 1px solid $border-color;
+    border-right: 1px solid var(--tng-border, rgba(0,0,0,0.12));
 
     &.open {
       transform: translateX(0);
@@ -95,7 +90,7 @@ $border-color: rgba(0,0,0,0.12);
   &.right {
     right: 0;
     transform: translateX(100%);
-    border-left: 1px solid $border-color;
+    border-left: 1px solid var(--tng-border, rgba(0,0,0,0.12));
     width: 300px;
 
     &.open {
@@ -121,11 +116,22 @@ $border-color: rgba(0,0,0,0.12);
     align-items: center;
     padding: 12px 16px;
     text-decoration: none;
-    color: $text-color;
+    color: var(--tng-text, #333);
     transition: background-color 0.2s;
+    border-left: 3px solid transparent;
 
     &:hover {
       background-color: rgba(0,0,0,0.04);
+    }
+
+    &.active {
+      background-color: color-mix(in srgb, var(--tng-primary, #3f51b5), white 90%);
+      border-left-color: var(--tng-primary, #3f51b5);
+      color: var(--tng-primary, #3f51b5);
+      
+      .material-icons {
+        color: var(--tng-primary, #3f51b5);
+      }
     }
 
     .material-icons {
@@ -167,12 +173,12 @@ $border-color: rgba(0,0,0,0.12);
 
   h3 {
     margin-top: 0;
-    color: $primary-color;
+    color: var(--tng-primary, #3f51b5);
   }
 
   .widget-item {
     padding: 12px 0;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--tng-border, rgba(0,0,0,0.12));
 
     .title {
       display: block;
@@ -202,7 +208,7 @@ $border-color: rgba(0,0,0,0.12);
   }
 
   .custom-btn {
-    background-color: $accent-color;
+    background-color: var(--tng-secondary, #ff4081);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -226,7 +232,7 @@ $border-color: rgba(0,0,0,0.12);
   left: 0;
   right: 0;
   height: $footer-height;
-  background-color: $primary-color;
+  background-color: var(--tng-primary, #3f51b5);
   color: white;
   display: flex;
   align-items: center;

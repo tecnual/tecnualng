@@ -1,0 +1,38 @@
+// Global Theming System
+
+// Mixin to apply the theme variables
+@mixin tng-theme-default {
+  // Colors
+  --tng-primary: #3f51b5;
+  --tng-primary-contrast: #ffffff;
+  --tng-secondary: #ff4081;
+  --tng-secondary-contrast: #ffffff;
+  --tng-surface: #ffffff;
+  --tng-background: #fafafa;
+  --tng-text: #333333;
+  --tng-text-secondary: #757575;
+  --tng-border: #e0e0e0;
+  --tng-error: #f44336;
+  --tng-success: #4caf50;
+
+  // Typography
+  --tng-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  --tng-font-size-base: 14px;
+  --tng-font-weight-regular: 400;
+  --tng-font-weight-medium: 500;
+  --tng-font-weight-bold: 700;
+
+  // Spacing & Layout
+  --tng-spacing-unit: 8px;
+  --tng-border-radius: 4px;
+  --tng-input-height: 40px;
+  
+  // Shadows
+  --tng-shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --tng-shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+// Apply to root if desired, or use a class
+:root {
+  @include tng-theme-default;
+}

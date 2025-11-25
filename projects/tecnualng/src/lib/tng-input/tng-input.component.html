@@ -1,0 +1,18 @@
+<div class="tng-input-container" [class.focused]="isFocused" [class.has-value]="hasValue" [class.disabled]="disabled">
+  <fieldset class="tng-fieldset" aria-hidden="true">
+    <legend class="tng-legend"><span>{{ label }}</span></legend>
+  </fieldset>
+  <label [for]="id" class="tng-label">{{ label }}</label>
+  <input
+    [id]="id"
+    [type]="type"
+    [placeholder]="isFocused ? placeholder : ''"
+    [value]="value"
+    [disabled]="disabled"
+    [required]="required"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    class="tng-input-field"
+  />
+</div>

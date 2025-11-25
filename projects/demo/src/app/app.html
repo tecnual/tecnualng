@@ -15,18 +15,24 @@
   <!-- Sidebar Izquierdo (Navegación) -->
   <aside class="app-sidebar left" [class.open]="leftSidebarOpen()">
     <nav class="nav-list">
-      <div class="nav-header">Menu</div>
-      <a routerLink="/empty" class="nav-item">
+      <div class="nav-header">Navigation</div>
+      <a routerLink="/home" routerLinkActive="active" class="nav-item">
         <span class="material-icons">home</span>
         <span>Home</span>
       </a>
-      <a href="#" class="nav-item">
-        <span class="material-icons">category</span>
-        <span>Components</span>
+      
+      <div class="nav-header">Components</div>
+      <a routerLink="/input" routerLinkActive="active" class="nav-item">
+        <span class="material-icons">input</span>
+        <span>Input</span>
       </a>
-      <a href="#" class="nav-item">
-        <span class="material-icons">settings</span>
-        <span>Settings</span>
+      <a routerLink="/datepicker" routerLinkActive="active" class="nav-item">
+        <span class="material-icons">calendar_today</span>
+        <span>Datepicker</span>
+      </a>
+      <a routerLink="/button" routerLinkActive="active" class="nav-item">
+        <span class="material-icons">smart_button</span>
+        <span>Button</span>
       </a>
     </nav>
   </aside>
@@ -35,12 +41,6 @@
   <main class="app-content">
     <div class="content-wrapper">
       <router-outlet></router-outlet>
-      
-      <div class="demo-actions">
-        <h3>Demo Actions</h3>
-        <button tngButton>Tng Button</button>
-        <button class="custom-btn">Custom Button</button>
-      </div>
     </div>
   </main>
 

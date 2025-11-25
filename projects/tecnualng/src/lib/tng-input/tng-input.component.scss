@@ -1,0 +1,134 @@
+@use "sass:color";
+
+:host {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-family: var(--tng-font-family, 'Inter', sans-serif);
+}
+
+.tng-input-container {
+  position: relative;
+  border-radius: var(--tng-border-radius, 4px);
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  cursor: text;
+  
+  // Border is now handled by fieldset
+  border: none; 
+
+  &:hover {
+    .tng-fieldset {
+      // We can't easily use color.adjust on CSS variables, so we might need a separate hover variable or just use the border color
+      // For now, let's use the text-secondary as a darker border on hover, or keep it simple
+      border-color: var(--tng-text-secondary, #757575);
+    }
+  }
+
+  &.focused {
+    .tng-fieldset {
+      border-color: var(--tng-primary, #6200ee);
+      border-width: 2px;
+    }
+
+    .tng-label {
+      color: var(--tng-primary, #6200ee);
+      transform: translateY(-24px) scale(0.75);
+    }
+
+    .tng-legend {
+      max-width: 100%; // Allow legend to expand to fit text
+    }
+  }
+
+  &.has-value {
+    .tng-label {
+      transform: translateY(-24px) scale(0.75);
+    }
+
+    .tng-legend {
+      max-width: 100%;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    
+    .tng-fieldset {
+      border-color: var(--tng-border, #e0e0e0);
+      background-color: var(--tng-background, #fafafa);
+    }
+  }
+}
+
+.tng-fieldset {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--tng-border, #999);
+  border-radius: var(--tng-border-radius, 4px);
+  pointer-events: none;
+  transition: border-color 0.2s ease, border-width 0.1s ease;
+  z-index: 0;
+}
+
+.tng-legend {
+  width: auto;
+  max-width: 0; // Initially collapsed
+  height: 11px;
+  font-size: 0.75em;
+  visibility: hidden;
+  transition: max-width 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  padding-inline: 0px;
+
+  span {
+    padding: 0 2px;
+    visibility: visible; // The text inside is what creates the width
+    opacity: 0; // But we don't want to see it, just use it for spacing
+  }
+}
+
+.tng-label {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: var(--tng-text-secondary, #666);
+  font-size: 16px;
+  font-weight: 400;
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  z-index: 1;
+}
+
+.tng-input-field {
+  display: block;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  color: var(--tng-text, #333);
+  outline: none;
+  height: 100%;
+  line-height: normal;
+  z-index: 1;
+
+  &::placeholder {
+    color: transparent;
+    transition: color 0.2s ease;
+  }
+
+  &:focus::placeholder {
+    color: #aaa;
+  }
+}
