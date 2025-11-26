@@ -1,0 +1,20 @@
+<div class="demo-container">
+  <h1>Data Table</h1>
+  
+  <tng-table
+    [data]="users"
+    [columns]="columns()"
+    [pageSize]="10"
+    [filterable]="true"
+  >
+    <ng-template #statusTemplate let-status>
+      <span class="status-badge" [ngClass]="status.toLowerCase()">
+        {{ status }}
+      </span>
+    </ng-template>
+  </tng-table>
+
+  <div style="margin-top: 40px;">
+    <app-code-example [tabs]="tableCode"></app-code-example>
+  </div>
+</div>

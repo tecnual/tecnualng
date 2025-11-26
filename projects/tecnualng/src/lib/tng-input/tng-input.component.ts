@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, input, model } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,12 +17,12 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class TecnualInputComponent implements ControlValueAccessor {
-  @Input() label: string = '';
-  @Input() type: 'text' | 'number' | 'password' | 'email' | 'tel' = 'text';
-  @Input() placeholder: string = '';
-  @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
-  @Input() id: string = `tng-input-${Math.random().toString(36).substr(2, 9)}`;
+  label = input('');
+  type = input<'text' | 'number' | 'password' | 'email' | 'tel'>('text');
+  placeholder = input('');
+  required = input<boolean>(false);
+  disabled = model<boolean>(false);
+  id = input<string>(`tng-input-${Math.random().toString(36).substr(2, 9)}`);
 
   value: any = '';
   isFocused: boolean = false;
@@ -62,6 +62,6 @@ export class TecnualInputComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.update(() => isDisabled);
   }
 }

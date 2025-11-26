@@ -1,13 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
     RouterLink,
-    CommonModule
+    CommonModule,
+    ThemeSelectorComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -18,6 +20,9 @@ export class App {
   // Sidebar states
   protected leftSidebarOpen = signal(true);
   protected rightSidebarOpen = signal(false);
+  
+  // Theme state
+  protected isDarkTheme = signal(false);
 
   toggleLeftSidebar() {
     this.leftSidebarOpen.update(v => !v);
@@ -25,5 +30,14 @@ export class App {
 
   toggleRightSidebar() {
     this.rightSidebarOpen.update(v => !v);
+  }
+  
+  toggleTheme() {
+    this.isDarkTheme.update(v => !v);
+    if (this.isDarkTheme()) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
   }
 }
