@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { InputDemoComponent } from './pages/input-demo/input-demo.component';
 import { DatepickerDemoComponent } from './pages/datepicker-demo/datepicker-demo.component';
 import { ButtonDemoComponent } from './pages/button-demo/button-demo.component';
+import { CardDemoComponent } from './pages/card-demo/card-demo.component';
 import { TableDemoComponent } from './pages/table-demo/table-demo.component';
 
 export const routes: Routes = [
@@ -28,6 +29,10 @@ export const routes: Routes = [
   {
     path: 'button',
     component: ButtonDemoComponent,
+  },
+  {
+    path: 'card',
+    component: CardDemoComponent,
   },
   {
     path: 'table',

@@ -1,0 +1,10 @@
+<span class="tng-button__label">
+    @if (icon() && iconPosition() === 'left') {
+        <i [class]="icon()" class="tng-button__icon tng-button__icon--left"></i>
+    }
+    <ng-content></ng-content>
+    @if (icon() && iconPosition() === 'right') {
+        <i [class]="icon()" class="tng-button__icon tng-button__icon--right"></i>
+    }
+</span>
+

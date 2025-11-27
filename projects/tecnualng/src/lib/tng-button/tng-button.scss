@@ -1,0 +1,149 @@
+.tng-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 64px;
+  height: 32px;
+  border: none;
+  outline: none;
+  line-height: inherit;
+  -webkit-appearance: none;
+  overflow: hidden; /* Important for ripple */
+  vertical-align: middle;
+  background: transparent;
+  padding: 0 16px; /* Increased padding for elegance */
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02857em;
+  border-radius: 4px; /* Default small radius */
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-radius 250ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 100ms ease-in-out; /* Subtle lift */
+
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+
+  &:active {
+    outline: none;
+    transform: scale(0.98); /* Subtle press effect */
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  .mdc-button__label {
+    position: relative;
+    z-index: 1; /* Ensure label is above ripple */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+  }
+
+  .tng-button__icon--left {
+    margin-right: 4px;
+  }
+
+  .tng-button__icon--right {
+    margin-left: 4px;
+  }
+
+  /* --- Modifiers --- */
+
+  &--rounded {
+    border-radius: 24px;
+  }
+
+  &--soft {
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1), 
+                0 4px 5px 0 rgba(0,0,0,0.07), 
+                0 1px 10px 0 rgba(0,0,0,0.06);
+    
+    &:hover {
+      box-shadow: 0 5px 5px -3px rgba(0,0,0,0.1), 
+                  0 8px 10px 1px rgba(0,0,0,0.07), 
+                  0 3px 14px 2px rgba(0,0,0,0.06);
+      transform: translateY(-1px);
+    }
+  }
+
+  /* --- Variants --- */
+
+  &--primary {
+    background-color: var(--tng-primary);
+    color: var(--tng-primary-contrast);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--tng-primary), white 10%);
+    }
+  }
+
+  &--secondary {
+    background-color: var(--tng-secondary);
+    color: var(--tng-secondary-contrast);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--tng-secondary), white 10%);
+    }
+  }
+
+  &--success {
+    background-color: var(--tng-success);
+    color: #ffffff;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--tng-success), white 10%);
+    }
+  }
+
+  &--warning {
+    background-color: var(--tng-warning);
+    color: #ffffff;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--tng-warning), white 10%);
+    }
+  }
+
+  &--error {
+    background-color: var(--tng-error);
+    color: #ffffff;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--tng-error), white 10%);
+    }
+  }
+}
+
+/* --- Ripple Effect --- */
+span.tng-ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: rgba(255, 255, 255, 0.3);
+  pointer-events: none; /* Ignore clicks */
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

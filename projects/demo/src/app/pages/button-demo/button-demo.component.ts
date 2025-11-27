@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TngButton } from 'tecnualng';
 import { CodeExampleComponent, CodeTab } from '../../components/code-example/code-example.component';
+import { TngButton } from 'tecnualng';
 
 @Component({
   selector: 'app-button-demo',
@@ -14,7 +14,7 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       <div class="demo-section">
         <h2>Basic Button</h2>
         <div class="button-row">
-          <button tngButton>Default Button</button>
+          <button tngButton [soft]="true">Default Button</button>
           <button tngButton>Click Me</button>
           <button tngButton>Submit</button>
         </div>
@@ -25,13 +25,38 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       <div class="demo-section">
         <h2>Custom Styled Buttons</h2>
         <div class="button-row">
-          <button class="custom-btn primary">Primary</button>
-          <button class="custom-btn secondary">Secondary</button>
-          <button class="custom-btn success">Success</button>
-          <button class="custom-btn danger">Danger</button>
+          <button tngButton variant="primary">Primary</button>
+          <button tngButton variant="secondary">Secondary</button>
+          <button tngButton variant="success">Success</button>
+          <button tngButton variant="warning">Warning</button>
+          <button tngButton variant="error">Error</button>
         </div>
         
         <app-code-example [tabs]="customButtonCode"></app-code-example>
+      </div>
+
+      <div class="demo-section">
+        <h2>Enhanced Buttons</h2>
+        <div class="button-row">
+          <button tngButton variant="primary" [rounded]="true">Rounded</button>
+          <button tngButton variant="secondary" [soft]="true">Soft</button>
+          <button tngButton variant="success" [rounded]="true" [soft]="true">Rounded & Soft</button>
+          <button tngButton variant="warning" [ripple]="false">No Ripple</button>
+        </div>
+        
+        <app-code-example [tabs]="enhancedButtonCode"></app-code-example>
+      </div>
+
+      <div class="demo-section">
+        <h2>Buttons with Icons</h2>
+        <p class="subtitle">Note: Requires an icon library (e.g., FontAwesome) to be loaded.</p>
+        <div class="button-row">
+          <button tngButton variant="primary" icon="fa fa-home">Home</button>
+          <button tngButton variant="secondary" icon="fa fa-arrow-right" iconPosition="right">Next</button>
+          <button tngButton variant="success" icon="fa fa-check" aria-label="Confirm"></button>
+        </div>
+        
+        <app-code-example [tabs]="iconButtonCode"></app-code-example>
       </div>
       
       <div class="demo-section">
@@ -82,55 +107,7 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       margin-bottom: 1.5rem;
     }
     
-    .custom-btn {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: var(--tng-border-radius, 4px);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: var(--tng-font-family, 'Inter', sans-serif);
-    }
-    
-    .custom-btn.primary {
-      background: var(--tng-primary, #6200ee);
-      color: var(--tng-primary-contrast, #fff);
-    }
-    
-    .custom-btn.primary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-    
-    .custom-btn.secondary {
-      background: var(--tng-secondary, #ff4081);
-      color: var(--tng-secondary-contrast, #fff);
-    }
-    
-    .custom-btn.secondary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-    
-    .custom-btn.success {
-      background: var(--tng-success, #4caf50);
-      color: #fff;
-    }
-    
-    .custom-btn.success:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-    
-    .custom-btn.danger {
-      background: var(--tng-error, #f44336);
-      color: #fff;
-    }
-    
-    .custom-btn.danger:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
+
     
     .btn-sm {
       padding: 0.5rem 1rem;
@@ -169,32 +146,41 @@ export class ExampleComponent {}`
     {
       label: 'HTML',
       language: 'html',
-      code: `<button class="custom-btn primary">Primary</button>
-<button class="custom-btn secondary">Secondary</button>
-<button class="custom-btn success">Success</button>
-<button class="custom-btn danger">Danger</button>`
-    },
+      code: `<button tngButton variant="primary">Primary</button>
+<button tngButton variant="secondary">Secondary</button>
+<button tngButton variant="success">Success</button>
+<button tngButton variant="warning">Warning</button>
+<button tngButton variant="error">Error</button>`
+    }
+  ];
+
+  protected enhancedButtonCode: CodeTab[] = [
     {
-      label: 'CSS',
-      language: 'css',
-      code: `.custom-btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--tng-border-radius, 4px);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
+      label: 'HTML',
+      language: 'html',
+      code: `<!-- Rounded Buttons -->
+<button tngButton variant="primary" [rounded]="true">Rounded</button>
 
-.custom-btn.primary {
-  background: var(--tng-primary, #6200ee);
-  color: var(--tng-primary-contrast, #fff);
-}
+<!-- Soft Buttons -->
+<button tngButton variant="secondary" [soft]="true">Soft</button>
 
-.custom-btn.primary:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}`
+<!-- No Ripple -->
+<button tngButton variant="primary" [ripple]="false">No Ripple</button>`
+    }
+  ];
+  
+  protected iconButtonCode: CodeTab[] = [
+    {
+      label: 'HTML',
+      language: 'html',
+      code: `<!-- Left Icon -->
+<button tngButton variant="primary" icon="fa fa-home">Home</button>
+
+<!-- Right Icon -->
+<button tngButton variant="secondary" icon="fa fa-arrow-right" iconPosition="right">Next</button>
+
+<!-- Icon Only (using aria-label for accessibility) -->
+<button tngButton variant="success" icon="fa fa-check" aria-label="Confirm"></button>`
     }
   ];
   

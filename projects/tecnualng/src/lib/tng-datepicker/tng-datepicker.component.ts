@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener, forwardRef, signal, computed, input, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { addYears } from 'tecnualng/utils/date-utils';
+import { addYears } from '../utils/date-utils';
 
 export interface DateRange {
   start: Date | null;
