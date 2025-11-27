@@ -1,14 +1,22 @@
-<!-- Header fijo -->
-<header class="app-header">
-  <button class="icon-btn" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
-    <span class="material-icons">menu</span>
-  </button>
-  <span class="app-title">TecnualNG</span>
-  <app-theme-selector></app-theme-selector>
-  <button class="icon-btn" (click)="toggleRightSidebar()" aria-label="Toggle widgets">
-    <span class="material-icons">dashboard</span>
-  </button>
-</header>
+<!-- Header with TngToolbar -->
+<tng-toolbar position="top" color="primary" [elevation]="true">
+  <div toolbar-left>
+    <button tngButton icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
+    Menú
+    </button>
+  </div>
+  <div toolbar-center>
+    TencualNG
+  </div>
+  <div toolbar-right>
+    <app-theme-selector></app-theme-selector>
+  </div>
+  <!--<div toolbar-right>
+    <button class="icon-btn" (click)="toggleRightSidebar()" aria-label="Toggle widgets">
+      <span class="material-icons">dashboard</span>
+    </button>
+  </div>-->
+</tng-toolbar>
 
 <!-- Contenedor principal -->
 <div class="app-container">
@@ -56,7 +64,6 @@
       <router-outlet></router-outlet>
     </div>
   </main>
-
   <!-- Sidebar Derecho (Widgets) -->
   <aside class="app-sidebar right" [class.open]="rightSidebarOpen()">
     <div class="widgets-panel">
@@ -71,8 +78,11 @@
       </div>
     </div>
   </aside>
-
-  <footer class="app-footer">
-  <span class="app-title">Made with <span class="material-icons">favorite</span> by Tecnual</span>
-</footer>
 </div>
+<!-- Footer with TngToolbar -->
+  <tng-toolbar [elevation]="true" positionType="static">
+    <div toolbar-center>
+      <span class="app-title">Made with <span class="material-icons">favorite</span> by Tecnual</span>
+    </div>
+  </tng-toolbar>
+

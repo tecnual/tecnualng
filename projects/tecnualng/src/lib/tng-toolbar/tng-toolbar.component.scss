@@ -41,22 +41,44 @@
     }
   }
 
-  /* --- Position Modifiers --- */
+  /* --- Position Type Modifiers --- */
 
-  &--top {
+  &--fixed {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     z-index: 1000;
   }
 
-  &--bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  &--absolute {
+    position: absolute;
     z-index: 1000;
+  }
+
+  &--relative {
+    position: relative;
+  }
+
+  &--static {
+    position: static;
+  }
+
+  /* --- Position Placement --- */
+
+  &--top {
+    &.tng-toolbar--fixed,
+    &.tng-toolbar--absolute {
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  &--bottom {
+    &.tng-toolbar--fixed,
+    &.tng-toolbar--absolute {
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
 
   /* --- Elevation --- */

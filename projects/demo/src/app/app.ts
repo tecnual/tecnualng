@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { TngButton, TngToolbarComponent } from 'tecnualng';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ import { ThemeSelectorComponent } from './components/theme-selector/theme-select
     RouterOutlet,
     RouterLink,
     CommonModule,
-    ThemeSelectorComponent
+    ThemeSelectorComponent,
+    TngToolbarComponent,
+    TngButton
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
