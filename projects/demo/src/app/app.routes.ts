@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { Empty } from './empty/empty';
 import { HomeComponent } from './pages/home/home.component';
+import { GettingStartedComponent } from './pages/getting-started/getting-started.component';
 import { InputDemoComponent } from './pages/input-demo/input-demo.component';
 import { DatepickerDemoComponent } from './pages/datepicker-demo/datepicker-demo.component';
 import { ButtonDemoComponent } from './pages/button-demo/button-demo.component';
@@ -18,6 +19,10 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'getting-started',
+    component: GettingStartedComponent,
   },
   {
     path: 'input',
