@@ -6,6 +6,7 @@ import { InputDemoComponent } from './pages/input-demo/input-demo.component';
 import { DatepickerDemoComponent } from './pages/datepicker-demo/datepicker-demo.component';
 import { ButtonDemoComponent } from './pages/button-demo/button-demo.component';
 import { CardDemoComponent } from './pages/card-demo/card-demo.component';
+import { ToolbarDemoComponent } from './pages/toolbar-demo/toolbar-demo.component';
 import { TableDemoComponent } from './pages/table-demo/table-demo.component';
 
 export const routes: Routes = [
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'card',
     component: CardDemoComponent,
+  },
+  {
+    path: 'toolbar',
+    component: ToolbarDemoComponent,
   },
   {
     path: 'table',

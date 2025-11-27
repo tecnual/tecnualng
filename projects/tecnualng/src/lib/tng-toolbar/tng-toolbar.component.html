@@ -1,0 +1,14 @@
+<div class="tng-toolbar__container">
+  <div class="tng-toolbar__section tng-toolbar__section--left">
+    <ng-content select="[toolbar-left]"></ng-content>
+  </div>
+
+  <div class="tng-toolbar__section tng-toolbar__section--center">
+    <ng-content select="[toolbar-center]"></ng-content>
+    <ng-content></ng-content>
+  </div>
+
+  <div class="tng-toolbar__section tng-toolbar__section--right">
+    <ng-content select="[toolbar-right]"></ng-content>
+  </div>
+</div>
