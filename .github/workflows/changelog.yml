@@ -2,9 +2,8 @@ name: Update Changelog
 
 on:
   push:
-    branches:
-      - main
-      - develop
+    tags:
+      - '*.*.*' # publica en npm solo si es un tag de versión
 
 jobs:
   changelog:
