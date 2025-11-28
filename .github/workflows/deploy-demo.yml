@@ -31,8 +31,7 @@ jobs:
         run: |
           npm run build -- \
             --project demo \
-            --output-path dist/demo \
-            --base-href /tecnualng/
+            --output-path dist/demo
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
