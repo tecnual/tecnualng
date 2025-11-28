@@ -29,6 +29,7 @@ jobs:
         run: npm run build tecnualng
 
       - name: Publish to npm
-        run: npm publish dist/tecnualng
+        working-directory: dist/tecnualng
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
