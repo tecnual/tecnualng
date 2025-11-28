@@ -183,7 +183,7 @@ Contributions are welcome! To contribute:
 
 ## 📄 License
 
-TecnualNG is released under the **MIT License** — free for personal and commercial projects.
+TecnualNG is released under the **Hippocratic License** — free for personal and commercial projects.
 
 ---
 
