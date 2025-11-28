@@ -51,6 +51,10 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/demo",
+            "index": "src/index.html",
+            "deployUrl": "/tecnualng/",
+            "baseHref": "/tecnualng/",
             "browser": "projects/demo/src/main.ts",
             "tsConfig": "projects/demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
