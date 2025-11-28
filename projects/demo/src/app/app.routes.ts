@@ -9,6 +9,8 @@ import { ButtonDemoComponent } from './pages/button-demo/button-demo.component';
 import { CardDemoComponent } from './pages/card-demo/card-demo.component';
 import { ToolbarDemoComponent } from './pages/toolbar-demo/toolbar-demo.component';
 import { TableDemoComponent } from './pages/table-demo/table-demo.component';
+import { TooltipDemoComponent } from './pages/tooltip-demo/tooltip-demo.component';
+import { ExpansionPanelDemoComponent } from './pages/expansion-panel-demo/expansion-panel-demo.component';
 
 export const routes: Routes = [
   {
@@ -47,6 +49,14 @@ export const routes: Routes = [
   {
     path: 'table',
     component: TableDemoComponent,
+  },
+  {
+    path: 'tooltip',
+    component: TooltipDemoComponent,
+  },
+  {
+    path: 'expansion-panel',
+    component: ExpansionPanelDemoComponent,
   },
   {
     path: 'empty',

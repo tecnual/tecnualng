@@ -7,8 +7,7 @@ import { Component } from '@angular/core';
     <p>
       tecnualng works!
     </p>
-  `,
-  styles: ``,
+  `
 })
 export class Tecnualng {
 

@@ -2,12 +2,10 @@
 <tng-toolbar position="top" color="primary" [elevation]="true">
   <div toolbar-left>
     <button tngButton icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
-    Menú
+      Menú
     </button>
   </div>
-  <div toolbar-center>
-    TencualNG
-  </div>
+  <div toolbar-center>TencualNG</div>
   <div toolbar-right>
     <app-theme-selector></app-theme-selector>
   </div>
@@ -20,7 +18,6 @@
 
 <!-- Contenedor principal -->
 <div class="app-container">
-  
   <!-- Sidebar Izquierdo (Navegación) -->
   <aside class="app-sidebar left" [class.open]="leftSidebarOpen()">
     <nav class="nav-list">
@@ -33,7 +30,7 @@
         <span class="material-icons">rocket_launch</span>
         <span>Getting Started</span>
       </a>
-      
+
       <div class="nav-header">Components</div>
       <a routerLink="/input" routerLinkActive="active" class="nav-item">
         <span class="material-icons">input</span>
@@ -58,6 +55,14 @@
       <a routerLink="/table" routerLinkActive="active" class="nav-item">
         <span class="material-icons">table_chart</span>
         <span>Table</span>
+      </a>
+      <a routerLink="/tooltip" routerLinkActive="active" class="nav-item">
+        <span class="material-icons">info</span>
+        <span>Tooltip</span>
+      </a>
+      <a routerLink="/expansion-panel" routerLinkActive="active" class="nav-item">
+        <span class="material-icons">expand_more</span>
+        <span>Expansion Panel</span>
       </a>
     </nav>
   </aside>
@@ -84,9 +89,8 @@
   </aside>
 </div>
 <!-- Footer with TngToolbar -->
-  <tng-toolbar [elevation]="true" positionType="static">
-    <div toolbar-center>
-      <span class="app-title">Made with <span class="material-icons">favorite</span> by Tecnual</span>
-    </div>
-  </tng-toolbar>
-
+<tng-toolbar [elevation]="true" positionType="static">
+  <div toolbar-center>
+    <span class="app-title">Made with <span class="material-icons">favorite</span> by Tecnual</span>
+  </div>
+</tng-toolbar>
