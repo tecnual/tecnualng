@@ -1,42 +1,53 @@
-name: Generate Changelog
+name: Update Changelog
 
 on:
   push:
-    tags:
-      - '*.*.*' # Se ejecuta solo para tags estilo x.y.z
-
-permissions:
-  contents: write # Necesario para hacer commit automático
+    branches:
+      - main
+      - develop
 
 jobs:
   changelog:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout en la rama correcta (evita el detached HEAD)
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Necesario para obtener el historial completo
+          ref: ${{ github.ref }}
+          fetch-depth: 0
 
+      # 2️⃣ Instalar Node y dependencias
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '18'
 
-      - name: Install changelog generator
+      - name: Install dependencies
         run: npm install -g conventional-changelog-cli
 
-      - name: Generate changelog
-        run: |
-          conventional-changelog -p angular -i CHANGELOG.md -s
+      # 3️⃣ Generar o actualizar CHANGELOG.md
+      - name: Generate Changelog
+        run: conventional-changelog -p angular -i CHANGELOG.md -s
 
-      - name: Commit changelog
+      # 4️⃣ Configurar Git para el bot
+      - name: Configure Git
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # 5️⃣ Crear commit si hay cambios
+      - name: Commit changes
+        run: |
           git add CHANGELOG.md
-          git commit -m "docs: update changelog for $GITHUB_REF_NAME" || echo "No changes to commit"
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update changelog"
+          fi
 
+      # 6️⃣ Push seguro a la misma rama
       - name: Push changes
         run: |
-          git push
+          git push origin HEAD:${{ github.ref_name }}
