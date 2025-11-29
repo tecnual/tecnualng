@@ -8,7 +8,8 @@
     "build:tecnualng": "ng build tecnualng",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:demo": "ng serve demo"
+    "start:demo": "ng serve demo",
+    "generate:changelog": "conventional-changelog -i 'CHANGELOG.md' -s -t v -p angular"
   },
   "prettier": {
     "printWidth": 100,
@@ -39,6 +40,7 @@
     "@angular/build": "^21.0.0",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
+    "conventional-changelog-cli": "^5.0.0",
     "jsdom": "^27.1.0",
     "ng-packagr": "^21.0.0",
     "typescript": "~5.9.2",
