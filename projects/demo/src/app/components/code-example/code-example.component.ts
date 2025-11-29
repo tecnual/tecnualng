@@ -109,9 +109,11 @@ export interface CodeTab {
       font-family: 'Courier New', monospace;
       font-size: 0.875rem;
       line-height: 1.5;
+      background-color: var(--tng-background, #fff);
     }
     
     code {
+      //background-color: var(--tng-background, #fff);
       color: var(--tng-text, #333);
     }
     
@@ -119,9 +121,21 @@ export interface CodeTab {
     code[data-language="typescript"] {
       color: #0066cc;
     }
-    
+
+    code[data-language="bash"] {
+      color: #abacafff;
+    }
+
+    code[data-language="json"] {
+      color: #abacafff;
+    }
+
     code[data-language="html"] {
       color: #cc0066;
+    }
+
+    code[data-language="scss"] {
+      color: #fb3e9dff;
     }
     
     code[data-language="css"] {

@@ -1,4 +1,4 @@
-import { Component, Input, signal, ContentChildren, QueryList, AfterContentInit, effect } from '@angular/core';
+import { Component, input, signal, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -8,63 +8,72 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <div class="tng-menu-item" 
-         [class.tng-menu-item--disabled]="disabled"
+         [class.tng-menu-item--disabled]="disabled()"
          [class.tng-menu-item--has-children]="hasChildren()"
          [class.tng-menu-item--expanded]="expanded()"
-         [style.--level]="level">
+         [style.--level]="level()">
       
       <!-- Item content (clickable) -->
-      <a *ngIf="route && !hasChildren(); else buttonTemplate"
-         [routerLink]="route"
-         routerLinkActive="tng-menu-item__link--active"
-         class="tng-menu-item__link"
-         [class.tng-menu-item__link--disabled]="disabled"
-         (click)="handleClick($event)">
-        <span class="tng-menu-item__icon" *ngIf="icon">
-          <span class="material-icons">{{ icon }}</span>
-        </span>
-        <span class="tng-menu-item__label">
-          <ng-content select="[menu-item-label]"></ng-content>
-          {{ label }}
-        </span>
-        <span class="tng-menu-item__chevron" *ngIf="hasChildren()">
-          <span class="material-icons">expand_more</span>
-        </span>
-      </a>
-
-      <ng-template #buttonTemplate>
-        <button type="button"
-                class="tng-menu-item__link"
-                [class.tng-menu-item__link--disabled]="disabled"
-                [disabled]="disabled"
-                (click)="handleClick($event)">
-          <span class="tng-menu-item__icon" *ngIf="icon">
-            <span class="material-icons">{{ icon }}</span>
-          </span>
+      @if (route() && !hasChildren()) {
+        <a [routerLink]="route()"
+           routerLinkActive="tng-menu-item__link--active"
+           class="tng-menu-item__link"
+           [class.tng-menu-item__link--disabled]="disabled()"
+           (click)="handleClick($event)">
+          @if (icon()) {
+            <span class="tng-menu-item__icon">
+              <span class="material-icons">{{ icon() }}</span>
+            </span>
+          }
           <span class="tng-menu-item__label">
             <ng-content select="[menu-item-label]"></ng-content>
-            {{ label }}
+            {{ label() }}
           </span>
-          <span class="tng-menu-item__chevron" *ngIf="hasChildren()">
-            <span class="material-icons">expand_more</span>
+          @if (hasChildren()) {
+            <span class="tng-menu-item__chevron">
+              <span class="material-icons">expand_more</span>
+            </span>
+          }
+        </a>
+      } @else {
+        <button type="button"
+                class="tng-menu-item__link"
+                [class.tng-menu-item__link--disabled]="disabled()"
+                [disabled]="disabled()"
+                (click)="handleClick($event)">
+          @if (icon()) {
+            <span class="tng-menu-item__icon">
+              <span class="material-icons">{{ icon() }}</span>
+            </span>
+          }
+          <span class="tng-menu-item__label">
+            <ng-content select="[menu-item-label]"></ng-content>
+            {{ label() }}
           </span>
+          @if (hasChildren()) {
+            <span class="tng-menu-item__chevron">
+              <span class="material-icons">expand_more</span>
+            </span>
+          }
         </button>
-      </ng-template>
+      }
 
       <!-- Submenu (content projection for nested items) -->
-      <div class="tng-menu-item__submenu" *ngIf="hasChildren() && expanded()">
-        <ng-content></ng-content>
-      </div>
+      @if (hasChildren() && expanded()) {
+        <div class="tng-menu-item__submenu">
+          <ng-content></ng-content>
+        </div>
+      }
     </div>
   `,
   styleUrls: ['./tng-menu-item.component.scss']
 })
 export class TngMenuItemComponent implements AfterContentInit {
-  @Input() icon?: string;
-  @Input() label = '';
-  @Input() route?: string;
-  @Input() disabled = false;
-  @Input() level = 0;
+  icon = input<string>();
+  label = input<string>('');
+  route = input<string>();
+  disabled = input<boolean>(false);
+  level = input<number>(0);
 
   @ContentChildren(TngMenuItemComponent) children!: QueryList<TngMenuItemComponent>;
 
@@ -86,7 +95,7 @@ export class TngMenuItemComponent implements AfterContentInit {
   }
 
   handleClick(event: Event) {
-    if (this.disabled) {
+    if (this.disabled()) {
       event.preventDefault();
       return;
     }

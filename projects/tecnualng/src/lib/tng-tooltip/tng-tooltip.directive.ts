@@ -63,8 +63,8 @@ export class TngTooltipDirective implements OnDestroy {
       environmentInjector: this.injector
     });
 
-    // Set input
-    this.componentRef.instance.content = this.content;
+    // Set input using setInput for signal-based inputs
+    this.componentRef.setInput('content', this.content);
     
     // Trigger change detection to render content
     this.componentRef.changeDetectorRef.detectChanges();

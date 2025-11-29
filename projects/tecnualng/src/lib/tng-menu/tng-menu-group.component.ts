@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,7 +7,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div class="tng-menu-group">
-      <div class="tng-menu-group__header" *ngIf="label">{{ label }}</div>
+      @if (label()) {
+        <div class="tng-menu-group__header">{{ label() }}</div>
+      }
       <ng-content></ng-content>
     </div>
   `,
@@ -18,5 +20,5 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class TngMenuGroupComponent {
-  @Input() label = '';
+  label = input<string>('');
 }

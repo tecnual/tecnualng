@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,16 +7,16 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <nav class="tng-menu" 
-         [class.tng-menu--horizontal]="mode === 'horizontal'"
-         [class.tng-menu--vertical]="mode === 'vertical'"
-         [class.tng-menu--compact]="density === 'compact'"
-         [class.tng-menu--comfortable]="density === 'comfortable'">
+         [class.tng-menu--horizontal]="mode() === 'horizontal'"
+         [class.tng-menu--vertical]="mode() === 'vertical'"
+         [class.tng-menu--compact]="density() === 'compact'"
+         [class.tng-menu--comfortable]="density() === 'comfortable'">
       <ng-content></ng-content>
     </nav>
   `,
   styleUrls: ['./tng-menu.component.scss']
 })
 export class TngMenuComponent {
-  @Input() mode: 'vertical' | 'horizontal' = 'vertical';
-  @Input() density: 'compact' | 'comfortable' = 'comfortable';
+  mode = input<'vertical' | 'horizontal'>('vertical');
+  density = input<'compact' | 'comfortable'>('comfortable');
 }
