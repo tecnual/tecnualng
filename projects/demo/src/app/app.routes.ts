@@ -44,6 +44,10 @@ export const routes: Routes = [
     component: CardDemoComponent,
   },
   {
+    path: 'tabs',
+    loadComponent: () => import('./pages/tabs-demo/tabs-demo.component').then(m => m.TabsDemoComponent)
+  },
+  {
     path: 'toolbar',
     component: ToolbarDemoComponent,
   },

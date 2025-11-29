@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TngToolbarComponent } from 'tecnualng';
 import { TngButton } from 'tecnualng';
 import { CodeExampleComponent, CodeTab } from '../../components/code-example/code-example.component';
@@ -6,7 +7,7 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
 @Component({
   selector: 'app-toolbar-demo',
   standalone: true,
-  imports: [TngToolbarComponent, TngButton, CodeExampleComponent],
+  imports: [CommonModule, TngToolbarComponent, TngButton, CodeExampleComponent],
   template: `
     <div class="page-container">
       <h1>Toolbar Component</h1>
@@ -14,7 +15,7 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       
       <div class="demo-section">
         <h2>Static Toolbar</h2>
-        <tng-toolbar>
+        <tng-toolbar positionType="static">
           <div toolbar-left>
             <button tngButton icon="fa fa-bars">Menu</button>
           </div>
@@ -26,14 +27,12 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
             <button tngButton icon="fa fa-bell"></button>
           </div>
         </tng-toolbar>
-        
         <app-code-example [tabs]="staticToolbarCode"></app-code-example>
       </div>
-
       <div class="demo-section">
         <h2>Fixed Top Toolbar</h2>
         <p class="note">This toolbar would be fixed at the top of the page</p>
-        <tng-toolbar position="top" [elevation]="true">
+        <tng-toolbar position="top" positionType="fixed" [elevation]="true">
           <div toolbar-left>
             <button tngButton icon="fa fa-bars">Menu</button>
           </div>
@@ -44,14 +43,14 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
             <button tngButton icon="fa fa-user"></button>
           </div>
         </tng-toolbar>
-        
         <app-code-example [tabs]="topToolbarCode"></app-code-example>
       </div>
 
       <div class="demo-section">
         <h2>Fixed Bottom Toolbar</h2>
         <p class="note">This toolbar would be fixed at the bottom of the page</p>
-        <tng-toolbar position="bottom" [elevation]="true">
+        <div class="example-container">
+        <tng-toolbar position="bottom" positionType="fixed" [elevation]="true">
           <div toolbar-left>
             <button tngButton variant="primary" icon="fa fa-home">Home</button>
           </div>
@@ -96,6 +95,29 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
         
         <app-code-example [tabs]="coloredToolbarCode"></app-code-example>
       </div>
+      <div class="demo-section">
+        <h2>Sticky Toolbar</h2>
+        <p class="note">Scroll inside the box to see the toolbar stick to the top</p>
+        <div class="example-container">
+          <tng-toolbar positionType="sticky" [elevation]="true">
+            <div toolbar-left>
+              <button tngButton icon="fa fa-bars">Menu</button>
+            </div>
+            <div toolbar-center>
+              <span style="font-weight: 500; font-size: 1.25rem;">Sticky Header</span>
+            </div>
+            <div toolbar-right>
+              <button tngButton icon="fa fa-user"></button>
+            </div>
+          </tng-toolbar>
+          <div style="padding: 20px;">
+            <p *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+              Scrollable content section {{i}}. The toolbar above should stick to the top of this container when you scroll down.
+            </p>
+          </div>
+        </div>
+        <app-code-example [tabs]="stickyToolbarCode"></app-code-example>
+      </div>
 
       <div class="demo-section">
         <h2>Responsive Toolbar</h2>
@@ -119,6 +141,19 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
     </div>
   `,
   styles: [`
+    .example-container {
+      border: 1px solid var(--tng-border);
+      padding: 1rem;
+      height: 500px;
+      overflow-y: scroll;
+      position: relative;
+    }
+
+    .empty-space {
+      height: 600px;
+      border: 1px solid var(--tng-border);
+      overflow-y: auto;
+    }
     .page-container {
       padding: 2rem;
       max-width: 1200px;
@@ -242,6 +277,30 @@ export class ToolbarDemoComponent {
     <span>Secondary Toolbar</span>
   </div>
 </tng-toolbar>`
+    }
+  ];
+
+  protected stickyToolbarCode: CodeTab[] = [
+    {
+      label: 'HTML',
+      language: 'html',
+      code: `<div class="container" style="height: 500px; overflow-y: auto;">
+  <tng-toolbar positionType="sticky" [elevation]="true">
+    <div toolbar-left>
+      <button tngButton icon="fa fa-bars">Menu</button>
+    </div>
+    <div toolbar-center>
+      <span>Sticky Header</span>
+    </div>
+    <div toolbar-right>
+      <button tngButton icon="fa fa-user"></button>
+    </div>
+  </tng-toolbar>
+  
+  <div class="content">
+    <!-- Scrollable content -->
+  </div>
+</div>`
     }
   ];
 

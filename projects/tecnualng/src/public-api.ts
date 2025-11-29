@@ -8,6 +8,8 @@ export * from './lib/tng-input/tng-input.component';
 export * from './lib/tng-datepicker/tng-datepicker.component';
 export * from './lib/tng-table/tng-table.component';
 export * from './lib/tng-toolbar/tng-toolbar.component';
+export * from './lib/tng-tabs/tng-tabs.component';
+export * from './lib/tng-tabs/tng-tab.component';
 export * from './lib/utils/theme.service';
 export * from './lib/tng-tooltip/tng-tooltip.component';
 export * from './lib/tng-tooltip/tng-tooltip.directive';
