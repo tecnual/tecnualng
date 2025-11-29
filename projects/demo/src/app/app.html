@@ -20,51 +20,32 @@
 <div class="app-container">
   <!-- Sidebar Izquierdo (Navegación) -->
   <aside class="app-sidebar left" [class.open]="leftSidebarOpen()">
-    <nav class="nav-list">
-      <div class="nav-header">Navigation</div>
-      <a routerLink="/home" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">home</span>
-        <span>Home</span>
-      </a>
-      <a routerLink="/getting-started" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">rocket_launch</span>
-        <span>Getting Started</span>
-      </a>
+    <tng-menu>
+      <tng-menu-group label="Navigation">
+        <tng-menu-item icon="home" label="Home" route="/home"></tng-menu-item>
+        <tng-menu-item
+          icon="rocket_launch"
+          label="Getting Started"
+          route="/getting-started"
+        ></tng-menu-item>
+      </tng-menu-group>
 
-      <div class="nav-header">Components</div>
-      <a routerLink="/input" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">input</span>
-        <span>Input</span>
-      </a>
-      <a routerLink="/datepicker" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">calendar_today</span>
-        <span>Datepicker</span>
-      </a>
-      <a routerLink="/button" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">smart_button</span>
-        <span>Button</span>
-      </a>
-      <a routerLink="/card" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">dashboard_customize</span>
-        <span>Card</span>
-      </a>
-      <a routerLink="/toolbar" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">view_day</span>
-        <span>Toolbar</span>
-      </a>
-      <a routerLink="/table" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">table_chart</span>
-        <span>Table</span>
-      </a>
-      <a routerLink="/tooltip" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">info</span>
-        <span>Tooltip</span>
-      </a>
-      <a routerLink="/expansion-panel" routerLinkActive="active" class="nav-item">
-        <span class="material-icons">expand_more</span>
-        <span>Expansion Panel</span>
-      </a>
-    </nav>
+      <tng-menu-group label="Components">
+        <tng-menu-item icon="input" label="Input" route="/input"></tng-menu-item>
+        <tng-menu-item icon="calendar_today" label="Datepicker" route="/datepicker"></tng-menu-item>
+        <tng-menu-item icon="smart_button" label="Button" route="/button"></tng-menu-item>
+        <tng-menu-item icon="dashboard_customize" label="Card" route="/card"></tng-menu-item>
+        <tng-menu-item icon="view_day" label="Toolbar" route="/toolbar"></tng-menu-item>
+        <tng-menu-item icon="table_chart" label="Table" route="/table"></tng-menu-item>
+        <tng-menu-item icon="info" label="Tooltip" route="/tooltip"></tng-menu-item>
+        <tng-menu-item
+          icon="expand_more"
+          label="Expansion Panel"
+          route="/expansion-panel"
+        ></tng-menu-item>
+        <tng-menu-item icon="menu" label="Menu" route="/menu"></tng-menu-item>
+      </tng-menu-group>
+    </tng-menu>
   </aside>
 
   <!-- Contenido Central -->

@@ -1,18 +1,26 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
-import { TngButton, TngToolbarComponent } from 'tecnualng';
+import { 
+  TngButton, 
+  TngToolbarComponent,
+  TngMenuComponent,
+  TngMenuItemComponent,
+  TngMenuGroupComponent 
+} from 'tecnualng';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    RouterLink,
     CommonModule,
     ThemeSelectorComponent,
     TngToolbarComponent,
-    TngButton
+    TngButton,
+    TngMenuComponent,
+    TngMenuItemComponent,
+    TngMenuGroupComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

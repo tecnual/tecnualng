@@ -12,3 +12,4 @@ export * from './lib/utils/theme.service';
 export * from './lib/tng-tooltip/tng-tooltip.component';
 export * from './lib/tng-tooltip/tng-tooltip.directive';
 export * from './lib/tng-expansion-panel/tng-expansion-panel.component';
+export * from './lib/tng-menu';

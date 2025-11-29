@@ -11,6 +11,7 @@ import { ToolbarDemoComponent } from './pages/toolbar-demo/toolbar-demo.componen
 import { TableDemoComponent } from './pages/table-demo/table-demo.component';
 import { TooltipDemoComponent } from './pages/tooltip-demo/tooltip-demo.component';
 import { ExpansionPanelDemoComponent } from './pages/expansion-panel-demo/expansion-panel-demo.component';
+import { MenuDemoComponent } from './pages/menu-demo/menu-demo.component';
 
 export const routes: Routes = [
   {
@@ -57,6 +58,10 @@ export const routes: Routes = [
   {
     path: 'expansion-panel',
     component: ExpansionPanelDemoComponent,
+  },
+  {
+    path: 'menu',
+    component: MenuDemoComponent,
   },
   {
     path: 'empty',
