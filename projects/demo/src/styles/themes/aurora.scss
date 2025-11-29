@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/aurora' as aurora;
+
+body {
+  @include aurora.tng-theme-aurora;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

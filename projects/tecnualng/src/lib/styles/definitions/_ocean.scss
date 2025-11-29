@@ -1,0 +1,17 @@
+@mixin tng-theme-ocean {
+  --tng-primary: #0288d1;
+  --tng-primary-contrast: #ffffff;
+  --tng-secondary: #00acc1;
+  --tng-secondary-contrast: #ffffff;
+  --tng-surface: #ffffff;
+  --tng-background: #e1f5fe;
+  --tng-text: #01579b;
+  --tng-text-secondary: #0277bd;
+  --tng-border: #b3e5fc;
+  --tng-error: #d32f2f;
+  --tng-warning: #ffa726;
+  --tng-success: #00897b;
+
+  --tng-shadow-sm: 0 2px 4px rgba(2, 136, 209, 0.15);
+  --tng-shadow-md: 0 4px 8px rgba(2, 136, 209, 0.2);
+}

@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/ocean' as ocean;
+
+body {
+  @include ocean.tng-theme-ocean;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

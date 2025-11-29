@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/light' as light;
+
+body {
+  @include light.tng-theme-default;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

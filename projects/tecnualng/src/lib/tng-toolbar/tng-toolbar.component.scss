@@ -92,12 +92,12 @@
   /* --- Color Variants --- */
 
   &--primary {
-    background-color: var(--tng-primary);
+    background: var(--tng-primary);
     color: var(--tng-primary-contrast);
   }
 
   &--secondary {
-    background-color: var(--tng-secondary);
+    background: var(--tng-secondary);
     color: var(--tng-secondary-contrast);
   }
 }

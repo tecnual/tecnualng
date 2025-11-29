@@ -63,7 +63,52 @@
               }
             ],
             "styles": [
-              "projects/demo/src/styles.scss"
+              "projects/demo/src/styles.scss",
+              {
+                "input": "projects/demo/src/styles/themes/light.scss",
+                "bundleName": "theme-light",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/dark.scss",
+                "bundleName": "theme-dark",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/ocean.scss",
+                "bundleName": "theme-ocean",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/forest.scss",
+                "bundleName": "theme-forest",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/sunset.scss",
+                "bundleName": "theme-sunset",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/royal.scss",
+                "bundleName": "theme-royal",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/monochrome.scss",
+                "bundleName": "theme-monochrome",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/aurora.scss",
+                "bundleName": "theme-aurora",
+                "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/aurora-dark.scss",
+                "bundleName": "theme-aurora-dark",
+                "inject": false
+              }
             ]
           },
           "configurations": {

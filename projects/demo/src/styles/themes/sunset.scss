@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/sunset' as sunset;
+
+body {
+  @include sunset.tng-theme-sunset;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

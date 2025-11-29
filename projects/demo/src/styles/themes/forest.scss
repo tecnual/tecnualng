@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/forest' as forest;
+
+body {
+  @include forest.tng-theme-forest;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

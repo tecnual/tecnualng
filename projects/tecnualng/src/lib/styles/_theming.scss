@@ -1,205 +1,90 @@
 // Global Theming System
+@use 'definitions/light' as light;
+@use 'definitions/dark' as dark;
+@use 'definitions/ocean' as ocean;
+@use 'definitions/forest' as forest;
+@use 'definitions/sunset' as sunset;
+@use 'definitions/royal' as royal;
+@use 'definitions/monochrome' as monochrome;
+@use 'definitions/aurora' as aurora;
+@use 'definitions/aurora-dark' as aurora-dark;
 
-// Mixin to apply the theme variables
-@mixin tng-theme-default {
-  // Colors
-  --tng-primary: #3f51b5;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #ff4081;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #fafafa;
-  --tng-text: #333333;
-  --tng-text-secondary: #757575;
-  --tng-border: #e0e0e0;
-  --tng-error: #f44336;
-  --tng-warning: #ff9800;
-  --tng-success: #4caf50;
-
-  // Typography
-  --tng-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-  --tng-font-size-base: 14px;
-  --tng-font-weight-regular: 400;
-  --tng-font-weight-medium: 500;
-  --tng-font-weight-bold: 700;
-
-  // Spacing & Layout
-  --tng-spacing-unit: 8px;
-  --tng-border-radius: 4px;
-  --tng-input-height: 40px;
-
-  // Shadows
-  --tng-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --tng-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
-}
-
-// Mixin for dark theme variables
-@mixin tng-theme-dark {
-  // Colors
-  --tng-primary: #7986cb;
-  --tng-primary-contrast: #000000;
-  --tng-secondary: #ff80ab;
-  --tng-secondary-contrast: #000000;
-  --tng-surface: #424242;
-  --tng-background: #303030;
-  --tng-text: #ffffff;
-  --tng-text-secondary: #b0b0b0;
-  --tng-border: #616161;
-  --tng-error: #ef5350;
-  --tng-warning: #ffb74d;
-  --tng-success: #66bb6a;
-
-  // Shadows (lighter for dark mode visibility)
-  --tng-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --tng-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-// Ocean theme - Deep blue waters
-@mixin tng-theme-ocean {
-  --tng-primary: #0288d1;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #00acc1;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #e1f5fe;
-  --tng-text: #01579b;
-  --tng-text-secondary: #0277bd;
-  --tng-border: #b3e5fc;
-  --tng-error: #d32f2f;
-  --tng-warning: #ffa726;
-  --tng-success: #00897b;
-
-  --tng-shadow-sm: 0 2px 4px rgba(2, 136, 209, 0.15);
-  --tng-shadow-md: 0 4px 8px rgba(2, 136, 209, 0.2);
-}
-
-// Forest theme - Natural greens
-@mixin tng-theme-forest {
-  --tng-primary: #388e3c;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #689f38;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #f1f8e9;
-  --tng-text: #1b5e20;
-  --tng-text-secondary: #33691e;
-  --tng-border: #c5e1a5;
-  --tng-error: #c62828;
-  --tng-warning: #fbc02d;
-  --tng-success: #2e7d32;
-
-  --tng-shadow-sm: 0 2px 4px rgba(56, 142, 60, 0.15);
-  --tng-shadow-md: 0 4px 8px rgba(56, 142, 60, 0.2);
-}
-
-// Sunset theme - Warm oranges
-@mixin tng-theme-sunset {
-  --tng-primary: #f57c00;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #ff6f00;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #fff3e0;
-  --tng-text: #e65100;
-  --tng-text-secondary: #ef6c00;
-  --tng-border: #ffe0b2;
-  --tng-error: #c62828;
-  --tng-warning: #ffb300;
-  --tng-success: #558b2f;
-
-  --tng-shadow-sm: 0 2px 4px rgba(245, 124, 0, 0.15);
-  --tng-shadow-md: 0 4px 8px rgba(245, 124, 0, 0.2);
-}
-
-// Royal theme - Regal purples
-@mixin tng-theme-royal {
-  --tng-primary: #7b1fa2;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #8e24aa;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #f3e5f5;
-  --tng-text: #4a148c;
-  --tng-text-secondary: #6a1b9a;
-  --tng-border: #e1bee7;
-  --tng-error: #c62828;
-  --tng-warning: #ffa000;
-  --tng-success: #388e3c;
-
-  --tng-shadow-sm: 0 2px 4px rgba(123, 31, 162, 0.15);
-  --tng-shadow-md: 0 4px 8px rgba(123, 31, 162, 0.2);
-}
-
-// Monochrome theme - Elegant grayscale
-@mixin tng-theme-monochrome {
-  --tng-primary: #616161;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #757575;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #fafafa;
-  --tng-text: #212121;
-  --tng-text-secondary: #757575;
-  --tng-border: #e0e0e0;
-  --tng-error: #d32f2f;
-  --tng-warning: #616161;
-  --tng-success: #388e3c;
-
-  --tng-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --tng-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
-}
+// Forward mixins for external use
+@forward 'definitions/light';
+@forward 'definitions/dark';
+@forward 'definitions/ocean';
+@forward 'definitions/forest';
+@forward 'definitions/sunset';
+@forward 'definitions/royal';
+@forward 'definitions/monochrome';
+@forward 'definitions/aurora';
+@forward 'definitions/aurora-dark';
 
 // Apply to root if desired, or use a class
 :root {
-  @include tng-theme-default;
+  @include light.tng-theme-default;
 }
 
 // Theme classes
 body.light-theme,
 body[data-theme='light'] {
-  @include tng-theme-default;
+  @include light.tng-theme-default;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }
 
 body.dark-theme,
 body[data-theme='dark'] {
-  @include tng-theme-dark;
+  @include dark.tng-theme-dark;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }
 
 body.ocean-theme,
 body[data-theme='ocean'] {
-  @include tng-theme-ocean;
+  @include ocean.tng-theme-ocean;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }
 
 body.forest-theme,
 body[data-theme='forest'] {
-  @include tng-theme-forest;
+  @include forest.tng-theme-forest;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }
 
 body.sunset-theme,
 body[data-theme='sunset'] {
-  @include tng-theme-sunset;
+  @include sunset.tng-theme-sunset;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }
 
 body.royal-theme,
 body[data-theme='royal'] {
-  @include tng-theme-royal;
+  @include royal.tng-theme-royal;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }
 
 body.monochrome-theme,
 body[data-theme='monochrome'] {
-  @include tng-theme-monochrome;
+  @include monochrome.tng-theme-monochrome;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}
+
+body.aurora-theme,
+body[data-theme='aurora'] {
+  @include aurora.tng-theme-aurora;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}
+
+body.aurora-dark-theme,
+body[data-theme='aurora-dark'] {
+  @include aurora-dark.tng-theme-aurora-dark;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }

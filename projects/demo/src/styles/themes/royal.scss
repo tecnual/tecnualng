@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/royal' as royal;
+
+body {
+  @include royal.tng-theme-royal;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

@@ -1,0 +1,17 @@
+@mixin tng-theme-monochrome {
+  --tng-primary: #616161;
+  --tng-primary-contrast: #ffffff;
+  --tng-secondary: #757575;
+  --tng-secondary-contrast: #ffffff;
+  --tng-surface: #ffffff;
+  --tng-background: #fafafa;
+  --tng-text: #212121;
+  --tng-text-secondary: #757575;
+  --tng-border: #e0e0e0;
+  --tng-error: #d32f2f;
+  --tng-warning: #616161;
+  --tng-success: #388e3c;
+
+  --tng-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --tng-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
