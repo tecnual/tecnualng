@@ -26,7 +26,7 @@ import { ThemeService, ThemeName } from 'tecnualng';
             [class.active]="themeService.currentTheme() === theme.name"
             (click)="selectTheme(theme.name)"
           >
-            <div class="theme-preview" [style.background-color]="theme.primaryColor"></div>
+            <div class="theme-preview" [style.background]="theme.primaryColor"></div>
             <div class="theme-info">
               <div class="theme-title">{{ theme.displayName }}</div>
               <div class="theme-desc">{{ theme.description }}</div>

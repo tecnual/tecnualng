@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/monochrome' as monochrome;
+
+body {
+  @include monochrome.tng-theme-monochrome;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

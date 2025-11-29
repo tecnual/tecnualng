@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/dark' as dark;
+
+body {
+  @include dark.tng-theme-dark;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/aurora-dark' as aurora-dark;
+
+body {
+  @include aurora-dark.tng-theme-aurora-dark;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

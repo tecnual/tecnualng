@@ -29,12 +29,15 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       </div>
 
       <div class="demo-section">
-        <h2>Configure Theme (Optional)</h2>
-        <p>To use the theme system, import and use the ThemeService:</p>
-        <app-code-example [tabs]="themeCode"></app-code-example>
+        <h2>Configure Theme</h2>
+        <p>TecnualNG supports lazy loading for themes to optimize performance. Configure your <code>angular.json</code> to bundle theme files separately:</p>
+        <app-code-example [tabs]="angularJsonCode"></app-code-example>
         
-        <p style="margin-top: 1rem;">Define your CSS variables in your global styles:</p>
-        <app-code-example [tabs]="cssVariablesCode"></app-code-example>
+        <p style="margin-top: 1rem;">Create entry point SCSS files for each theme (e.g., <code>src/styles/themes/light.scss</code>):</p>
+        <app-code-example [tabs]="themeScssCode"></app-code-example>
+
+        <p style="margin-top: 1rem;">Then use <code>ThemeService</code> to switch themes dynamically:</p>
+        <app-code-example [tabs]="themeServiceCode"></app-code-example>
       </div>
 
       <div class="demo-section">
@@ -151,7 +154,41 @@ export class AppComponent {}`
     }
   ];
 
-  protected themeCode: CodeTab[] = [
+  protected angularJsonCode: CodeTab[] = [
+    {
+      label: 'angular.json',
+      language: 'json',
+      code: `"styles": [
+  "src/styles.scss",
+  {
+    "input": "src/styles/themes/light.scss",
+    "bundleName": "theme-light",
+    "inject": false
+  },
+  {
+    "input": "src/styles/themes/dark.scss",
+    "bundleName": "theme-dark",
+    "inject": false
+  }
+]`
+    }
+  ];
+
+  protected themeScssCode: CodeTab[] = [
+    {
+      label: 'light.scss',
+      language: 'scss',
+      code: `@use 'tecnualng/src/lib/styles/definitions/light' as light;
+
+body {
+  @include light.tng-theme-default;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}`
+    }
+  ];
+
+  protected themeServiceCode: CodeTab[] = [
     {
       label: 'TypeScript',
       language: 'typescript',
@@ -159,30 +196,9 @@ export class AppComponent {}`
 
 export class AppComponent {
   constructor(private themeService: ThemeService) {
-    // Set theme
+    // Set theme (loads theme-dark.css)
     this.themeService.setTheme('dark');
-    
-    // Get current theme
-    const currentTheme = this.themeService.getTheme();
   }
-}`
-    }
-  ];
-
-  protected cssVariablesCode: CodeTab[] = [
-    {
-      label: 'CSS',
-      language: 'css',
-      code: `:root {
-  --tng-primary: #1976d2;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #dc004e;
-  --tng-secondary-contrast: #ffffff;
-  --tng-success: #4caf50;
-  --tng-warning: #ff9800;
-  --tng-error: #f44336;
-  --tng-text: #333333;
-  --tng-text-secondary: #666666;
 }`
     }
   ];
