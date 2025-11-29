@@ -1,19 +1,19 @@
 @mixin tng-theme-dark {
   // Colors
-  --tng-primary: #7986cb;
+  --tng-primary: #00f2ff;
   --tng-primary-contrast: #000000;
-  --tng-secondary: #ff80ab;
-  --tng-secondary-contrast: #000000;
-  --tng-surface: #424242;
-  --tng-background: #303030;
+  --tng-secondary: #bc13fe;
+  --tng-secondary-contrast: #ffffff;
+  --tng-surface: rgba(255, 255, 255, 0.03);
+  --tng-background: #0a0a12;
   --tng-text: #ffffff;
-  --tng-text-secondary: #b0b0b0;
-  --tng-border: #616161;
+  --tng-text-secondary: #a0a0b0;
+  --tng-border: rgba(255, 255, 255, 0.1);
   --tng-error: #ef5350;
   --tng-warning: #ffb74d;
-  --tng-success: #66bb6a;
+  --tng-success: #00ff9d;
 
-  // Shadows (lighter for dark mode visibility)
-  --tng-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --tng-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  // Shadows
+  --tng-shadow-sm: 0 4px 15px rgba(0, 242, 255, 0.1);
+  --tng-shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

@@ -1,17 +1,19 @@
 @mixin tng-theme-sunset {
-  --tng-primary: #f57c00;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #ff6f00;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #fff3e0;
-  --tng-text: #e65100;
-  --tng-text-secondary: #ef6c00;
-  --tng-border: #ffe0b2;
-  --tng-error: #c62828;
-  --tng-warning: #ffb300;
-  --tng-success: #558b2f;
+  // Colors
+  --tng-primary: #ff9900;
+  --tng-primary-contrast: #000000;
+  --tng-secondary: #ffff00;
+  --tng-secondary-contrast: #000000;
+  --tng-surface: rgba(255, 255, 255, 0.03);
+  --tng-background: #0a0a12;
+  --tng-text: #ffffff;
+  --tng-text-secondary: #a0a0b0;
+  --tng-border: rgba(255, 255, 255, 0.1);
+  --tng-error: #ef5350;
+  --tng-warning: #ffb74d;
+  --tng-success: #00ff9d;
 
-  --tng-shadow-sm: 0 2px 4px rgba(245, 124, 0, 0.15);
-  --tng-shadow-md: 0 4px 8px rgba(245, 124, 0, 0.2);
+  // Shadows
+  --tng-shadow-sm: 0 4px 15px rgba(255, 153, 0, 0.1);
+  --tng-shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

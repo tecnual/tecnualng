@@ -1,0 +1,135 @@
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-background">
+      <div class="grid-overlay"></div>
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="title">
+          Construye el <span class="gradient-text">Futuro</span> con
+          <span class="brand-name">TecnualNG</span>
+        </h1>
+        <p class="subtitle">
+          La librería de componentes Angular definitiva para interfaces modernas, rápidas y escalables.
+        </p>
+        <div class="cta-buttons">
+          <a routerLink="/getting-started" class="btn btn-primary">
+            Empezar Ahora
+            <span class="material-icons">arrow_forward</span>
+          </a>
+          <a routerLink="/components" class="btn btn-outline">
+            Documentación
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="floating-ui-container">
+          <!-- Floating Card 1 -->
+          <div class="ui-card card-1 glass">
+            <div class="card-header">
+              <div class="skeleton-avatar"></div>
+              <div class="skeleton-lines">
+                <div class="line short"></div>
+                <div class="line long"></div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-visual">
+                <div class="bar" style="--h: 60%"></div>
+                <div class="bar" style="--h: 80%"></div>
+                <div class="bar" style="--h: 40%"></div>
+                <div class="bar" style="--h: 90%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Button -->
+          <button class="ui-button floating-btn glass" icon="fa fa-plus" tngButton>
+            Nuevo Proyecto
+          </button>
+
+          <!-- Floating Badge -->
+          <div class="ui-badge floating-badge glass">
+            <span class="status-dot"></span>
+            v21.0.0 Stable
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Preview Section -->
+  <section class="code-preview-section">
+    <div class="container">
+      <div class="code-window glass">
+        <div class="window-header">
+          <div class="dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="filename">app.component.ts</span>
+        </div>
+        <div class="window-content">
+          <pre><code>
+<span class="keyword">import</span> &#123; <span class="type">Component</span> &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;
+<span class="keyword">import</span> &#123; <span class="type">TngButton</span> &#125; <span class="keyword">from</span> <span class="string">'tecnualng'</span>;
+
+<span class="decorator">@Component</span>(&#123;
+  <span class="prop">selector</span>: <span class="string">'app-root'</span>,
+  <span class="prop">standalone</span>: <span class="boolean">true</span>,
+  <span class="prop">imports</span>: [TngButton],
+  <span class="prop">template</span>: <span class="string">`
+    &lt;button tngButton variant="primary"&gt;
+      Hello World
+    &lt;/button&gt;
+  `</span>
+&#125;)
+<span class="keyword">export class</span> <span class="type">AppComponent</span> &#123;&#125;
+          </code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Características <span class="gradient-text">Premium</span></h2>
+      
+      <div class="features-grid">
+        <div class="feature-card glass">
+          <div class="icon-wrapper">
+            <span class="material-icons">speed</span>
+          </div>
+          <h3>Alto Rendimiento</h3>
+          <p>Construido con Angular Signals para una reactividad granular y un rendimiento excepcional.</p>
+        </div>
+
+        <div class="feature-card glass">
+          <div class="icon-wrapper">
+            <span class="material-icons">palette</span>
+          </div>
+          <h3>Temas Dinámicos</h3>
+          <p>Sistema de diseño flexible basado en variables CSS con soporte nativo para modo oscuro.</p>
+        </div>
+
+        <div class="feature-card glass">
+          <div class="icon-wrapper">
+            <span class="material-icons">accessibility_new</span>
+          </div>
+          <h3>Accesible</h3>
+          <p>Cumple con los estándares WCAG 2.1 para asegurar que tu app sea usable por todos.</p>
+        </div>
+      </div>
+    </div>
+  </section>

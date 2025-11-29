@@ -1,17 +1,19 @@
 @mixin tng-theme-ocean {
-  --tng-primary: #0288d1;
-  --tng-primary-contrast: #ffffff;
-  --tng-secondary: #00acc1;
-  --tng-secondary-contrast: #ffffff;
-  --tng-surface: #ffffff;
-  --tng-background: #e1f5fe;
-  --tng-text: #01579b;
-  --tng-text-secondary: #0277bd;
-  --tng-border: #b3e5fc;
-  --tng-error: #d32f2f;
-  --tng-warning: #ffa726;
-  --tng-success: #00897b;
+  // Colors
+  --tng-primary: #00bfff;
+  --tng-primary-contrast: #000000;
+  --tng-secondary: #00ffff;
+  --tng-secondary-contrast: #000000;
+  --tng-surface: rgba(255, 255, 255, 0.03);
+  --tng-background: #0a0a12;
+  --tng-text: #ffffff;
+  --tng-text-secondary: #a0a0b0;
+  --tng-border: rgba(255, 255, 255, 0.1);
+  --tng-error: #ef5350;
+  --tng-warning: #ffb74d;
+  --tng-success: #00ff9d;
 
-  --tng-shadow-sm: 0 2px 4px rgba(2, 136, 209, 0.15);
-  --tng-shadow-md: 0 4px 8px rgba(2, 136, 209, 0.2);
+  // Shadows
+  --tng-shadow-sm: 0 4px 15px rgba(0, 191, 255, 0.1);
+  --tng-shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

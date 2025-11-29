@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@a
 
 export type TngToolbarPosition = 'top' | 'bottom' | 'static';
 export type TngToolbarPositionType = 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
-export type TngToolbarColor = 'default' | 'primary' | 'secondary';
+export type TngToolbarColor = 'default' | 'primary' | 'secondary' | 'transparent';
 
 @Component({
   selector: 'tng-toolbar',
@@ -23,6 +23,7 @@ export type TngToolbarColor = 'default' | 'primary' | 'secondary';
     '[class.tng-toolbar--sticky]': 'positionType() === "sticky"',
     '[class.tng-toolbar--primary]': 'color() === "primary"',
     '[class.tng-toolbar--secondary]': 'color() === "secondary"',
+    '[class.tng-toolbar--transparent]': 'color() === "transparent"',
     '[class.tng-toolbar--elevated]': 'elevation()',
   }
 })

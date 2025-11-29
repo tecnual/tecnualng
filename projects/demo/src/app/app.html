@@ -1,11 +1,11 @@
 <!-- Header with TngToolbar -->
-<tng-toolbar position="top" color="primary" [elevation]="true">
+<tng-toolbar position="top" positionType="fixed" color="transparent" [elevation]="true">
   <div toolbar-left>
-    <button tngButton icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
+    <button tngButton [variant]="leftSidebarOpen() ? null: 'primary'" icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
       Menú
     </button>
   </div>
-  <div toolbar-center>TencualNG</div>
+  <div toolbar-center class="text-white"><h1>TencualNG</h1></div>
   <div toolbar-right>
     <app-theme-selector></app-theme-selector>
   </div>
@@ -15,7 +15,6 @@
     </button>
   </div>-->
 </tng-toolbar>
-
 <!-- Contenedor principal -->
 <div class="app-container">
   <!-- Sidebar Izquierdo (Navegación) -->
@@ -42,19 +41,13 @@
         <tng-menu-item
           icon="expand_more"
           label="Expansion Panel"
-          route="/expansion-panel"
-        ></tng-menu-item>
+          route="/expansion-panel">
+        </tng-menu-item>
         <tng-menu-item icon="menu" label="Menu" route="/menu"></tng-menu-item>
       </tng-menu-group>
     </tng-menu>
   </aside>
 
-  <!-- Contenido Central -->
-  <main class="app-content">
-    <div class="content-wrapper">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
   <!-- Sidebar Derecho (Widgets) -->
   <aside class="app-sidebar right" [class.open]="rightSidebarOpen()">
     <div class="widgets-panel">
@@ -70,8 +63,18 @@
     </div>
   </aside>
 </div>
+
+<div class="landing-page">
+  <!-- Contenido Central -->
+  <main class="app-content">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+
 <!-- Footer with TngToolbar -->
-<tng-toolbar [elevation]="true" positionType="static">
+<tng-toolbar [elevation]="true" positionType="fixed" position="bottom" color="transparent">
   <div toolbar-center>
     <span class="app-title">Made with <span class="material-icons">favorite</span> by Tecnual</span>
   </div>
