@@ -12,33 +12,38 @@
   </div>
 
   <!-- Calendar Popup -->
-  <div class="tng-calendar-popup" *ngIf="isOpen()">
-    <div class="tng-calendar-header">
-      <button type="button" class="nav-btn" (click)="prevMonth($event)">
-        <span class="material-icons">chevron_left</span>
-      </button>
-      <span class="current-month">{{ currentMonthYear }}</span>
-      <button type="button" class="nav-btn" (click)="nextMonth($event)">
-        <span class="material-icons">chevron_right</span>
-      </button>
-    </div>
+  @if (isOpen()) {
+    <div class="tng-calendar-popup">
+      <div class="tng-calendar-header">
+        <button type="button" class="nav-btn" (click)="prevMonth($event)">
+          <span class="material-icons">chevron_left</span>
+        </button>
+        <span class="current-month">{{ currentMonthYear }}</span>
+        <button type="button" class="nav-btn" (click)="nextMonth($event)">
+          <span class="material-icons">chevron_right</span>
+        </button>
+      </div>
 
-    <div class="tng-calendar-grid">
-      <div class="day-name" *ngFor="let day of daysOfWeek">{{ day }}</div>
-      <div
-        class="day-cell"
-        *ngFor="let date of calendarDays()"
-        [class.not-current-month]="!isCurrentMonth(date)"
-        [class.today]="isToday(date)"
-        [class.selected]="isSelected(date)"
-        [class.in-range]="isInRange(date)"
-        [class.range-start]="mode() === 'range' && isSameDay(date, rangeValue.start)"
-        [class.range-end]="mode() === 'range' && isSameDay(date, rangeValue.end)"
-        [class.disabled]="isDisabled(date)"
-        (click)="selectDate(date)"
-      >
-        {{ date.getDate() }}
+      <div class="tng-calendar-grid">
+        @for (day of daysOfWeek; track day) {
+          <div class="day-name">{{ day }}</div>
+        }
+        @for (date of calendarDays(); track date.getTime()) {
+          <div
+            class="day-cell"
+            [class.not-current-month]="!isCurrentMonth(date)"
+            [class.today]="isToday(date)"
+            [class.selected]="isSelected(date)"
+            [class.in-range]="isInRange(date)"
+            [class.range-start]="mode() === 'range' && isSameDay(date, rangeValue.start)"
+            [class.range-end]="mode() === 'range' && isSameDay(date, rangeValue.end)"
+            [class.disabled]="isDisabled(date)"
+            (click)="selectDate(date)"
+          >
+            {{ date.getDate() }}
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 </div>

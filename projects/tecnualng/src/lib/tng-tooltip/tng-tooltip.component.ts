@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -8,12 +8,11 @@ import { animate, style, transition, trigger } from '@angular/animations';
   imports: [CommonModule],
   template: `
     <div class="tng-tooltip-container" [@tooltipAnimation]>
-      <ng-container *ngIf="isTemplate(content); else textContent">
-        <ng-container *ngTemplateOutlet="content"></ng-container>
-      </ng-container>
-      <ng-template #textContent>
-        {{ content }}
-      </ng-template>
+      @if (isTemplate(content())) {
+        <ng-container *ngTemplateOutlet="$any(content())"></ng-container>
+      } @else {
+        {{ content() }}
+      }
     </div>
   `,
   styles: [`
@@ -53,7 +52,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TngTooltipComponent {
-  @Input() content: string | TemplateRef<any> = '';
+  content = input<string | TemplateRef<any>>('');
 
   isTemplate(value: any): value is TemplateRef<any> {
     return value instanceof TemplateRef;

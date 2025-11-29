@@ -1,88 +1,102 @@
 <div class="tng-table-container">
   <!-- Toolbar -->
-  <div class="tng-table-toolbar" *ngIf="filterable()">
-    <div class="tng-table-search">
-      <tng-input
-        [placeholder]="'Search...'"
-        (input)="onSearchInput($event)"
-      ></tng-input>
+  @if (filterable()) {
+    <div class="tng-table-toolbar">
+      <div class="tng-table-search">
+        <tng-input
+          [placeholder]="'Search...'"
+          (input)="onSearchInput($event)"
+        ></tng-input>
+      </div>
     </div>
-  </div>
+  }
 
   <!-- Table -->
   <div class="tng-table-wrapper">
     <table class="tng-table">
       <thead>
         <tr>
-          <th 
-            *ngFor="let col of columns()"
-            [style.width]="col.width"
-            [class.sortable]="col.sortable"
-            (click)="onSort(col)"
-          >
-            <div class="th-content">
-              {{ col.label }}
-              <span class="sort-indicator" *ngIf="sortColumn() === col.key">
-                {{ sortDirection() === 'asc' ? '↑' : '↓' }}
-              </span>
-            </div>
-          </th>
+          @for (col of columns(); track col.key) {
+            <th 
+              [style.width]="col.width"
+              [class.sortable]="col.sortable"
+              (click)="onSort(col)"
+            >
+              <div class="th-content">
+                {{ col.label }}
+                @if (sortColumn() === col.key) {
+                  <span class="sort-indicator">
+                    {{ sortDirection() === 'asc' ? '↑' : '↓' }}
+                  </span>
+                }
+              </div>
+            </th>
+          }
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of paginatedData()">
-          <td *ngFor="let col of columns()">
-            <ng-container *ngIf="col.template; else defaultCell">
-              <ng-container *ngTemplateOutlet="col.template; context: { $implicit: row[col.key], row: row }"></ng-container>
-            </ng-container>
-            <ng-template #defaultCell>
-              {{ row[col.key] }}
-            </ng-template>
-          </td>
-        </tr>
-        <tr *ngIf="paginatedData().length === 0" class="no-data-row">
-          <td [attr.colspan]="columns().length">
-            No data found
-          </td>
-        </tr>
+        @for (row of paginatedData(); track row) {
+          <tr>
+            @for (col of columns(); track col.key) {
+              <td>
+                @if (col.template) {
+                  <ng-container *ngTemplateOutlet="col.template; context: { $implicit: row[col.key], row: row }"></ng-container>
+                } @else {
+                  {{ row[col.key] }}
+                }
+              </td>
+            }
+          </tr>
+        }
+        @if (paginatedData().length === 0) {
+          <tr class="no-data-row">
+            <td [attr.colspan]="columns().length">
+              No data found
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
 
   <!-- Pagination -->
-  <div class="tng-table-pagination" *ngIf="totalPages() > 1">
-    <div class="pagination-info">
-      Page {{ currentPage() }} of {{ totalPages() }}
-    </div>
-    <div class="pagination-controls">
-      <button 
-        class="tng-btn-icon" 
-        [disabled]="currentPage() === 1"
-        (click)="setPage(currentPage() - 1)"
-      >
-        ‹
-      </button>
-      
-      <ng-container *ngFor="let page of [].constructor(totalPages()); let i = index">
-        <!-- Show limited pages logic could go here, for now simple list -->
+  @if (totalPages() > 1) {
+    <div class="tng-table-pagination">
+      <div class="pagination-info">
+        Page {{ currentPage() }} of {{ totalPages() }}
+      </div>
+      <div class="pagination-controls">
         <button 
-          *ngIf="i + 1 === currentPage() || i + 1 === 1 || i + 1 === totalPages() || (i + 1 >= currentPage() - 1 && i + 1 <= currentPage() + 1)"
-          class="tng-btn-page"
-          [class.active]="currentPage() === i + 1"
-          (click)="setPage(i + 1)"
+          class="tng-btn-icon" 
+          [disabled]="currentPage() === 1"
+          (click)="setPage(currentPage() - 1)"
         >
-          {{ i + 1 }}
+          ‹
         </button>
-        <span *ngIf="(i + 1 === 2 && currentPage() > 4) || (i + 1 === totalPages() - 1 && currentPage() < totalPages() - 3)" class="pagination-dots">...</span>
-      </ng-container>
+        
+        @for (page of [].constructor(totalPages()); track $index; let i = $index) {
+          @if (i + 1 === currentPage() || i + 1 === 1 || i + 1 === totalPages() || (i + 1 >= currentPage() - 1 && i + 1 <= currentPage() + 1)) {
+            <button 
+              class="tng-btn-page"
+              [class.active]="currentPage() === i + 1"
+              (click)="setPage(i + 1)"
+            >
+              {{ i + 1 }}
+            </button>
+          }
+          @if ((i + 1 === 2 && currentPage() > 4) || (i + 1 === totalPages() - 1 && currentPage() < totalPages() - 3)) {
+            <span class="pagination-dots">...</span>
+          }
+        }
 
-      <button 
-        class="tng-btn-icon" 
-        [disabled]="currentPage() === totalPages()"
-        (click)="setPage(currentPage() + 1)"
-      >
-        ›
-      </button>
+        <button 
+          class="tng-btn-icon" 
+          [disabled]="currentPage() === totalPages()"
+          (click)="setPage(currentPage() + 1)"
+        >
+          ›
+        </button>
+      </div>
     </div>
-  </div>
+  }
 </div>
