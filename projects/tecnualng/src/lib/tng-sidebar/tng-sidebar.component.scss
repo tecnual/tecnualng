@@ -5,8 +5,8 @@
 // ──────────────────────────────────────────────────────────────
 // Variables
 // ──────────────────────────────────────────────────────────────
-$sidebar-bg: #ffffff;
-$sidebar-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+$sidebar-bg: var(--tng-surface);
+$sidebar-shadow: var(--tng-shadow-md);
 $overlay-bg: rgba(0, 0, 0, 0.5);
 $transition-duration: 0.3s;
 $transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
@@ -38,9 +38,12 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   height: 100%;
   background: $sidebar-bg;
   box-shadow: $sidebar-shadow;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 999;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 20px;
   
   // Transición suave
   transition: transform $transition-duration $transition-timing;

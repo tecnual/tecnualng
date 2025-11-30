@@ -5,7 +5,9 @@
       Menú
     </button>
   </div>
-  <div toolbar-center class="text-white"><h1>TencualNG</h1></div>
+  <div toolbar-center class="toolbar-logo">
+    <img src="Logo_TecnualNG.png" alt="TecnualNG" class="header-logo">
+  </div>
   <div toolbar-right>
     <app-theme-selector></app-theme-selector>
   </div>
@@ -18,7 +20,17 @@
 <!-- Contenedor principal -->
 <div class="app-container">
   <!-- Sidebar Izquierdo (Navegación) -->
-  <aside class="app-sidebar left" [class.open]="leftSidebarOpen()">
+   <tng-sidebar 
+  #leftSidebar
+  [position]="'left'"
+  [width]="280"
+  [showOverlay]="true"
+  (opened)="onLeftSidebarOpened()"
+  (closed)="onLeftSidebarClosed()">
+  <div class="sidebar-content">
+    <h2><i class="fa fa-arrow-left"></i> Sidebar Izquierdo</h2>
+    <p>Este es un ejemplo de sidebar posicionado a la izquierda.</p>
+    
     <tng-menu>
       <tng-menu-group label="Navigation">
         <tng-menu-item icon="fa fa-home" label="Home" route="/home"></tng-menu-item>
@@ -47,8 +59,8 @@
         <tng-menu-item icon="fa fa-sidebar" label="Sidebar" route="/sidebar"></tng-menu-item>
       </tng-menu-group>
     </tng-menu>
-  </aside>
-
+  </div>
+</tng-sidebar>
   <!-- Sidebar Derecho (Widgets) -->
   <aside class="app-sidebar right" [class.open]="rightSidebarOpen()">
     <div class="widgets-panel">

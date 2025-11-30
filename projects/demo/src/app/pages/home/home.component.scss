@@ -119,6 +119,36 @@ $success-color: var(--tng-success);
   }
 
   .hero-text {
+    .logo-container {
+      margin-bottom: 2rem;
+      animation: fadeInDown 1s ease-out;
+      
+      @media (max-width: 968px) {
+        display: flex;
+        justify-content: center;
+      }
+
+      .brand-logo {
+        height: 180px;
+        width: auto;
+        filter: drop-shadow(0 10px 30px rgba(0, 242, 255, 0.3));
+        transition: all 0.3s ease;
+        
+        &:hover {
+          filter: drop-shadow(0 15px 40px rgba(0, 242, 255, 0.5));
+          transform: translateY(-5px);
+        }
+
+        @media (max-width: 968px) {
+          height: 100px;
+        }
+
+        @media (max-width: 640px) {
+          height: 80px;
+        }
+      }
+    }
+
     .title {
       font-size: 4rem;
       font-weight: 800;
@@ -454,4 +484,15 @@ $success-color: var(--tng-success);
 @keyframes float {
   0%, 100% { transform: translateY(0) rotateY(-15deg) rotateX(10deg); }
   50% { transform: translateY(-20px) rotateY(-15deg) rotateX(10deg); }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

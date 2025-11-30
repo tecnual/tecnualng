@@ -75,6 +75,25 @@ $sidebar-width: 250px;
   }
 }
 
+// Toolbar Logo Styles
+.toolbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .header-logo {
+    height: 40px;
+    width: auto;
+    filter: drop-shadow(0 2px 8px rgba(0, 242, 255, 0.3));
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: drop-shadow(0 4px 12px rgba(0, 242, 255, 0.5));
+      transform: scale(1.05);
+    }
+  }
+}
+
 // Container
 .app-container {
   //margin-top: $header-height;
