@@ -18,3 +18,4 @@ export * from './lib/tng-tooltip/tng-tooltip.directive';
 export * from './lib/tng-expansion-panel/tng-expansion-panel.component';
 export * from './lib/tng-menu';
 export * from './lib/tng-sidebar/tng-sidebar.component';
+export * from './lib/tng-select';

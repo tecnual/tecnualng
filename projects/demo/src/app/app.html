@@ -28,9 +28,6 @@
   (opened)="onLeftSidebarOpened()"
   (closed)="onLeftSidebarClosed()">
   <div class="sidebar-content">
-    <h2><i class="fa fa-arrow-left"></i> Sidebar Izquierdo</h2>
-    <p>Este es un ejemplo de sidebar posicionado a la izquierda.</p>
-    
     <tng-menu>
       <tng-menu-group label="Navigation">
         <tng-menu-item icon="fa fa-home" label="Home" route="/home"></tng-menu-item>
@@ -56,7 +53,8 @@
           route="/expansion-panel">
         </tng-menu-item>
         <tng-menu-item icon="fa fa-bars" label="Menu" route="/menu"></tng-menu-item>
-        <tng-menu-item icon="fa fa-sidebar" label="Sidebar" route="/sidebar"></tng-menu-item>
+        <tng-menu-item icon="fa fa-columns" label="Sidebar" route="/sidebar"></tng-menu-item>
+        <tng-menu-item icon="fa fa-list" label="Select" route="/select"></tng-menu-item>
       </tng-menu-group>
     </tng-menu>
   </div>

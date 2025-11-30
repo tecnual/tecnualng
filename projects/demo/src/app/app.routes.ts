@@ -73,6 +73,10 @@ export const routes: Routes = [
     component: SidebarComponent,
   },
   {
+    path: 'select',
+    loadComponent: () => import('./pages/select-demo/select-demo.component').then(m => m.SelectDemoComponent)
+  },
+  {
     path: 'empty',
     component: Empty,
   },

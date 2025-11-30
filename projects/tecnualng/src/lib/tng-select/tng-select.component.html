@@ -1,0 +1,47 @@
+<div class="tng-select-wrapper" [class.tng-select-open]="selectDirective()?.isOpen()">
+  @if (label()) {
+  <label class="tng-select-label" [attr.for]="selectId()">
+    {{ label() }}
+  </label>
+  }
+
+  <div class="tng-select-container">
+    <select
+      [id]="selectId()"
+      tngSelect
+      [enableMulti]="enableMulti()"
+      [enableSearch]="enableSearch()"
+      [placeholder]="placeholder()"
+      [customTrigger]="true"
+      [multiple]="enableMulti()"
+      [triggerRef]="triggerDisplay"
+      [(selectedValues)]="value"
+      [disabled]="effectiveDisabled()"
+      [attr.aria-label]="ariaLabel() || label()"
+    >
+      @for (option of options(); track option.value) {
+      <option [value]="option.value" [disabled]="option.disabled">
+        {{ option.label }}
+      </option>
+      }
+    </select>
+
+    <div
+      class="tng-select-display"
+      #triggerDisplay
+      [class.disabled]="effectiveDisabled()"
+      (click)="onDisplayClick($event)"
+    >
+      <span class="tng-select-display-text">
+        {{ displayText() }}
+      </span>
+      <i class="fa fa-chevron-down tng-select-arrow"></i>
+    </div>
+  </div>
+
+  @if (hint()) {
+  <div class="tng-select-hint">
+    {{ hint() }}
+  </div>
+  }
+</div>

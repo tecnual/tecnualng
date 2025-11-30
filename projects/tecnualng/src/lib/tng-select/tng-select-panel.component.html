@@ -1,0 +1,50 @@
+<div class="tng-select-panel" 
+     role="listbox"
+     [attr.aria-multiselectable]="enableMulti()">
+  
+  @if (enableSearch()) {
+    <div class="tng-select-search">
+      <input 
+        type="text"
+        class="tng-select-search-input"
+        [value]="searchQuery()"
+        (input)="onSearchInput($event)"
+        placeholder="Search..."
+        aria-label="Search options"
+        (click)="$event.stopPropagation()"
+      />
+      <i class="fa fa-search tng-select-search-icon"></i>
+    </div>
+  }
+  
+  <div class="tng-select-options" role="list">
+    @if (options().length === 0) {
+      <div class="tng-select-no-results">
+        No options found
+      </div>
+    }
+    
+    @for (option of options(); track $index) {
+      <div 
+        class="tng-select-option"
+        [class.selected]="isSelected($index)"
+        [class.disabled]="option.disabled"
+        role="option"
+        [attr.aria-selected]="isSelected($index)"
+        [attr.aria-disabled]="option.disabled"
+        (click)="onOptionClick($index, option)"
+      >
+        @if (enableMulti()) {
+          <input 
+            type="checkbox"
+            class="tng-select-checkbox"
+            [checked]="isSelected($index)"
+            [disabled]="option.disabled"
+            tabindex="-1"
+          />
+        }
+        <span class="tng-select-option-label">{{ option.label }}</span>
+      </div>
+    }
+  </div>
+</div>
