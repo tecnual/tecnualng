@@ -89,7 +89,7 @@
     color: var(--tng-primary-contrast);
 
     &:hover {
-      background: color-mix(in srgb, var(--tng-primary), white 50%);
+      background: color-mix(in srgb, var(--tng-primary-hover, --tng-primary), white 50%);
     }
   }
 
@@ -98,7 +98,7 @@
     color: var(--tng-secondary-contrast);
 
     &:hover {
-      background: color-mix(in srgb, var(--tng-secondary), white 50%);
+      background: color-mix(in srgb, var(--tng-secondary-hover, --tng-secondary), white 50%);
     }
   }
 

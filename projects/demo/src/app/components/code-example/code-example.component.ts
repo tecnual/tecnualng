@@ -26,7 +26,7 @@ export interface CodeTab {
       
       <div class="code-content">
         <button class="copy-button" (click)="copyCode()" title="Copy code">
-          <span class="material-icons">content_copy</span>
+          <i class="fa fa-copy"></i>
         </button>
         <pre><code [attr.data-language]="tabs[activeTab()].language">{{ tabs[activeTab()].code }}</code></pre>
       </div>
@@ -96,7 +96,7 @@ export interface CodeTab {
       border-color: var(--tng-primary, #6200ee);
     }
     
-    .copy-button .material-icons {
+    .copy-button i {
       font-size: 18px;
       color: var(--tng-text-secondary, #666);
     }

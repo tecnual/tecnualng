@@ -1,8 +1,10 @@
 @mixin tng-theme-aurora-dark {
   --tng-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --tng-primary-contrast: #ffffff;
+  --tng-primary-hover: #2c3664;
+  --tng-primary-contrast: #2e0101;
   --tng-secondary: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-  --tng-secondary-contrast: #ffffff;
+  --tng-secondary-hover: #653c3d;
+  --tng-secondary-contrast: #360202;
   --tng-surface: transparent;
   --tng-background: #1a1a1a;
   --tng-text: #ffffff;

@@ -52,7 +52,9 @@ import { TngMenuComponent, TngMenuItemComponent, TngMenuGroupComponent } from 't
               <tng-menu-item icon="description" label="Reports" [level]="1"></tng-menu-item>
               <tng-menu-item icon="picture_as_pdf" label="PDFs" [level]="1"></tng-menu-item>
               <tng-menu-item icon="image" label="Images" [level]="1">
-                <tng-menu-item icon="photo" label="Photos" [level]="2"></tng-menu-item>
+                <tng-menu-item icon="photo" label="Photos" [level]="2">
+                  <tng-menu-item icon="photo" label="Photos2" [level]="4"></tng-menu-item>
+                </tng-menu-item>
                 <tng-menu-item icon="wallpaper" label="Wallpapers" [level]="2"></tng-menu-item>
               </tng-menu-item>
             </tng-menu-item>

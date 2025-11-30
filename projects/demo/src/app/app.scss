@@ -93,6 +93,7 @@ $sidebar-width: 250px;
   padding-top: $header-height;
   bottom: 0;
   @include glass;
+  background-color: var(--tng-surface);
   width: $sidebar-width;
   z-index: 900;
   transition: transform 0.3s ease;

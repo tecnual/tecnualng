@@ -1,7 +1,7 @@
 <!-- Header with TngToolbar -->
 <tng-toolbar position="top" positionType="fixed" color="transparent" [elevation]="true">
   <div toolbar-left>
-    <button tngButton [variant]="leftSidebarOpen() ? null: 'primary'" icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
+    <button tngButton variant="primary" icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
       Menú
     </button>
   </div>
@@ -21,29 +21,29 @@
   <aside class="app-sidebar left" [class.open]="leftSidebarOpen()">
     <tng-menu>
       <tng-menu-group label="Navigation">
-        <tng-menu-item icon="home" label="Home" route="/home"></tng-menu-item>
+        <tng-menu-item icon="fa fa-home" label="Home" route="/home"></tng-menu-item>
         <tng-menu-item
-          icon="rocket_launch"
+          icon="fa fa-rocket"
           label="Getting Started"
           route="/getting-started"
         ></tng-menu-item>
       </tng-menu-group>
 
       <tng-menu-group label="Components">
-        <tng-menu-item icon="input" label="Input" route="/input"></tng-menu-item>
-        <tng-menu-item icon="calendar_today" label="Datepicker" route="/datepicker"></tng-menu-item>
-        <tng-menu-item icon="smart_button" label="Button" route="/button"></tng-menu-item>
-        <tng-menu-item icon="dashboard_customize" label="Card" route="/card"></tng-menu-item>
-        <tng-menu-item icon="view_day" label="Toolbar" route="/toolbar"></tng-menu-item>
-        <tng-menu-item icon="table_chart" label="Table" route="/table"></tng-menu-item>
-        <tng-menu-item icon="info" label="Tooltip" route="/tooltip"></tng-menu-item>
-        <tng-menu-item icon="tab" label="Tabs" route="/tabs"></tng-menu-item>
+        <tng-menu-item icon="fa fa-keyboard" label="Input" route="/input"></tng-menu-item>
+        <tng-menu-item icon="fa fa-calendar" label="Datepicker" route="/datepicker"></tng-menu-item>
+        <tng-menu-item icon="fa fa-square" label="Button" route="/button"></tng-menu-item>
+        <tng-menu-item icon="fa fa-columns" label="Card" route="/card"></tng-menu-item>
+        <tng-menu-item icon="fa fa-bars" label="Toolbar" route="/toolbar"></tng-menu-item>
+        <tng-menu-item icon="fa fa-table" label="Table" route="/table"></tng-menu-item>
+        <tng-menu-item icon="fa fa-info-circle" label="Tooltip" route="/tooltip"></tng-menu-item>
+        <tng-menu-item icon="fa fa-folder" label="Tabs" route="/tabs"></tng-menu-item>
         <tng-menu-item
-          icon="expand_more"
+          icon="fa fa-chevron-down"
           label="Expansion Panel"
           route="/expansion-panel">
         </tng-menu-item>
-        <tng-menu-item icon="menu" label="Menu" route="/menu"></tng-menu-item>
+        <tng-menu-item icon="fa fa-bars" label="Menu" route="/menu"></tng-menu-item>
       </tng-menu-group>
     </tng-menu>
   </aside>
@@ -76,6 +76,6 @@
 <!-- Footer with TngToolbar -->
 <tng-toolbar [elevation]="true" positionType="fixed" position="bottom" color="transparent">
   <div toolbar-center>
-    <span class="app-title">Made with <span class="material-icons">favorite</span> by Tecnual</span>
+    <span class="app-title">Made with <i class="fa fa-heart"></i> by Tecnual</span>
   </div>
 </tng-toolbar>

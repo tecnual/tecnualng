@@ -13,9 +13,9 @@ import { ThemeService, ThemeName } from 'tecnualng';
         (click)="isOpen.set(!isOpen())"
         aria-label="Select theme"
       >
-        <span class="material-icons">palette</span>
+        <i class="fa fa-palette"></i>
         <span class="theme-name">{{ getCurrentThemeName() }}</span>
-        <span class="material-icons">{{ isOpen() ? 'expand_less' : 'expand_more' }}</span>
+        <i [class]="isOpen() ? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
       </button>
       
       <div class="theme-dropdown" *ngIf="isOpen()" (click)="$event.stopPropagation()">
@@ -31,9 +31,7 @@ import { ThemeService, ThemeName } from 'tecnualng';
               <div class="theme-title">{{ theme.displayName }}</div>
               <div class="theme-desc">{{ theme.description }}</div>
             </div>
-            <span class="material-icons check" *ngIf="themeService.currentTheme() === theme.name">
-              check_circle
-            </span>
+            <i class="fa fa-check-circle check" *ngIf="themeService.currentTheme() === theme.name"></i>
           </button>
         </div>
       </div>
@@ -65,7 +63,7 @@ import { ThemeService, ThemeName } from 'tecnualng';
         border-color: var(--tng-primary);
       }
       
-      .material-icons {
+      i {
         font-size: 20px;
       }
       

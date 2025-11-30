@@ -22,7 +22,7 @@ import { RouterModule } from '@angular/router';
            (click)="handleClick($event)">
           @if (icon()) {
             <span class="tng-menu-item__icon">
-              <span class="material-icons">{{ icon() }}</span>
+              <i [class]="icon()"></i>
             </span>
           }
           <span class="tng-menu-item__label">
@@ -31,7 +31,7 @@ import { RouterModule } from '@angular/router';
           </span>
           @if (hasChildren()) {
             <span class="tng-menu-item__chevron">
-              <span class="material-icons">expand_more</span>
+              <i class="fa fa-chevron-down"></i>
             </span>
           }
         </a>
@@ -43,7 +43,7 @@ import { RouterModule } from '@angular/router';
                 (click)="handleClick($event)">
           @if (icon()) {
             <span class="tng-menu-item__icon">
-              <span class="material-icons">{{ icon() }}</span>
+              <i [class]="icon()"></i>
             </span>
           }
           <span class="tng-menu-item__label">
@@ -52,7 +52,7 @@ import { RouterModule } from '@angular/router';
           </span>
           @if (hasChildren()) {
             <span class="tng-menu-item__chevron">
-              <span class="material-icons">expand_more</span>
+              <i class="fa fa-chevron-down"></i>
             </span>
           }
         </button>

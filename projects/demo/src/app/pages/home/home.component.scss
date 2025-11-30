@@ -294,7 +294,7 @@ $success-color: var(--tng-success);
       cursor: pointer;
       animation: float 5s ease-in-out infinite reverse;
       
-      .material-icons {
+      .material-icons, i {
         font-size: 1.2rem;
       }
     }
@@ -426,7 +426,7 @@ $success-color: var(--tng-success);
         justify-content: center;
         margin-bottom: 1.5rem;
 
-        .material-icons {
+        .material-icons, i {
           font-size: 30px;
           color: $primary;
         }
