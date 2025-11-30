@@ -133,3 +133,209 @@
     color: #aaa;
   }
 }
+
+// ========================================
+// CHECKBOX STYLES
+// ========================================
+.tng-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  border: 2px solid var(--tng-border, #999);
+  border-radius: var(--tng-border-radius, 4px);
+  background-color: var(--tng-surface, #ffffff);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  // Hover state
+  &:hover:not(:disabled) {
+    border-color: var(--tng-primary, #00f2ff);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.1);
+  }
+
+  // Focus state
+  &:focus {
+    border-color: var(--tng-primary, #00f2ff);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.2);
+  }
+
+  // Checked state
+  &:checked {
+    background-color: var(--tng-primary, #00f2ff);
+    border-color: var(--tng-primary, #00f2ff);
+    
+    // Checkmark using pseudo-element
+    &::before {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 10px;
+      border: solid var(--tng-primary-contrast, #000000);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) scale(1);
+      opacity: 1;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  // Unchecked checkmark (hidden)
+  &:not(:checked)::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    border: solid var(--tng-primary-contrast, #000000);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Disabled state
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--tng-border, #e0e0e0);
+    background-color: var(--tng-background, #fafafa);
+
+    &:checked {
+      background-color: var(--tng-text-secondary, #757575);
+      border-color: var(--tng-text-secondary, #757575);
+    }
+  }
+
+  // Active/pressed state
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+// ========================================
+// RADIO STYLES
+// ========================================
+.tng-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  border: 2px solid var(--tng-border, #999);
+  border-radius: 50%;
+  background-color: var(--tng-surface, #ffffff);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  // Hover state
+  &:hover:not(:disabled) {
+    border-color: var(--tng-primary, #00f2ff);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.1);
+  }
+
+  // Focus state
+  &:focus {
+    border-color: var(--tng-primary, #00f2ff);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.2);
+  }
+
+  // Checked state
+  &:checked {
+    border-color: var(--tng-primary, #00f2ff);
+    border-width: 2px;
+    
+    // Inner dot
+    &::before {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--tng-primary, #00f2ff);
+      transform: scale(1);
+      opacity: 1;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  // Unchecked dot (hidden)
+  &:not(:checked)::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--tng-primary, #00f2ff);
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Disabled state
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--tng-border, #e0e0e0);
+    background-color: var(--tng-background, #fafafa);
+
+    &:checked::before {
+      background-color: var(--tng-text-secondary, #757575);
+    }
+  }
+
+  // Active/pressed state
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+// ========================================
+// RIPPLE EFFECT (Optional enhancement)
+// ========================================
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.tng-checkbox,
+.tng-radio {
+  overflow: visible;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--tng-primary, #00f2ff);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:active:not(:disabled)::after {
+    animation: ripple 0.6s ease-out;
+  }
+}
+
