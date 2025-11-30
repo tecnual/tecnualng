@@ -1,0 +1,140 @@
+// ════════════════════════════════════════════════════════════════
+// TNG SIDEBAR - Estilos modernos con animaciones CSS puras
+// ════════════════════════════════════════════════════════════════
+
+// ──────────────────────────────────────────────────────────────
+// Variables
+// ──────────────────────────────────────────────────────────────
+$sidebar-bg: #ffffff;
+$sidebar-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+$overlay-bg: rgba(0, 0, 0, 0.5);
+$transition-duration: 0.3s;
+$transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ──────────────────────────────────────────────────────────────
+// Overlay de fondo
+// ──────────────────────────────────────────────────────────────
+.tng-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $overlay-bg;
+  z-index: 998;
+  cursor: pointer;
+  
+  // Animación de entrada
+  opacity: 0;
+  animation: fadeIn $transition-duration $transition-timing forwards;
+}
+
+// ──────────────────────────────────────────────────────────────
+// Contenedor principal del Sidebar
+// ──────────────────────────────────────────────────────────────
+.tng-sidebar {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  background: $sidebar-bg;
+  box-shadow: $sidebar-shadow;
+  z-index: 999;
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  // Transición suave
+  transition: transform $transition-duration $transition-timing;
+  
+  // Estado cerrado por defecto
+  &:not(.tng-sidebar--open) {
+    &.tng-sidebar--left {
+      transform: translateX(-100%);
+    }
+    
+    &.tng-sidebar--right {
+      transform: translateX(100%);
+    }
+  }
+  
+  // Estado abierto
+  &.tng-sidebar--open {
+    transform: translateX(0);
+  }
+  
+  // Posicionamiento izquierdo
+  &.tng-sidebar--left {
+    left: 0;
+  }
+  
+  // Posicionamiento derecho
+  &.tng-sidebar--right {
+    right: 0;
+  }
+  
+  // Scrollbar personalizado (opcional)
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// Contenido interno
+// ──────────────────────────────────────────────────────────────
+.tng-sidebar__content {
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+// ──────────────────────────────────────────────────────────────
+// Animaciones CSS
+// ──────────────────────────────────────────────────────────────
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// Responsive
+// ──────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .tng-sidebar {
+    // En móviles, el sidebar puede ocupar más espacio
+    max-width: 85vw;
+  }
+  
+  .tng-sidebar__content {
+    padding: 1rem;
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// Tema oscuro (opcional)
+// ──────────────────────────────────────────────────────────────
+@media (prefers-color-scheme: dark) {
+  .tng-sidebar {
+    background: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .tng-sidebar-overlay {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}

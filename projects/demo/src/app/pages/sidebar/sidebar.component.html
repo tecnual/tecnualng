@@ -1,0 +1,169 @@
+<div class="sidebar-demo">
+  <div class="sidebar-demo__header">
+    <h1>Sidebar Component</h1>
+    <p class="subtitle">Componente moderno de barra lateral con Signals y animaciones CSS</p>
+  </div>
+
+  <div class="sidebar-demo__content">
+    <!-- Sección de ejemplos -->
+    <section class="demo-section">
+      <h2>Ejemplos Interactivos</h2>
+      
+      <div class="demo-grid">
+        <!-- Sidebar Izquierdo -->
+        <div class="demo-card">
+          <h3>Sidebar Izquierdo</h3>
+          <p>Abre el sidebar desde el lado izquierdo de la pantalla.</p>
+          <button 
+            class="demo-button"
+            (click)="openLeftSidebar()"
+          >
+            <i class="fa fa-bars"></i>
+            Abrir Sidebar Izquierdo
+          </button>
+          <div class="status">
+            Estado: 
+            <span [class.active]="leftSidebarOpen()">
+              {{ leftSidebarOpen() ? 'Abierto' : 'Cerrado' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Sidebar Derecho -->
+        <div class="demo-card">
+          <h3>Sidebar Derecho</h3>
+          <p>Abre el sidebar desde el lado derecho de la pantalla.</p>
+          <button 
+            class="demo-button"
+            (click)="openRightSidebar()"
+          >
+            <i class="fa fa-bars"></i>
+            Abrir Sidebar Derecho
+          </button>
+          <div class="status">
+            Estado: 
+            <span [class.active]="rightSidebarOpen()">
+              {{ rightSidebarOpen() ? 'Abierto' : 'Cerrado' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de características -->
+    <section class="demo-section">
+      <h2>Características</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fa fa-signal"></i>
+          <h4>Basado en Signals</h4>
+          <p>Utiliza la nueva API de Signals de Angular 20+</p>
+        </div>
+        
+        <div class="feature-card">
+          <i class="fa fa-magic"></i>
+          <h4>Animaciones CSS</h4>
+          <p>Transiciones suaves sin Angular Animations</p>
+        </div>
+        
+        <div class="feature-card">
+          <i class="fa fa-arrows-alt-h"></i>
+          <h4>Posicionamiento</h4>
+          <p>Configurable a izquierda o derecha</p>
+        </div>
+        
+        <div class="feature-card">
+          <i class="fa fa-mobile-alt"></i>
+          <h4>Responsive</h4>
+          <p>Adaptado para dispositivos móviles</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de código de ejemplo -->
+    <section class="demo-section">
+      <h2>Ejemplo de Uso</h2>
+      <div class="code-example">
+        <pre><code>&lt;!-- En tu componente --&gt;
+&lt;tng-sidebar 
+  #mySidebar
+  [position]="'left'"
+  [width]="280"
+  [showOverlay]="true"
+  (opened)="onSidebarOpened()"
+  (closed)="onSidebarClosed()"
+&gt;
+  &lt;h2&gt;Contenido del Sidebar&lt;/h2&gt;
+  &lt;p&gt;Aquí va tu contenido...&lt;/p&gt;
+&lt;/tng-sidebar&gt;
+
+&lt;!-- Botón para abrir --&gt;
+&lt;button (click)="mySidebar.open()"&gt;
+  Abrir Sidebar
+&lt;/button&gt;</code></pre>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Sidebars de ejemplo -->
+<tng-sidebar 
+  #leftSidebar
+  [position]="'left'"
+  [width]="280"
+  [showOverlay]="true"
+  (opened)="onLeftSidebarOpened()"
+  (closed)="onLeftSidebarClosed()"
+>
+  <div class="sidebar-content">
+    <h2><i class="fa fa-arrow-left"></i> Sidebar Izquierdo</h2>
+    <p>Este es un ejemplo de sidebar posicionado a la izquierda.</p>
+    
+    <div class="sidebar-menu">
+      <h3>Menú de Navegación</h3>
+      <ul>
+        <li><i class="fa fa-home"></i> Inicio</li>
+        <li><i class="fa fa-user"></i> Perfil</li>
+        <li><i class="fa fa-cog"></i> Configuración</li>
+        <li><i class="fa fa-envelope"></i> Mensajes</li>
+        <li><i class="fa fa-bell"></i> Notificaciones</li>
+      </ul>
+    </div>
+  </div>
+</tng-sidebar>
+
+<tng-sidebar 
+  #rightSidebar
+  [position]="'right'"
+  [width]="320"
+  [showOverlay]="true"
+  (opened)="onRightSidebarOpened()"
+  (closed)="onRightSidebarClosed()"
+>
+  <div class="sidebar-content">
+    <h2>Sidebar Derecho <i class="fa fa-arrow-right"></i></h2>
+    <p>Este es un ejemplo de sidebar posicionado a la derecha con mayor ancho.</p>
+    
+    <div class="sidebar-info">
+      <h3>Información</h3>
+      <div class="info-item">
+        <strong>Ancho:</strong> 320px
+      </div>
+      <div class="info-item">
+        <strong>Posición:</strong> Derecha
+      </div>
+      <div class="info-item">
+        <strong>Overlay:</strong> Activado
+      </div>
+    </div>
+    
+    <div class="sidebar-actions">
+      <button class="action-button primary">
+        <i class="fa fa-check"></i> Aceptar
+      </button>
+      <button class="action-button secondary">
+        <i class="fa fa-times"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</tng-sidebar>

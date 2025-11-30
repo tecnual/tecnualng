@@ -1,0 +1,22 @@
+<!-- Overlay de fondo -->
+@if (showOverlay() && isOpen()) {
+  <div 
+    class="tng-sidebar-overlay"
+    (click)="handleOverlayClick()"
+  ></div>
+}
+
+<!-- Contenedor del Sidebar -->
+<aside 
+  class="tng-sidebar"
+  [class.tng-sidebar--open]="isOpen()"
+  [class.tng-sidebar--left]="position() === 'left'"
+  [class.tng-sidebar--right]="position() === 'right'"
+  [style.width.px]="width()"
+  role="complementary"
+  [attr.aria-hidden]="!isOpen()"
+>
+  <div class="tng-sidebar__content">
+    <ng-content></ng-content>
+  </div>
+</aside>

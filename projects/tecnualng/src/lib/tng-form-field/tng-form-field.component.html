@@ -1,0 +1,10 @@
+<div class="tng-input-container" 
+     [class.focused]="isFocused()" 
+     [class.has-value]="hasValue()" 
+     [class.disabled]="isDisabled()">
+  <fieldset class="tng-fieldset" aria-hidden="true">
+    <legend class="tng-legend"><span>{{ label() }}</span></legend>
+  </fieldset>
+  <label class="tng-label">{{ label() }}</label>
+  <ng-content></ng-content>
+</div>

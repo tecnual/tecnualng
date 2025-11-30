@@ -8,10 +8,9 @@
 
 .tng-input-container {
   position: relative;
-  border: none;
-  //border-radius: var(--tng-border-radius, 4px);
+  border-radius: var(--tng-border-radius, 4px);
   padding: 0 16px;
-  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   cursor: text;
@@ -21,8 +20,6 @@
 
   &:hover {
     .tng-fieldset {
-      // We can't easily use color.adjust on CSS variables, so we might need a separate hover variable or just use the border color
-      // For now, let's use the text-secondary as a darker border on hover, or keep it simple
       border-color: var(--tng-text-secondary, #757575);
     }
   }
@@ -110,7 +107,7 @@
   z-index: 1;
 }
 
-.tng-input-field {
+input.tng-input-field, textarea.tng-input-field {
   display: block;
   width: 100%;
   border: none;
@@ -121,8 +118,10 @@
   color: var(--tng-text, #333);
   outline: none;
   height: 100%;
+  min-height: 48px;
   line-height: normal;
   z-index: 1;
+  font-family: inherit;
 
   &::placeholder {
     color: transparent;

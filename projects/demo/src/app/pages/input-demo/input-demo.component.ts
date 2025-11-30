@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TecnualInputComponent } from 'tecnualng';
+import { TecnualInputComponent, TngInputDirective, TngFormFieldComponent } from 'tecnualng';
 import { CodeExampleComponent, CodeTab } from '../../components/code-example/code-example.component';
 
 @Component({
   selector: 'app-input-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, TecnualInputComponent, CodeExampleComponent],
+  imports: [CommonModule, FormsModule, TecnualInputComponent, TngInputDirective, TngFormFieldComponent, CodeExampleComponent],
   template: `
     <div class="page-container">
       <h1>Input Component</h1>
@@ -66,12 +66,35 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       </div>
       
       <div class="demo-section">
+        <h2>Directive Usage (New!)</h2>
+        <p class="section-description">Use the <code>tngInput</code> directive on native HTML input elements with <code>tng-form-field</code> wrapper</p>
+        <div class="demo-grid">
+          <tng-form-field label="Full Name">
+            <input tngInput 
+                   placeholder="Enter your full name"
+                   [(ngModel)]="directiveValue1">
+          </tng-form-field>
+          
+          <tng-form-field label="Phone Number">
+            <input tngInput 
+                   type="tel"
+                   placeholder="+1 (555) 000-0000"
+                   [(ngModel)]="directiveValue2">
+          </tng-form-field>
+        </div>
+        
+        <app-code-example [tabs]="directiveInputCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
         <h2>Values</h2>
         <div class="values-display">
           <p><strong>Text:</strong> {{ textValue() || '(empty)' }}</p>
           <p><strong>Email:</strong> {{ emailValue() || '(empty)' }}</p>
           <p><strong>Number:</strong> {{ numberValue() }}</p>
           <p><strong>Password:</strong> {{ passwordValue() ? '••••••' : '(empty)' }}</p>
+          <p><strong>Full Name (directive):</strong> {{ directiveValue1 || '(empty)' }}</p>
+          <p><strong>Phone (directive):</strong> {{ directiveValue2 || '(empty)' }}</p>
         </div>
       </div>
     </div>
@@ -128,6 +151,21 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
     .values-display strong {
       color: var(--tng-primary, #6200ee);
     }
+    
+    .section-description {
+      font-size: 0.9rem;
+      color: var(--tng-text-secondary, #666);
+      margin-bottom: 1rem;
+    }
+    
+    code {
+      background: var(--tng-background, #fafafa);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      color: var(--tng-primary, #6200ee);
+    }
   `]
 })
 export class InputDemoComponent {
@@ -135,6 +173,8 @@ export class InputDemoComponent {
   protected emailValue = signal('');
   protected numberValue = signal(0);
   protected passwordValue = signal('');
+  protected directiveValue1 = '';
+  protected directiveValue2 = '';
   
   protected basicInputCode: CodeTab[] = [
     {
@@ -222,6 +262,42 @@ export class ExampleComponent {
   [ngModel]="passwordValue()"
   (ngModelChange)="passwordValue.set($event)"
 ></tng-input>`
+    }
+  ];
+  
+  protected directiveInputCode: CodeTab[] = [
+    {
+      label: 'TypeScript',
+      language: 'typescript',
+      code: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TngInputDirective, TngFormFieldComponent } from 'tecnualng';
+
+@Component({
+  selector: 'app-example',
+  imports: [FormsModule, TngInputDirective, TngFormFieldComponent],
+  template: '...'
+})
+export class ExampleComponent {
+  fullName = '';
+  phoneNumber = '';
+}`
+    },
+    {
+      label: 'HTML',
+      language: 'html',
+      code: `<tng-form-field label="Full Name">
+  <input tngInput 
+         placeholder="Enter your full name"
+         [(ngModel)]="fullName">
+</tng-form-field>
+
+<tng-form-field label="Phone Number">
+  <input tngInput 
+         type="tel"
+         placeholder="+1 (555) 000-0000"
+         [(ngModel)]="phoneNumber">
+</tng-form-field>`
     }
   ];
 }

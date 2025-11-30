@@ -12,6 +12,7 @@ import { TableDemoComponent } from './pages/table-demo/table-demo.component';
 import { TooltipDemoComponent } from './pages/tooltip-demo/tooltip-demo.component';
 import { ExpansionPanelDemoComponent } from './pages/expansion-panel-demo/expansion-panel-demo.component';
 import { MenuDemoComponent } from './pages/menu-demo/menu-demo.component';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
 
 export const routes: Routes = [
   {
@@ -66,6 +67,10 @@ export const routes: Routes = [
   {
     path: 'menu',
     component: MenuDemoComponent,
+  },
+  {
+    path: 'sidebar',
+    component: SidebarComponent,
   },
   {
     path: 'empty',
