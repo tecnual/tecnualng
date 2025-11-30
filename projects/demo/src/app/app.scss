@@ -89,7 +89,8 @@ $sidebar-width: 250px;
 // Sidebars
 .app-sidebar {
   position: fixed;
-  top: $header-height;
+  top: 0;
+  padding-top: $header-height;
   bottom: 0;
   @include glass;
   width: $sidebar-width;

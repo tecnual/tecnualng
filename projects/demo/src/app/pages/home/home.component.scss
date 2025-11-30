@@ -1,14 +1,14 @@
 @use 'sass:color';
 
 // Variables
-$primary: #00f2ff;
-$secondary: #bc13fe;
-$bg-dark: #0a0a12;
+$primary: var(--tng-primary);
+$secondary: var(--tng-secondary);
+$bg-dark: var(--tng-background);
 $bg-card: rgba(255, 255, 255, 0.03);
 $glass-border: rgba(255, 255, 255, 0.1);
-$text-main: #ffffff;
-$text-muted: #a0a0b0;
-$success-color: #00ff9d;
+$text-main: var(--tng-text);
+$text-muted: var(--tng-text-secondary);
+$success-color: var(--tng-success);
 
 // Mixins
 @mixin glass {
@@ -20,7 +20,7 @@ $success-color: #00ff9d;
 }
 
 @mixin gradient-text {
-  background: linear-gradient(135deg, $primary, $secondary);
+  background: linear-gradient(135deg, #00f2ff, #bc13fe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -168,7 +168,7 @@ $success-color: #00ff9d;
         gap: 0.5rem;
 
         &-primary {
-          background: linear-gradient(135deg, $primary, color.adjust($primary, $lightness: 20%));
+          background: $primary;
           color: #000;
           box-shadow: 0 4px 15px rgba($primary, 0.3);
 
@@ -230,7 +230,7 @@ $success-color: #00ff9d;
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
+          background: $primary;
         }
 
         .skeleton-lines {
@@ -241,7 +241,7 @@ $success-color: #00ff9d;
 
           .line {
             height: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            background: $primary;
             border-radius: 5px;
             
             &.short { width: 60%; }
@@ -260,7 +260,7 @@ $success-color: #00ff9d;
         .bar {
           width: 40px;
           height: var(--h);
-          background: linear-gradient(to top, rgba($primary, 0.2), $primary);
+          background: linear-gradient(to top, rgba(#00f2ff, 0.2), #00f2ff);
           border-radius: 4px 4px 0 0;
           position: relative;
 
