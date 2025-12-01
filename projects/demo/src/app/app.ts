@@ -93,4 +93,11 @@ export class App {
     this.rightSidebarOpen.set(false);
     console.log('Sidebar derecho cerrado');
   }
+
+  /**
+   * Cierra el sidebar izquierdo cuando se hace clic en un elemento del menú
+   */
+  closeLeftSidebar(): void {
+    this.leftSidebar()?.close();
+  }
 }

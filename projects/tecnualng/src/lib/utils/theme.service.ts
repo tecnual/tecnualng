@@ -1,6 +1,6 @@
 import { Injectable, signal, effect } from '@angular/core';
 
-export type ThemeName = 'light' | 'dark' | 'ocean' | 'forest' | 'sunset' | 'royal' | 'monochrome' | 'aurora' | 'aurora-dark';
+export type ThemeName = 'light' | 'dark' | 'ocean' | 'forest' | 'sunset' | 'royal' | 'monochrome' | 'aurora' | 'aurora-dark' | 'futuristic';
 
 export interface Theme {
   name: ThemeName;
@@ -80,6 +80,13 @@ export class ThemeService {
       displayName: 'Aurora Dark',
       description: 'Dark mode gradients',
       primaryColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      isDark: true
+    },
+    {
+      name: 'futuristic',
+      displayName: 'Futuristic',
+      description: 'Neon cyberpunk vibes',
+      primaryColor: '#00f2ff',
       isDark: true
     }
   ];

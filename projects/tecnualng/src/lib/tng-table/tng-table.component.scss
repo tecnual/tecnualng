@@ -6,6 +6,9 @@
   gap: var(--tng-spacing-unit, 16px);
   width: 100%;
   background: var(--tng-surface, #fff);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--tng-border);
   border-radius: var(--tng-border-radius, 8px);
   box-shadow: var(--tng-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
   padding: var(--tng-spacing-unit, 16px);

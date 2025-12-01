@@ -2,6 +2,9 @@
   display: block;
   position: relative;
   background-color: var(--tng-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--tng-border);
   border-radius: 8px;
   overflow: hidden;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -27,7 +30,7 @@
 
   &__header {
     padding: 16px 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid var(--tng-border);
   }
 
   &__header-text {
@@ -59,7 +62,7 @@
 
   &__footer {
     padding: 12px 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid var(--tng-border);
     
     &:empty {
       display: none;
@@ -69,24 +72,20 @@
   /* --- Modifiers --- */
 
   &--elevated {
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1), 
-                0 4px 5px 0 rgba(0,0,0,0.07), 
-                0 1px 10px 0 rgba(0,0,0,0.06);
+    box-shadow: var(--tng-shadow-md);
 
     &:hover {
-      box-shadow: 0 5px 5px -3px rgba(0,0,0,0.1), 
-                  0 8px 10px 1px rgba(0,0,0,0.07), 
-                  0 3px 14px 2px rgba(0,0,0,0.06);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       transform: translateY(-2px);
     }
   }
 
   &--outlined {
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--tng-border);
     box-shadow: none;
 
     &:hover {
-      border-color: rgba(0, 0, 0, 0.24);
+      border-color: var(--tng-primary);
     }
   }
 
