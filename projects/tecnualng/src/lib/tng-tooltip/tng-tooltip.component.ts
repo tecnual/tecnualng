@@ -1,13 +1,12 @@
 import { Component, input, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'tng-tooltip',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="tng-tooltip-container" [@tooltipAnimation]>
+    <div class="tng-tooltip-container">
       @if (isTemplate(content())) {
         <ng-container *ngTemplateOutlet="$any(content())"></ng-container>
       } @else {
@@ -21,6 +20,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
       pointer-events: none;
       z-index: 10000;
       position: fixed;
+      animation: tooltipFadeIn 150ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
     .tng-tooltip-container {
@@ -37,18 +37,18 @@ import { animate, style, transition, trigger } from '@angular/animations';
       word-wrap: break-word;
       line-height: 1.4;
     }
+
+    @keyframes tooltipFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
   `],
-  animations: [
-    trigger('tooltipAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0.9)' }),
-        animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 1, transform: 'scale(1)' }))
-      ]),
-      transition(':leave', [
-        animate('100ms ease-out', style({ opacity: 0, transform: 'scale(0.9)' }))
-      ])
-    ])
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TngTooltipComponent {

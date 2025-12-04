@@ -1,23 +1,18 @@
 <div class="tng-expansion-panel__container">
-  <div 
-    class="tng-expansion-panel__header" 
+  <div
+    class="tng-expansion-panel__header"
     (click)="toggle()"
     [class.tng-expansion-panel__header--disabled]="disabled()"
   >
     <h3 class="tng-expansion-panel__title">{{ title() }}</h3>
-    <span class="tng-expansion-panel__icon material-icons">
-      expand_more
-    </span>
+    <span class="tng-expansion-panel__icon material-icons"> expand_more </span>
   </div>
 
   @if (isExpanded()) {
-    <div 
-      class="tng-expansion-panel__content"
-      @expandCollapse
-    >
-      <div class="tng-expansion-panel__body">
-        <ng-content></ng-content>
-      </div>
+  <div class="tng-expansion-panel__content">
+    <div class="tng-expansion-panel__body">
+      <ng-content></ng-content>
     </div>
+  </div>
   }
 </div>
