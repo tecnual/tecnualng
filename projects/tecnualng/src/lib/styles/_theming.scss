@@ -8,6 +8,7 @@
 @use 'definitions/monochrome' as monochrome;
 @use 'definitions/aurora' as aurora;
 @use 'definitions/aurora-dark' as aurora-dark;
+@use 'definitions/futuristic' as futuristic;
 
 // Forward mixins for external use
 @forward 'definitions/light';
@@ -19,6 +20,7 @@
 @forward 'definitions/monochrome';
 @forward 'definitions/aurora';
 @forward 'definitions/aurora-dark';
+@forward 'definitions/futuristic';
 
 // Apply to root if desired, or use a class
 :root {
@@ -85,6 +87,13 @@ body[data-theme='aurora'] {
 body.aurora-dark-theme,
 body[data-theme='aurora-dark'] {
   @include aurora-dark.tng-theme-aurora-dark;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}
+
+body.futuristic-theme,
+body[data-theme='futuristic'] {
+  @include futuristic.tng-theme-futuristic;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }

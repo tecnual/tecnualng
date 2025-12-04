@@ -30,31 +30,33 @@
   <div class="sidebar-content">
     <tng-menu>
       <tng-menu-group label="Navigation">
-        <tng-menu-item icon="fa fa-home" label="Home" route="/home"></tng-menu-item>
+        <tng-menu-item icon="fa fa-home" label="Home" route="/home" (click)="closeLeftSidebar()"></tng-menu-item>
         <tng-menu-item
           icon="fa fa-rocket"
           label="Getting Started"
           route="/getting-started"
-        ></tng-menu-item>
+          (click)="closeLeftSidebar()">
+        </tng-menu-item>
       </tng-menu-group>
 
       <tng-menu-group label="Components">
-        <tng-menu-item icon="fa fa-keyboard" label="Input" route="/input"></tng-menu-item>
-        <tng-menu-item icon="fa fa-calendar" label="Datepicker" route="/datepicker"></tng-menu-item>
-        <tng-menu-item icon="fa fa-square" label="Button" route="/button"></tng-menu-item>
-        <tng-menu-item icon="fa fa-columns" label="Card" route="/card"></tng-menu-item>
-        <tng-menu-item icon="fa fa-bars" label="Toolbar" route="/toolbar"></tng-menu-item>
-        <tng-menu-item icon="fa fa-table" label="Table" route="/table"></tng-menu-item>
-        <tng-menu-item icon="fa fa-info-circle" label="Tooltip" route="/tooltip"></tng-menu-item>
-        <tng-menu-item icon="fa fa-folder" label="Tabs" route="/tabs"></tng-menu-item>
+        <tng-menu-item icon="fa fa-keyboard" label="Input" route="/input" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-calendar" label="Datepicker" route="/datepicker" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-square" label="Button" route="/button" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-columns" label="Card" route="/card" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-bars" label="Toolbar" route="/toolbar" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-table" label="Table" route="/table" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-info-circle" label="Tooltip" route="/tooltip" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-folder" label="Tabs" route="/tabs" (click)="closeLeftSidebar()"></tng-menu-item>
         <tng-menu-item
           icon="fa fa-chevron-down"
           label="Expansion Panel"
-          route="/expansion-panel">
+          route="/expansion-panel"
+          (click)="closeLeftSidebar()">
         </tng-menu-item>
-        <tng-menu-item icon="fa fa-bars" label="Menu" route="/menu"></tng-menu-item>
-        <tng-menu-item icon="fa fa-columns" label="Sidebar" route="/sidebar"></tng-menu-item>
-        <tng-menu-item icon="fa fa-list" label="Select" route="/select"></tng-menu-item>
+        <tng-menu-item icon="fa fa-bars" label="Menu" route="/menu" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-columns" label="Sidebar" route="/sidebar" (click)="closeLeftSidebar()"></tng-menu-item>
+        <tng-menu-item icon="fa fa-list" label="Select" route="/select" (click)="closeLeftSidebar()"></tng-menu-item>
       </tng-menu-group>
     </tng-menu>
   </div>

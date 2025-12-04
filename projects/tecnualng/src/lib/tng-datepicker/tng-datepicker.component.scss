@@ -49,6 +49,9 @@
   padding: 0 12px;
   border: 1px solid var(--tng-border, #999);
   border-radius: var(--tng-border-radius, 4px);
+  background-color: var(--tng-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   pointer-events: none;
   transition: border-color 0.2s ease;
 }
@@ -131,6 +134,8 @@
   z-index: 1000;
   margin-top: 4px;
   background: var(--tng-surface, #fff);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 8px;
   box-shadow: var(--tng-shadow-md, 0 4px 20px rgba(0,0,0,0.15));
   padding: 16px;

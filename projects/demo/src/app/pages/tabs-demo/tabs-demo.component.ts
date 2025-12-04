@@ -95,7 +95,6 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
     .example-container {
       border: 1px solid var(--tng-border);
       margin-bottom: 1rem;
-      background: #fff;
     }
 
     .tab-content {

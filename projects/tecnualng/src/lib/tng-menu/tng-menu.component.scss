@@ -4,6 +4,8 @@
   width: 100%;
   padding: 8px 8px;
   background: var(--tng-surface, white);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   &--horizontal {
     flex-direction: row;

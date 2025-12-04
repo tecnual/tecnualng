@@ -1,6 +1,6 @@
 {
   "name": "tecnualng",
-  "version": "21.0.15",
+  "version": "21.0.16",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -26,7 +26,6 @@
   "private": true,
   "packageManager": "npm@11.6.2",
   "dependencies": {
-    "@angular/animations": "^21.0.0",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",

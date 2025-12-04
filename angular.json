@@ -108,6 +108,11 @@
                 "input": "projects/demo/src/styles/themes/aurora-dark.scss",
                 "bundleName": "theme-aurora-dark",
                 "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/futuristic.scss",
+                "bundleName": "theme-futuristic",
+                "inject": false
               }
             ]
           },
