@@ -35,7 +35,7 @@ jobs:
             --base-href "https://tecnualng.tecnual.com"
       - name: copy 404.html
         run: |
-          cp src/404.html dist/demo/browser/404.html
+          cp projects/demo/src/404.html dist/demo/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
