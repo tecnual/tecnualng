@@ -70,7 +70,118 @@ import { TnButtonComponent } from 'tecnualng';
 <tn-button label="Accept" (click)="onClick()"></tn-button>
 ```
 
-### 4. Apply styling or theming
+### 4. Configure Theming
+
+TecnualNG includes a powerful theming system with 10 pre-built themes. To use themes in your application:
+
+#### Step 1: Configure angular.json
+
+Add theme bundles to your `angular.json`:
+
+```json
+"styles": [
+  "src/styles.scss",
+  {
+    "input": "src/styles/themes/light.scss",
+    "bundleName": "theme-light",
+    "inject": false
+  },
+  {
+    "input": "src/styles/themes/dark.scss",
+    "bundleName": "theme-dark",
+    "inject": false
+  },
+  {
+    "input": "src/styles/themes/futuristic.scss",
+    "bundleName": "theme-futuristic",
+    "inject": false
+  }
+  // Add more themes as needed
+]
+```
+
+#### Step 2: Create Theme Files
+
+Create SCSS files for each theme in `src/styles/themes/`:
+
+**light.scss:**
+
+```scss
+@use 'tecnualng/styles/themes/light' as light;
+
+body {
+  @include light.tng-theme-default;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}
+```
+
+**dark.scss:**
+
+```scss
+@use 'tecnualng/styles/themes/dark' as dark;
+
+body {
+  @include dark.tng-theme-dark;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}
+```
+
+**futuristic.scss:**
+
+```scss
+@use 'tecnualng/styles/themes/futuristic' as futuristic;
+
+body {
+  @include futuristic.tng-theme-futuristic;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}
+```
+
+#### Step 3: Use ThemeService
+
+Import and use the `ThemeService` to switch themes dynamically:
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'tecnualng';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent implements OnInit {
+  constructor(private themeService: ThemeService) {}
+
+  ngOnInit() {
+    // Set default theme
+    this.themeService.setTheme('light');
+  }
+
+  switchTheme(theme: string) {
+    this.themeService.setTheme(theme);
+  }
+}
+```
+
+#### Available Themes
+
+TecnualNG includes 10 beautiful themes:
+
+- **light** - Clean, bright theme with vibrant accents
+- **dark** - Modern dark mode theme
+- **ocean** - Ocean-inspired blues and teals
+- **forest** - Nature-inspired greens
+- **sunset** - Warm sunset colors
+- **royal** - Elegant purple tones
+- **monochrome** - Minimalist black and white
+- **aurora** - Northern lights inspired colors
+- **aurora-dark** - Dark aurora theme
+- **futuristic** - Neon cyberpunk with glassmorphism effects
+
+Each theme provides CSS variables for consistent styling across all components.
 
 TecnualNG supports flexible styling with theme‑ready architecture.
 

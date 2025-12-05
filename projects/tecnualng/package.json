@@ -1,6 +1,6 @@
 {
   "name": "tecnualng",
-  "version": "21.0.16",
+  "version": "21.0.17",
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0"
@@ -10,8 +10,41 @@
   },
   "sideEffects": false,
   "exports": {
-    ".": {
+    "./styles": {
       "sass": "./_index.scss"
+    },
+    "./styles/theming": {
+      "sass": "./src/lib/styles/_theming.scss"
+    },
+    "./styles/themes/light": {
+      "sass": "./src/lib/styles/definitions/_light.scss"
+    },
+    "./styles/themes/dark": {
+      "sass": "./src/lib/styles/definitions/_dark.scss"
+    },
+    "./styles/themes/ocean": {
+      "sass": "./src/lib/styles/definitions/_ocean.scss"
+    },
+    "./styles/themes/forest": {
+      "sass": "./src/lib/styles/definitions/_forest.scss"
+    },
+    "./styles/themes/sunset": {
+      "sass": "./src/lib/styles/definitions/_sunset.scss"
+    },
+    "./styles/themes/royal": {
+      "sass": "./src/lib/styles/definitions/_royal.scss"
+    },
+    "./styles/themes/monochrome": {
+      "sass": "./src/lib/styles/definitions/_monochrome.scss"
+    },
+    "./styles/themes/aurora": {
+      "sass": "./src/lib/styles/definitions/_aurora.scss"
+    },
+    "./styles/themes/aurora-dark": {
+      "sass": "./src/lib/styles/definitions/_aurora-dark.scss"
+    },
+    "./styles/themes/futuristic": {
+      "sass": "./src/lib/styles/definitions/_futuristic.scss"
     }
   }
 }

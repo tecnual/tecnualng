@@ -3,5 +3,9 @@
   "dest": "../../dist/tecnualng",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    "src/lib/styles/**/*.scss",
+    "_index.scss"
+  ]
 }
