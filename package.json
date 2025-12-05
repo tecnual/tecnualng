@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:tecnualng": "ng build tecnualng",
+    "build:demo": "ng build demo",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:demo": "ng serve demo",

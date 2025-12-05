@@ -80,4 +80,9 @@ export const routes: Routes = [
     path: 'empty',
     component: Empty,
   },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
