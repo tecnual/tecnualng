@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+// TecnualNG Theme System
+// Import this file to access all theme definitions
+
+// Forward all theme mixins for external use
+@forward 'src/lib/styles/definitions/light';
+@forward 'src/lib/styles/definitions/dark';
+@forward 'src/lib/styles/definitions/ocean';
+@forward 'src/lib/styles/definitions/forest';
+@forward 'src/lib/styles/definitions/sunset';
+@forward 'src/lib/styles/definitions/royal';
+@forward 'src/lib/styles/definitions/monochrome';
+@forward 'src/lib/styles/definitions/aurora';
+@forward 'src/lib/styles/definitions/aurora-dark';
+@forward 'src/lib/styles/definitions/futuristic';
+
+// Also forward the main theming file with all theme classes
+@forward 'src/lib/styles/theming';

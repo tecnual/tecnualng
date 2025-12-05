@@ -125,6 +125,16 @@ export class GettingStartedComponent {
       label: 'npm',
       language: 'bash',
       code: `npm install tecnualng`
+    },
+    {
+      label: 'yarn',
+      language: 'bash',
+      code: `yarn add tecnualng`
+    },
+    {
+      label: 'pnpm',
+      language: 'bash',
+      code: `pnpm add tecnualng`
     }
   ];
 
@@ -169,7 +179,13 @@ export class AppComponent {}`
     "input": "src/styles/themes/dark.scss",
     "bundleName": "theme-dark",
     "inject": false
+  },
+  {
+    "input": "src/styles/themes/futuristic.scss",
+    "bundleName": "theme-futuristic",
+    "inject": false
   }
+  // Add more themes as needed: ocean, forest, sunset, royal, monochrome, aurora, aurora-dark
 ]`
     }
   ];
@@ -178,10 +194,35 @@ export class AppComponent {}`
     {
       label: 'light.scss',
       language: 'scss',
-      code: `@use 'tecnualng/src/lib/styles/definitions/light' as light;
+      code: `// src/styles/themes/light.scss
+@use 'tecnualng/styles/themes/light' as light;
 
 body {
   @include light.tng-theme-default;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}`
+    },
+    {
+      label: 'dark.scss',
+      language: 'scss',
+      code: `// src/styles/themes/dark.scss
+@use 'tecnualng/styles/themes/dark' as dark;
+
+body {
+  @include dark.tng-theme-dark;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}`
+    },
+    {
+      label: 'futuristic.scss',
+      language: 'scss',
+      code: `// src/styles/themes/futuristic.scss
+@use 'tecnualng/styles/themes/futuristic' as futuristic;
+
+body {
+  @include futuristic.tng-theme-futuristic;
   background-color: var(--tng-background);
   color: var(--tng-text);
 }`
@@ -190,16 +231,58 @@ body {
 
   protected themeServiceCode: CodeTab[] = [
     {
-      label: 'TypeScript',
+      label: 'app.config.ts',
       language: 'typescript',
-      code: `import { ThemeService } from 'tecnualng';
+      code: `import { ApplicationConfig } from '@angular/core';
+import { ThemeService } from 'tecnualng';
 
-export class AppComponent {
-  constructor(private themeService: ThemeService) {
-    // Set theme (loads theme-dark.css)
-    this.themeService.setTheme('dark');
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ThemeService,
+    // ... other providers
+  ]
+};`
+    },
+    {
+      label: 'app.component.ts',
+      language: 'typescript',
+      code: `import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'tecnualng';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit {
+  constructor(private themeService: ThemeService) {}
+
+  ngOnInit() {
+    // Set default theme (loads theme-light.css)
+    this.themeService.setTheme('light');
+  }
+
+  switchTheme(theme: string) {
+    // Dynamically switch themes
+    this.themeService.setTheme(theme);
   }
 }`
+    },
+    {
+      label: 'Available Themes',
+      language: 'typescript',
+      code: `// Available theme names:
+// - 'light'        - Clean, bright theme
+// - 'dark'         - Dark mode theme
+// - 'ocean'        - Ocean-inspired blues
+// - 'forest'       - Nature-inspired greens
+// - 'sunset'       - Warm sunset colors
+// - 'royal'        - Elegant purple tones
+// - 'monochrome'   - Black and white
+// - 'aurora'       - Northern lights inspired
+// - 'aurora-dark'  - Dark aurora theme
+// - 'futuristic'   - Neon cyberpunk with glassmorphism
+
+this.themeService.setTheme('futuristic');`
     }
   ];
 
@@ -222,6 +305,36 @@ export class AppComponent {
     <button tngButton variant="primary">Learn More</button>
   </div>
 </tng-card>`
+    },
+    {
+      label: 'TypeScript',
+      language: 'typescript',
+      code: `import { Component } from '@angular/core';
+import { TngButton, TngCardComponent, TngToolbarComponent } from 'tecnualng';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [TngButton, TngCardComponent, TngToolbarComponent],
+  template: \`
+    <tng-toolbar position="top" color="primary" [elevation]="true">
+      <div toolbar-left>
+        <button tngButton icon="fa fa-bars">Menu</button>
+      </div>
+      <div toolbar-center>
+        <span>My App</span>
+      </div>
+    </tng-toolbar>
+
+    <tng-card title="Welcome" [elevated]="true">
+      <p>Get started with TecnualNG components!</p>
+      <div card-footer>
+        <button tngButton variant="primary">Learn More</button>
+      </div>
+    </tng-card>
+  \`
+})
+export class AppComponent {}`
     }
   ];
 }
