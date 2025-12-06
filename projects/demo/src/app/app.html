@@ -1,16 +1,43 @@
 <!-- Header with TngToolbar -->
 <tng-toolbar position="top" positionType="fixed" color="transparent" [elevation]="true">
   <div toolbar-left>
-    <button tngButton variant="primary" icon="fa fa-bars" (click)="toggleLeftSidebar()" aria-label="Toggle menu">
+    <button
+      tngButton
+      variant="primary"
+      icon="fa fa-bars"
+      (click)="toggleLeftSidebar()"
+      aria-label="Toggle menu"
+    >
       Menú
     </button>
   </div>
   <div toolbar-center class="toolbar-logo">
-    <img src="Logo_TecnualNG.png" alt="TecnualNG" class="header-logo">
+    <img src="Logo_TecnualNG.png" alt="TecnualNG" class="header-logo" />
   </div>
-  <div toolbar-right>
+  <div toolbar-right class="toolbar-actions">
+    <a
+      href="https://github.com/tecnual/tecnualng"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="icon-link"
+      aria-label="View on GitHub"
+      title="View on GitHub"
+    >
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a
+      href="https://www.npmjs.com/package/tecnualng"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="icon-link"
+      aria-label="View on npm"
+      title="View on npm"
+    >
+      <i class="fa-brands fa-npm"></i>
+    </a>
     <app-theme-selector></app-theme-selector>
   </div>
+
   <!--<div toolbar-right>
     <button class="icon-btn" (click)="toggleRightSidebar()" aria-label="Toggle widgets">
       <span class="material-icons">dashboard</span>
@@ -20,47 +47,110 @@
 <!-- Contenedor principal -->
 <div class="app-container">
   <!-- Sidebar Izquierdo (Navegación) -->
-   <tng-sidebar 
-  #leftSidebar
-  [position]="'left'"
-  [width]="280"
-  [showOverlay]="true"
-  (opened)="onLeftSidebarOpened()"
-  (closed)="onLeftSidebarClosed()">
-  <div class="sidebar-content">
-    <tng-menu>
-      <tng-menu-group label="Navigation">
-        <tng-menu-item icon="fa fa-home" label="Home" route="/home" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item
-          icon="fa fa-rocket"
-          label="Getting Started"
-          route="/getting-started"
-          (click)="closeLeftSidebar()">
-        </tng-menu-item>
-      </tng-menu-group>
+  <tng-sidebar
+    #leftSidebar
+    [position]="'left'"
+    [width]="280"
+    [showOverlay]="true"
+    (opened)="onLeftSidebarOpened()"
+    (closed)="onLeftSidebarClosed()"
+  >
+    <div class="sidebar-content">
+      <tng-menu>
+        <tng-menu-group label="Navigation">
+          <tng-menu-item
+            icon="fa fa-home"
+            label="Home"
+            route="/home"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-rocket"
+            label="Getting Started"
+            route="/getting-started"
+            (click)="closeLeftSidebar()"
+          >
+          </tng-menu-item>
+        </tng-menu-group>
 
-      <tng-menu-group label="Components">
-        <tng-menu-item icon="fa fa-keyboard" label="Input" route="/input" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-calendar" label="Datepicker" route="/datepicker" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-square" label="Button" route="/button" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-columns" label="Card" route="/card" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-bars" label="Toolbar" route="/toolbar" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-table" label="Table" route="/table" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-info-circle" label="Tooltip" route="/tooltip" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-folder" label="Tabs" route="/tabs" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item
-          icon="fa fa-chevron-down"
-          label="Expansion Panel"
-          route="/expansion-panel"
-          (click)="closeLeftSidebar()">
-        </tng-menu-item>
-        <tng-menu-item icon="fa fa-bars" label="Menu" route="/menu" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-columns" label="Sidebar" route="/sidebar" (click)="closeLeftSidebar()"></tng-menu-item>
-        <tng-menu-item icon="fa fa-list" label="Select" route="/select" (click)="closeLeftSidebar()"></tng-menu-item>
-      </tng-menu-group>
-    </tng-menu>
-  </div>
-</tng-sidebar>
+        <tng-menu-group label="Components">
+          <tng-menu-item
+            icon="fa fa-keyboard"
+            label="Input"
+            route="/input"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-calendar"
+            label="Datepicker"
+            route="/datepicker"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-square"
+            label="Button"
+            route="/button"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-columns"
+            label="Card"
+            route="/card"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-bars"
+            label="Toolbar"
+            route="/toolbar"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-table"
+            label="Table"
+            route="/table"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-info-circle"
+            label="Tooltip"
+            route="/tooltip"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-folder"
+            label="Tabs"
+            route="/tabs"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-chevron-down"
+            label="Expansion Panel"
+            route="/expansion-panel"
+            (click)="closeLeftSidebar()"
+          >
+          </tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-bars"
+            label="Menu"
+            route="/menu"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-columns"
+            label="Sidebar"
+            route="/sidebar"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+          <tng-menu-item
+            icon="fa fa-list"
+            label="Select"
+            route="/select"
+            (click)="closeLeftSidebar()"
+          ></tng-menu-item>
+        </tng-menu-group>
+      </tng-menu>
+    </div>
+  </tng-sidebar>
   <!-- Sidebar Derecho (Widgets) -->
   <aside class="app-sidebar right" [class.open]="rightSidebarOpen()">
     <div class="widgets-panel">

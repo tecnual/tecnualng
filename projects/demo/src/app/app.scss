@@ -94,6 +94,41 @@ $sidebar-width: 250px;
   }
 }
 
+// Toolbar Actions (GitHub, npm, theme selector)
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--tng-text);
+    text-decoration: none;
+    border-radius: var(--tng-border-radius, 4px);
+    transition: all 0.2s ease;
+    font-size: 24px;
+
+    &:hover {
+      background: var(--tng-background);
+      color: var(--tng-primary);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    i {
+      font-size: inherit;
+    }
+  }
+}
+
+
 // Container
 .app-container {
   //margin-top: $header-height;
