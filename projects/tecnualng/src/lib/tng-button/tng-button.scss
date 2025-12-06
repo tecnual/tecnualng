@@ -128,6 +128,28 @@
       background: color-mix(in srgb, var(--tng-error), white 10%);
     }
   }
+
+  &--basic {
+    background: transparent;
+    color: var(--tng-text);
+    border: none;
+
+    &:hover {
+      background: color-mix(in srgb, var(--tng-text), transparent 95%);
+      border: 1px solid var(--tng-secondary);
+    }
+  }
+
+  &--outlined {
+    background: transparent;
+    color: var(--tng-text);
+    border: 1px solid color-mix(in srgb, var(--tng-primary), transparent 55%);
+
+    &:hover {
+      background: color-mix(in srgb, var(--tng-text), transparent 95%);
+      border-color: color-mix(in srgb, var(--tng-secondary), transparent 15%);
+    }
+  }
 }
 
 /* --- Ripple Effect --- */

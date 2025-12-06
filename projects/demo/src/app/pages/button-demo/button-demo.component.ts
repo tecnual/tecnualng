@@ -36,6 +36,18 @@ import { TngButton } from 'tecnualng';
       </div>
 
       <div class="demo-section">
+        <h2>Basic and Outlined Variants</h2>
+        <div class="button-row">
+          <button tngButton variant="basic">Basic</button>
+          <button tngButton variant="outlined">Outlined</button>
+          <button tngButton variant="basic" [rounded]="true">Basic Rounded</button>
+          <button tngButton variant="outlined" [rounded]="true">Outlined Rounded</button>
+        </div>
+        
+        <app-code-example [tabs]="basicOutlinedCode"></app-code-example>
+      </div>
+
+      <div class="demo-section">
         <h2>Enhanced Buttons</h2>
         <div class="button-row">
           <button tngButton variant="primary" [rounded]="true">Rounded</button>
@@ -153,6 +165,18 @@ export class ExampleComponent {}`
 <button tngButton variant="error">Error</button>`
     }
   ];
+
+  protected basicOutlinedCode: CodeTab[] = [
+    {
+      label: 'HTML',
+      language: 'html',
+      code: `<button tngButton variant="basic">Basic</button>
+<button tngButton variant="outlined">Outlined</button>
+<button tngButton variant="basic" [rounded]="true">Basic Rounded</button>
+<button tngButton variant="outlined" [rounded]="true">Outlined Rounded</button>`
+    }
+  ];
+
 
   protected enhancedButtonCode: CodeTab[] = [
     {

@@ -12,6 +12,8 @@ export type TngButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined' | 
     '[class.tng-button--success]': 'variant() === "success"',
     '[class.tng-button--warning]': 'variant() === "warning"',
     '[class.tng-button--error]': 'variant() === "error"',
+    '[class.tng-button--basic]': 'variant() === "basic"',
+    '[class.tng-button--outlined]': 'variant() === "outlined"',
     '[class.tng-button--rounded]': 'rounded()',
     '[class.tng-button--soft]': 'soft()',
     '(click)': 'createRipple($event)',
@@ -23,7 +25,7 @@ export type TngButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined' | 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TngButton {
-  variant = input<'primary' | 'secondary' | 'success' | 'warning' | 'error' | null>(null);
+  variant = input<'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'basic' | 'outlined' | null>(null);
   rounded = input(false);
   soft = input(false);
   ripple = input(true);
