@@ -6,6 +6,8 @@ export * from './lib/tng-button/tng-button';
 export * from './lib/tng-card/tng-card.component';
 export * from './lib/tng-input/tng-input.component';
 export * from './lib/tng-input/tng-input.directive';
+export * from './lib/tng-textarea/tng-textarea.component';
+export * from './lib/tng-textarea/tng-textarea.directive';
 export * from './lib/tng-form-field/tng-form-field.component';
 export * from './lib/tng-datepicker/tng-datepicker.component';
 export * from './lib/tng-table/tng-table.component';

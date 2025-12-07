@@ -67,6 +67,10 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
   
   // Generated trigger element
   private triggerEl: HTMLElement | null = null;
+  
+  // Disabled state tracking
+  private isDisabled = signal(false);
+  private mutationObserver: MutationObserver | null = null;
 
   // Computed
   isMulti = computed(() => this.enableMulti() || this.multiple());
@@ -116,12 +120,26 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
       }
     });
 
-    // Update generated trigger text
+    // Update generated trigger text and state
     effect(() => {
       if (this.triggerEl) {
-        const textSpan = this.triggerEl.querySelector('.tng-select-trigger-text');
+        const textSpan = this.triggerEl.querySelector('.tng-select-display-text');
         if (textSpan) {
           textSpan.textContent = this.displayText();
+        }
+
+        // Toggle open class
+        if (this.isOpen()) {
+          this.triggerEl.classList.add('tng-select-open');
+        } else {
+          this.triggerEl.classList.remove('tng-select-open');
+        }
+        
+        // Toggle disabled class
+        if (this.isDisabled()) {
+          this.triggerEl.classList.add('disabled');
+        } else {
+          this.triggerEl.classList.remove('disabled');
         }
       }
     });
@@ -138,6 +156,18 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
     this.el.nativeElement.style.height = '0';
     this.el.nativeElement.style.width = '0';
 
+    
+    // Track disabled state
+    this.isDisabled.set(this.el.nativeElement.disabled);
+    this.mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'disabled') {
+          this.isDisabled.set(this.el.nativeElement.disabled);
+        }
+      });
+    });
+    this.mutationObserver.observe(this.el.nativeElement, { attributes: true });
+
     if (!this.customTrigger()) {
       this.createTrigger();
     }
@@ -147,7 +177,9 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
     this.closePanel();
     if (this.triggerEl) {
       this.triggerEl.remove();
+      this.triggerEl = null;
     }
+    this.mutationObserver?.disconnect();
   }
 
   @HostListener('click', ['$event'])
@@ -172,34 +204,20 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
 
   private createTrigger() {
     const trigger = document.createElement('div');
-    trigger.className = 'tng-select-trigger';
-    trigger.style.display = 'flex';
-    trigger.style.alignItems = 'center';
-    trigger.style.justifyContent = 'space-between';
-    trigger.style.padding = '0.75rem 1rem';
-    trigger.style.border = '1px solid #ccc';
-    trigger.style.borderRadius = '4px';
-    trigger.style.background = '#fff';
-    trigger.style.cursor = 'pointer';
-    trigger.style.minHeight = '48px';
-    trigger.style.boxSizing = 'border-box';
+    trigger.className = 'tng-select-display';
     
     const text = document.createElement('span');
-    text.className = 'tng-select-trigger-text';
+    text.className = 'tng-select-display-text';
     text.textContent = this.displayText();
-    text.style.flex = '1';
-    text.style.overflow = 'hidden';
-    text.style.textOverflow = 'ellipsis';
-    text.style.whiteSpace = 'nowrap';
     
-    const arrow = document.createElement('span');
-    arrow.innerHTML = '&#9662;'; // Down arrow
-    arrow.style.marginLeft = '0.5rem';
+    const arrow = document.createElement('i');
+    arrow.className = 'fa fa-chevron-down tng-select-arrow';
     
     trigger.appendChild(text);
     trigger.appendChild(arrow);
     
     trigger.addEventListener('click', (e) => {
+      if (this.isDisabled()) return;
       e.preventDefault();
       e.stopPropagation();
       this.togglePanel();

@@ -32,6 +32,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 48px;
+  font-family: var(--tng-font-family, 'Inter', sans-serif);
 }
 
 .tng-select-display:hover:not(.disabled) {
@@ -44,7 +45,8 @@
   background: var(--tng-background, #fafafa);
 }
 
-.tng-select-wrapper.tng-select-open .tng-select-display {
+.tng-select-wrapper.tng-select-open .tng-select-display,
+.tng-select-display.tng-select-open {
   border-color: var(--tng-primary, #00f2ff);
   border-width: 2px;
   padding: calc(0.75rem - 1px) calc(1rem - 1px);
@@ -70,7 +72,8 @@
   font-size: 0.8rem;
 }
 
-.tng-select-wrapper.tng-select-open .tng-select-arrow {
+.tng-select-wrapper.tng-select-open .tng-select-arrow,
+.tng-select-display.tng-select-open .tng-select-arrow {
   transform: rotate(180deg);
 }
 

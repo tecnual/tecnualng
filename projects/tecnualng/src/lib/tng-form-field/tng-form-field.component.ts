@@ -1,6 +1,7 @@
 import { Component, contentChild, input, computed, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TngInputDirective } from '../tng-input/tng-input.directive';
+import { TngTextareaDirective } from '../tng-textarea/tng-textarea.directive';
 
 @Component({
   selector: 'tng-form-field',
@@ -13,11 +14,22 @@ import { TngInputDirective } from '../tng-input/tng-input.directive';
 export class TngFormFieldComponent {
   label = input<string>('');
   
-  // Query for the input directive inside this component
+  // Query for the input or textarea directive inside this component
   inputDirective = contentChild(TngInputDirective);
+  textareaDirective = contentChild(TngTextareaDirective);
 
-  // Computed states based on the input directive
-  isFocused = computed(() => this.inputDirective()?.focused() ?? false);
-  hasValue = computed(() => this.inputDirective()?.hasValue() ?? false);
-  isDisabled = computed(() => this.inputDirective()?.disabled() ?? false);
+  // Computed states based on the input/textarea directive
+  activeDirective = computed(() => this.inputDirective() || this.textareaDirective());
+  
+  isFocused = computed(() => this.activeDirective()?.focused() ?? false);
+  hasValue = computed(() => this.activeDirective()?.hasValue() ?? false);
+  isDisabled = computed(() => this.activeDirective()?.disabled() ?? false);
+
+  // Character count logic
+  maxLength = computed(() => this.textareaDirective()?.maxLength());
+  currentLength = computed(() => this.textareaDirective()?.valueLength() ?? 0);
+  showCounter = computed(() => this.maxLength() !== undefined);
+
+  // Style helper
+  hasTextarea = computed(() => !!this.textareaDirective());
 }

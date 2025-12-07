@@ -1,0 +1,130 @@
+    .page-container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--tng-text, #333);
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+      color: var(--tng-text-secondary, #666);
+      margin-bottom: 2rem;
+    }
+    
+    .demo-section {
+      margin-bottom: 3rem;
+    }
+    
+    .demo-section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--tng-text, #333);
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .values-display {
+      padding: 1.5rem;
+      background: var(--tng-background, #fafafa);
+      border-radius: var(--tng-border-radius, 4px);
+      border: 1px solid var(--tng-border, #e0e0e0);
+    }
+    
+    .values-display p {
+      margin: 0.5rem 0;
+      color: var(--tng-text, #333);
+      font-size: 0.9rem;
+    }
+    
+    .values-display strong {
+      color: var(--tng-primary, #6200ee);
+    }
+    
+    .values-display hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid var(--tng-border, #e0e0e0);
+    }
+    
+    .section-description {
+      font-size: 0.9rem;
+      color: var(--tng-text-secondary, #666);
+      margin-bottom: 1rem;
+    }
+    
+    code {
+      background: var(--tng-background, #fafafa);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      color: var(--tng-primary, #6200ee);
+    }
+    
+    /* Checkbox and Radio Styles */
+    .checkbox-demo,
+    .radio-demo {
+      padding: 1.5rem;
+      background: var(--tng-surface, #ffffff);
+      border-radius: var(--tng-border-radius, 4px);
+      border: 1px solid var(--tng-border, #e0e0e0);
+      margin-bottom: 1.5rem;
+    }
+    
+    .checkbox-group,
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .radio-group:last-child {
+      margin-bottom: 0;
+    }
+    
+    .radio-group h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--tng-text, #333);
+      margin-bottom: 0.75rem;
+    }
+    
+    .checkbox-label,
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      padding: 0.5rem;
+      border-radius: var(--tng-border-radius, 4px);
+    }
+    
+    .checkbox-label:hover:not(.disabled),
+    .radio-label:hover:not(.disabled) {
+      background: var(--tng-background, #fafafa);
+    }
+    
+    .checkbox-label.disabled,
+    .radio-label.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .checkbox-label span,
+    .radio-label span {
+      color: var(--tng-text, #333);
+      font-size: 0.95rem;
+    }
