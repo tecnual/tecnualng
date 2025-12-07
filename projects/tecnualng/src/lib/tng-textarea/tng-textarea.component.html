@@ -1,0 +1,13 @@
+<tng-form-field [label]="label()">
+  <textarea
+    tngTextarea
+    [id]="id()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    [disabled]="disabled()"
+    [maxLength]="maxLength()"
+    [required]="required()"
+    (input)="onInput($event)"
+    (blur)="onBlur()">
+  </textarea>
+</tng-form-field>

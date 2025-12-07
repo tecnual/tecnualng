@@ -1,4 +1,4 @@
-import { Component, input, model, ChangeDetectionStrategy, computed, forwardRef, effect, signal, viewChild } from '@angular/core';
+import { Component, input, model, ChangeDetectionStrategy, computed, forwardRef, effect, signal, viewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TngSelectDirective, SelectOption } from './tng-select.directive';
@@ -15,6 +15,7 @@ import { TngSelectDirective, SelectOption } from './tng-select.directive';
     }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './tng-select.component.html',
   styleUrl: './tng-select.component.scss'
 })

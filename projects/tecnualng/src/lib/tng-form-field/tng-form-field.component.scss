@@ -9,7 +9,8 @@
 .tng-input-container {
   position: relative;
   border-radius: var(--tng-border-radius, 4px);
-  padding: 0 16px;
+  // Removed padding from container to let textarea/input fill width (for resize handle)
+  padding: 0; 
   min-height: 48px;
   display: flex;
   align-items: center;
@@ -59,6 +60,21 @@
       background-color: var(--tng-background, #fafafa);
     }
   }
+
+  // Textarea specific overrides
+  &.tng-form-field-type-textarea {
+    align-items: flex-start; // Align top for textarea
+    height: auto;
+
+    .tng-label {
+      top: 24px; // Initial position (roughly aligns with padded text)
+    }
+
+    &.focused .tng-label,
+    &.has-value .tng-label {
+      transform: translateY(-24px) scale(0.75);
+    }
+  }
 }
 
 .tng-fieldset {
@@ -66,9 +82,9 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: 5px;
+  bottom: 0px; // Fix: should cover full height, including textarea potential bottom resize
   margin: 0;
-  padding: 0 12px;
+  padding: 0 12px; // This padding aligns the legend with content
   border: 1px solid var(--tng-border, #999);
   border-radius: var(--tng-border-radius, 4px);
   pointer-events: none;
@@ -89,7 +105,7 @@
   span {
     padding: 0 2px;
     visibility: visible; // The text inside is what creates the width
-    opacity: 0; // But we don't want to see it, just use it for spacing
+    opacity: 0; 
   }
 }
 
@@ -105,23 +121,27 @@
   transform-origin: left top;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
   z-index: 1;
+  width: calc(100% - 32px); // Prevent label from overflowing
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-input.tng-input-field, textarea.tng-input-field {
+input.tng-input-field, textarea.tng-input-field, textarea.tng-textarea-field {
   display: block;
   width: 100%;
   border: none;
   background: none;
-  padding: 0;
+  padding: 0 16px; // Added horizontal padding here instead of container
   margin: 0;
   font-size: 16px;
   color: var(--tng-text, #333);
   outline: none;
-  height: 100%;
   min-height: 48px;
   line-height: normal;
   z-index: 1;
   font-family: inherit;
+  box-sizing: border-box; // Ensure padding is included in width
 
   &::placeholder {
     color: transparent;
@@ -131,4 +151,31 @@ input.tng-input-field, textarea.tng-input-field {
   &:focus::placeholder {
     color: #aaa;
   }
+}
+
+textarea.tng-textarea-field {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  resize: vertical;
+  height: auto;
+  line-height: 1.5;
+  // Ensure resize handle is visible and not hidden by container overflow
+  // Container usually doesn't need overflow hidden, but if it had it...
+}
+
+.tng-form-field-subscript-wrapper {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.tng-form-field-spacer {
+  flex: 1 1 auto;
+}
+
+.tng-form-field-hint {
+  color: var(--tng-text-secondary, #666);
+  text-align: right;
 }

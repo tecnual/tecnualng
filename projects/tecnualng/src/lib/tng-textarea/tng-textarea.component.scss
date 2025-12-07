@@ -1,0 +1,9 @@
+@use "sass:color";
+
+// Most styles are now handled by TngFormFieldComponent.
+// We only need to ensure specific textarea overrides if needed,
+// but general form field behavior is inherited.
+
+:host {
+  display: block;
+}

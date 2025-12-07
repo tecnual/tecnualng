@@ -1,0 +1,207 @@
+
+    <div class="page-container">
+      <h1>Input Component</h1>
+      <p class="subtitle">Material Design inspired text input with floating labels</p>
+      
+      <div class="demo-section">
+        <h2>Basic Inputs</h2>
+        <div class="demo-grid">
+          <tng-input
+            label="Username"
+            placeholder="Enter your username"
+            [ngModel]="textValue()"
+            (ngModelChange)="textValue.set($event)"
+          ></tng-input>
+          
+          <tng-input
+            label="Email"
+            type="email"
+            placeholder="your@email.com"
+            [ngModel]="emailValue()"
+            (ngModelChange)="emailValue.set($event)"
+          ></tng-input>
+        </div>
+        
+        <app-code-example [tabs]="basicInputCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Number Input</h2>
+        <div class="demo-grid">
+          <tng-input
+            label="Age"
+            type="number"
+            placeholder="Enter your age"
+            [ngModel]="numberValue()"
+            (ngModelChange)="numberValue.set($event)"
+          ></tng-input>
+        </div>
+        
+        <app-code-example [tabs]="numberInputCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Password Input</h2>
+        <div class="demo-grid">
+          <tng-input
+            label="Password"
+            type="password"
+            placeholder="Enter password"
+            [ngModel]="passwordValue()"
+            (ngModelChange)="passwordValue.set($event)"
+          ></tng-input>
+        </div>
+        
+        <app-code-example [tabs]="passwordInputCode"></app-code-example>
+      </div>
+
+      <div class="demo-section">
+        <h2>Textarea Input</h2>
+        <p class="section-description">Multi-line text input with auto-resize and character count</p>
+        <div class="demo-grid">
+          <tng-textarea
+            label="Bio (Component)"
+            placeholder="Tell us about yourself"
+            [maxLength]="100"
+            [ngModel]="textareaValue()"
+            (ngModelChange)="textareaValue.set($event)"
+          ></tng-textarea>
+
+          <tng-form-field label="Description (Directive)">
+            <textarea
+              tngTextarea
+              [maxLength]="200"
+              placeholder="Enter a detailed description"
+              [(ngModel)]="textareaDirectiveValue"
+            ></textarea>
+          </tng-form-field>
+        </div>
+        
+        <app-code-example [tabs]="textareaInputCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Directive Usage (New!)</h2>
+        <p class="section-description">Use the <code>tngInput</code> directive on native HTML input elements with <code>tng-form-field</code> wrapper</p>
+        <div class="demo-grid">
+          <tng-form-field label="Full Name">
+            <input tngInput 
+                   placeholder="Enter your full name"
+                   [(ngModel)]="directiveValue1">
+          </tng-form-field>
+          
+          <tng-form-field label="Phone Number">
+            <input tngInput 
+                   type="tel"
+                   placeholder="+1 (555) 000-0000"
+                   [(ngModel)]="directiveValue2">
+          </tng-form-field>
+        </div>
+        
+        <app-code-example [tabs]="directiveInputCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Checkbox Inputs</h2>
+        <p class="section-description">Modern checkbox styling with smooth animations and theme integration</p>
+        <div class="checkbox-demo">
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" tngInput [(ngModel)]="checkbox1">
+              <span>Accept terms and conditions</span>
+            </label>
+            
+            <label class="checkbox-label">
+              <input type="checkbox" tngInput [(ngModel)]="checkbox2">
+              <span>Subscribe to newsletter</span>
+            </label>
+            
+            <label class="checkbox-label">
+              <input type="checkbox" tngInput [(ngModel)]="checkbox3" [checked]="true">
+              <span>Enable notifications (checked by default)</span>
+            </label>
+            
+            <label class="checkbox-label disabled">
+              <input type="checkbox" tngInput [disabled]="true">
+              <span>Disabled option</span>
+            </label>
+            
+            <label class="checkbox-label disabled">
+              <input type="checkbox" tngInput [disabled]="true" [checked]="true">
+              <span>Disabled and checked</span>
+            </label>
+          </div>
+        </div>
+        
+        <app-code-example [tabs]="checkboxCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Radio Inputs</h2>
+        <p class="section-description">Elegant radio button styling with ripple effects</p>
+        <div class="radio-demo">
+          <div class="radio-group">
+            <h3>Select your preferred theme:</h3>
+            <label class="radio-label">
+              <input type="radio" name="theme" value="light" tngInput [(ngModel)]="selectedTheme">
+              <span>Light Theme</span>
+            </label>
+            
+            <label class="radio-label">
+              <input type="radio" name="theme" value="dark" tngInput [(ngModel)]="selectedTheme">
+              <span>Dark Theme</span>
+            </label>
+            
+            <label class="radio-label">
+              <input type="radio" name="theme" value="auto" tngInput [(ngModel)]="selectedTheme" [checked]="true">
+              <span>Auto (System Default)</span>
+            </label>
+          </div>
+          
+          <div class="radio-group">
+            <h3>Choose your plan:</h3>
+            <label class="radio-label">
+              <input type="radio" name="plan" value="free" tngInput [(ngModel)]="selectedPlan">
+              <span>Free Plan</span>
+            </label>
+            
+            <label class="radio-label">
+              <input type="radio" name="plan" value="pro" tngInput [(ngModel)]="selectedPlan">
+              <span>Pro Plan ($9.99/month)</span>
+            </label>
+            
+            <label class="radio-label">
+              <input type="radio" name="plan" value="enterprise" tngInput [(ngModel)]="selectedPlan">
+              <span>Enterprise Plan (Contact us)</span>
+            </label>
+            
+            <label class="radio-label disabled">
+              <input type="radio" name="plan" value="disabled" tngInput [disabled]="true">
+              <span>Disabled option</span>
+            </label>
+          </div>
+        </div>
+        
+        <app-code-example [tabs]="radioCode"></app-code-example>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Values</h2>
+        <div class="values-display">
+          <p><strong>Text:</strong> {{ textValue() || '(empty)' }}</p>
+          <p><strong>Email:</strong> {{ emailValue() || '(empty)' }}</p>
+          <p><strong>Number:</strong> {{ numberValue() }}</p>
+          <p><strong>Password:</strong> {{ passwordValue() ? '••••••' : '(empty)' }}</p>
+          <p><strong>Textarea (Component):</strong> {{ textareaValue() || '(empty)' }}</p>
+          <p><strong>Textarea (Directive):</strong> {{ textareaDirectiveValue || '(empty)' }}</p>
+          <p><strong>Full Name (directive):</strong> {{ directiveValue1 || '(empty)' }}</p>
+          <p><strong>Phone (directive):</strong> {{ directiveValue2 || '(empty)' }}</p>
+          <hr>
+          <p><strong>Checkbox 1:</strong> {{ checkbox1 }}</p>
+          <p><strong>Checkbox 2:</strong> {{ checkbox2 }}</p>
+          <p><strong>Checkbox 3:</strong> {{ checkbox3 }}</p>
+          <p><strong>Selected Theme:</strong> {{ selectedTheme || '(none)' }}</p>
+          <p><strong>Selected Plan:</strong> {{ selectedPlan || '(none)' }}</p>
+        </div>
+      </div>
+    </div>

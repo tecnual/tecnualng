@@ -1,10 +1,17 @@
 <div class="tng-input-container" 
      [class.focused]="isFocused()" 
      [class.has-value]="hasValue()" 
-     [class.disabled]="isDisabled()">
+     [class.disabled]="isDisabled()"
+     [class.tng-form-field-type-textarea]="hasTextarea()">
   <fieldset class="tng-fieldset" aria-hidden="true">
     <legend class="tng-legend"><span>{{ label() }}</span></legend>
   </fieldset>
   <label class="tng-label">{{ label() }}</label>
   <ng-content></ng-content>
+</div>
+<div class="tng-form-field-subscript-wrapper" *ngIf="showCounter()">
+  <div class="tng-form-field-spacer"></div>
+  <div class="tng-form-field-hint">
+    {{ currentLength() }} / {{ maxLength() }}
+  </div>
 </div>
