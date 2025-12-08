@@ -1,0 +1,36 @@
+@mixin tng-theme-futuristic-light {
+  // Colors - Neon accents on light background
+  --tng-primary: #00c2cc; // Slightly darker cyan for visibility on light
+  --tng-primary-contrast: #ffffff;
+  --tng-secondary: #9c27b0; // Purple
+  --tng-secondary-contrast: #ffffff;
+  
+  // Glassmorphism surface
+  --tng-surface: #ffffffcc; // White with transparency
+  
+  // Light background
+  --tng-background: #f0f2f5;
+  
+  // Text colors
+  --tng-text: #1a1a2e; // Dark blue-gray
+  --tng-text-secondary: #606070;
+  
+  // Border with glassmorphism
+  --tng-border: rgba(0, 0, 0, 0.1);
+  
+  // Status colors with neon effect
+  --tng-error: #ff3366;
+  --tng-warning: #ffaa00;
+  --tng-success: #00c853; // Darker green for visibility
+
+  // Shadows with neon glow - muted for light theme
+  --tng-shadow-sm: 0 4px 15px rgba(0, 194, 204, 0.15);
+  --tng-shadow-md: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  
+  // Additional neon colors for variety
+  --tng-neon-cyan: #00c2cc;
+  --tng-neon-purple: #9c27b0;
+  --tng-neon-green: #00c853;
+  --tng-neon-pink: #e91e63;
+  --tng-neon-orange: #ff9800;
+}

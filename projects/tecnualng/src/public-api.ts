@@ -21,3 +21,4 @@ export * from './lib/tng-expansion-panel/tng-expansion-panel.component';
 export * from './lib/tng-menu';
 export * from './lib/tng-sidebar/tng-sidebar.component';
 export * from './lib/tng-select';
+export * from './lib/tng-slider/tng-slider.component';

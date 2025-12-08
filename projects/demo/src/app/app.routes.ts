@@ -77,6 +77,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/select-demo/select-demo.component').then(m => m.SelectDemoComponent)
   },
   {
+    path: 'slider',
+    loadComponent: () => import('./pages/slider-demo/slider-demo.component').then(m => m.SliderDemoComponent)
+  },
+  {
     path: 'empty',
     component: Empty,
   },

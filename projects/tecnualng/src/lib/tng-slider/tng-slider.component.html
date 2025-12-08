@@ -1,0 +1,27 @@
+<div 
+  class="tng-slider-container" 
+  [class.disabled]="disabled()"
+  [class.dragging]="isDragging()"
+  [class.vertical]="orientation() === 'vertical'">
+  
+  @if (label()) {
+    <label class="tng-slider-label">{{ label() }}</label>
+  }
+
+  <div class="tng-slider-wrapper">
+    <div class="tng-slider-track" #track>
+      <div 
+        class="tng-slider-fill" 
+        [style.width.%]="orientation() === 'horizontal' ? percentage() : 100"
+        [style.height.%]="orientation() === 'vertical' ? percentage() : 100">
+      </div>
+      <div 
+        class="tng-slider-thumb" 
+        [style.left.%]="orientation() === 'horizontal' ? percentage() : 50"
+        [style.bottom.%]="orientation() === 'vertical' ? percentage() : undefined">
+        <div class="tng-slider-thumb-knob"></div>
+        <div class="tng-slider-thumb-label">{{ value() }}</div>
+      </div>
+    </div>
+  </div>
+</div>

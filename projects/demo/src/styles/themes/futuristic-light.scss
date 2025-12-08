@@ -1,0 +1,7 @@
+@use '../../../../tecnualng/src/lib/styles/definitions/futuristic-light' as futuristic-light;
+
+body {
+  @include futuristic-light.tng-theme-futuristic-light;
+  background-color: var(--tng-background);
+  color: var(--tng-text);
+}

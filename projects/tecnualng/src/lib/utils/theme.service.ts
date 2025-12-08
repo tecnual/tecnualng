@@ -1,6 +1,6 @@
 import { Injectable, signal, effect } from '@angular/core';
 
-export type ThemeName = 'light' | 'dark' | 'ocean' | 'forest' | 'sunset' | 'royal' | 'monochrome' | 'aurora' | 'aurora-dark' | 'futuristic';
+export type ThemeName = 'light' | 'dark' | 'ocean' | 'forest' | 'sunset' | 'royal' | 'monochrome' | 'aurora' | 'aurora-dark' | 'futuristic' | 'futuristic-light';
 
 export interface Theme {
   name: ThemeName;
@@ -88,6 +88,13 @@ export class ThemeService {
       description: 'Neon cyberpunk vibes',
       primaryColor: '#00f2ff',
       isDark: true
+    },
+    {
+      name: 'futuristic-light',
+      displayName: 'Futuristic Light',
+      description: 'Clean cyberpunk aesthetic',
+      primaryColor: '#00c2cc',
+      isDark: false
     }
   ];
 

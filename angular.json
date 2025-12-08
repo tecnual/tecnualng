@@ -113,6 +113,11 @@
                 "input": "projects/demo/src/styles/themes/futuristic.scss",
                 "bundleName": "theme-futuristic",
                 "inject": false
+              },
+              {
+                "input": "projects/demo/src/styles/themes/futuristic-light.scss",
+                "bundleName": "theme-futuristic-light",
+                "inject": false
               }
             ]
           },
