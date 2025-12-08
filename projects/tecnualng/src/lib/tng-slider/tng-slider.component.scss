@@ -1,0 +1,214 @@
+
+@use '../styles/definitions/futuristic' as *;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.tng-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  user-select: none;
+  
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(1);
+  }
+}
+
+.tng-slider-label {
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tng-text);
+  margin-bottom: 0.25rem;
+}
+
+.tng-slider-wrapper {
+  position: relative;
+  height: 24px; // Hit area
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.tng-slider-track {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(var(--tng-primary), 0.2); // This might fail if var isn't rgb. 
+  // Wait, css vars usually hold hex or just color. rgba(var(...)) only works if var has numbers.
+  // The variables in futuristic are hex: --tng-primary: #00f2ff;
+  // So rgba(var(--tng-primary), 0.2) is INVALID CSS.
+  // I should use color-mix or opacity.
+  
+  background: color-mix(in srgb, var(--tng-primary), transparent 80%);
+  
+  border-radius: 3px;
+  backdrop-filter: blur(4px);
+  overflow: visible;
+  
+  // Glass effect for track
+  border: 1px solid color-mix(in srgb, var(--tng-primary), transparent 90%);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.tng-slider-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--tng-primary), var(--tng-secondary));
+  border-radius: 3px;
+  // Disable transition when dragging for instant responsiveness
+  transition: width 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  // Glowing effect
+  box-shadow: 0 0 10px color-mix(in srgb, var(--tng-primary), transparent 50%);
+}
+
+.tng-slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: left 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  &-knob {
+    width: 20px;
+    height: 20px;
+    background: var(--tng-surface);
+    border: 2px solid var(--tng-primary);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    
+    // Gradient border trick or inner glow
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: var(--tng-primary);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+  }
+  
+  &-label {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: color-mix(in srgb, var(--tng-surface), transparent 10%);
+    color: var(--tng-primary);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid color-mix(in srgb, var(--tng-primary), transparent 70%);
+    pointer-events: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
+    opacity: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    white-space: nowrap;
+  }
+}
+
+// Hover and Active States
+.tng-slider-container:hover .tng-slider-thumb-knob {
+  box-shadow: 0 0 15px color-mix(in srgb, var(--tng-primary), transparent 60%);
+}
+
+.tng-slider-container:hover .tng-slider-thumb-label,
+.tng-slider-container.dragging .tng-slider-thumb-label {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+.tng-slider-container.dragging {
+  .tng-slider-fill,
+  .tng-slider-thumb {
+    transition: none; // Disable transition for instant follow
+  }
+  
+  .tng-slider-thumb-knob {
+    transform: scale(1.1);
+    background: var(--tng-primary);
+    border-color: var(--tng-text);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--tng-primary), transparent 40%);
+    
+    &::after {
+      background: var(--tng-text);
+      opacity: 1;
+    }
+  }
+  
+  .tng-slider-track {
+    cursor: grabbing;
+  }
+}
+
+// Vertical Orientation
+.tng-slider-container.vertical {
+  height: 100%; // Take full height of parent
+  min-height: 150px; // Default min height
+  flex-direction: column; // Label on top
+  align-items: center; // Center slider horizontally
+
+  .tng-slider-wrapper {
+    width: 24px; // Hit area
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .tng-slider-track {
+    width: 6px;
+    height: 100%;
+  }
+
+  .tng-slider-fill {
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  .tng-slider-thumb {
+    top: auto;
+    left: 50%;
+    transform: translate(-50%, 50%); // Center exactly (50% down since bottom origin)
+    transition: bottom 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    &-label {
+        top: 50%;
+        left: 35px; // To the right
+        transform: translateY(-50%) scale(0);
+    }
+  }
+
+  &:hover .tng-slider-thumb-label,
+  &.dragging .tng-slider-thumb-label {
+    transform: translateY(-50%) scale(1);
+  }
+
+  &.dragging {
+    .tng-slider-fill,
+    .tng-slider-thumb {
+        transition: none;
+    }
+  }
+}
