@@ -1,72 +1,95 @@
 <div class="loader-demo">
-  <h2>TngLoader</h2>
-  <p>A configurable, accessible, and lightweight loader component animated purely with CSS.</p>
+  <div class="page-container">
+    <h1>TngLoader</h1>
+    <p class="subtitle">A configurable, accessible, and lightweight loader component animated purely with CSS.</p>
 
-  <div class="demo-grid">
     <!-- Spinner Variant -->
-    <tng-card>
-      <h3>Spinner (Default)</h3>
-      <div class="loader-showcase">
-        <tng-loader type="spinner" size="sm"></tng-loader>
-        <tng-loader type="spinner" size="md"></tng-loader>
-        <tng-loader type="spinner" size="lg"></tng-loader>
-        <tng-loader type="spinner" size="xl" color="accent"></tng-loader>
-      </div>
-      <p>Sizes: sm, md, lg, xl</p>
-    </tng-card>
+    <div class="demo-section">
+      <h2>Spinner Variant</h2>
+      <tng-card>
+        <h3>Spinner (Default)</h3>
+        <div class="loader-showcase">
+          <tng-loader type="spinner" size="sm"></tng-loader>
+          <tng-loader type="spinner" size="md"></tng-loader>
+          <tng-loader type="spinner" size="lg"></tng-loader>
+          <tng-loader type="spinner" size="xl" color="accent"></tng-loader>
+        </div>
+        <p>Sizes: sm, md, lg, xl</p>
+      </tng-card>
+      <app-code-example [tabs]="spinnerCode"></app-code-example>
+    </div>
 
     <!-- Bar Variant -->
-    <tng-card>
-      <h3>Progress Bar</h3>
-      <div class="loader-showcase column">
-        <tng-loader type="bar" color="primary"></tng-loader>
-        <tng-loader type="bar" [progress]="progress()" color="accent"></tng-loader>
-        <button tngButton variant="outlined" (click)="startProgress()">Start Progress</button>
-      </div>
-    </tng-card>
+    <div class="demo-section">
+      <h2>Bar Variant</h2>
+      <tng-card>
+        <h3>Progress Bar</h3>
+        <div class="loader-showcase column">
+          <tng-loader type="bar" color="primary"></tng-loader>
+          <tng-loader type="bar" [progress]="progress()" color="accent"></tng-loader>
+          <button tngButton variant="outlined" (click)="startProgress()">Start Progress</button>
+        </div>
+      </tng-card>
+      <app-code-example [tabs]="barCode"></app-code-example>
+    </div>
 
     <!-- Dots Variant -->
-    <tng-card>
-      <h3>Dots</h3>
-      <div class="loader-showcase">
-        <tng-loader type="dots" size="sm" color="primary"></tng-loader>
-        <tng-loader type="dots" size="md" color="secondary"></tng-loader>
-        <tng-loader type="dots" size="lg" color="warn"></tng-loader>
-      </div>
-    </tng-card>
+    <div class="demo-section">
+      <h2>Dots Variant</h2>
+      <tng-card>
+        <h3>Dots</h3>
+        <div class="loader-showcase">
+          <tng-loader type="dots" size="sm" color="primary"></tng-loader>
+          <tng-loader type="dots" size="md" color="secondary"></tng-loader>
+          <tng-loader type="dots" size="lg" color="warn"></tng-loader>
+        </div>
+      </tng-card>
+      <app-code-example [tabs]="dotsCode"></app-code-example>
+    </div>
 
     <!-- Pulse Variant -->
-    <tng-card>
-      <h3>Pulse</h3>
-      <div class="loader-showcase">
-        <tng-loader type="pulse" size="md" color="accent"></tng-loader>
-        <tng-loader type="pulse" size="lg" color="primary"></tng-loader>
-      </div>
-    </tng-card>
+    <div class="demo-section">
+      <h2>Pulse Variant</h2>
+      <tng-card>
+        <h3>Pulse</h3>
+        <div class="loader-showcase">
+          <tng-loader type="pulse" size="md" color="accent"></tng-loader>
+          <tng-loader type="pulse" size="lg" color="primary"></tng-loader>
+        </div>
+      </tng-card>
+      <app-code-example [tabs]="pulseCode"></app-code-example>
+    </div>
 
     <!-- With Label -->
-    <tng-card>
-      <h3>With Label</h3>
-      <div class="loader-showcase">
-        <tng-loader type="spinner" label="Loading data..."></tng-loader>
-        <tng-loader type="dots" label="Please wait"></tng-loader>
-      </div>
-    </tng-card>
+    <div class="demo-section">
+      <h2>With Label</h2>
+      <tng-card>
+        <h3>With Label</h3>
+        <div class="loader-showcase">
+          <tng-loader type="spinner" label="Loading data..."></tng-loader>
+          <tng-loader type="dots" label="Please wait"></tng-loader>
+        </div>
+      </tng-card>
+      <app-code-example [tabs]="labelCode"></app-code-example>
+    </div>
 
-     <!-- Fullscreen Demo -->
-     <tng-card>
-      <h3>Fullscreen Overlay</h3>
-      <button tngButton variant="primary" (click)="toggleFullscreen()">
-        Show Fullscreen Loader (3s)
-      </button>
-    </tng-card>
+    <!-- Fullscreen Demo -->
+    <div class="demo-section">
+      <h2>Fullscreen Overlay</h2>
+      <tng-card>
+        <h3>Fullscreen Overlay</h3>
+        <button tngButton variant="primary" (click)="toggleFullscreen()">
+          Show Fullscreen Loader (3s)
+        </button>
+      </tng-card>
+    </div>
+
+    <tng-loader 
+      [fullscreen]="true" 
+      [hidden]="!fullscreenLoading()" 
+      type="spinner" 
+      label="FullScreen Loading..."
+      size="lg">
+    </tng-loader>
   </div>
-
-  <tng-loader 
-    [fullscreen]="true" 
-    [hidden]="!fullscreenLoading()" 
-    type="spinner" 
-    label="FullScreen Loading..."
-    size="lg">
-  </tng-loader>
 </div>
