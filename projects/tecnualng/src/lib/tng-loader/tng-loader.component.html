@@ -1,0 +1,38 @@
+@if (!hidden()) {
+  <div class="tng-loader__container" [style]="containerStyles()">
+    
+    @switch (type()) {
+      @case ('spinner') {
+        <svg class="tng-loader__spinner" viewBox="0 0 50 50">
+          <circle class="tng-loader__spinner-path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+        </svg>
+      }
+      
+      @case ('bar') {
+        <div class="tng-loader__bar">
+          <div class="tng-loader__bar-track"></div>
+          <div class="tng-loader__bar-fill" 
+               [style.width.%]="progress() || 0"
+               [class.tng-loader__bar-fill--indeterminate]="progress() === null">
+          </div>
+        </div>
+      }
+      
+      @case ('dots') {
+        <div class="tng-loader__dots">
+          <div class="tng-loader__dot"></div>
+          <div class="tng-loader__dot"></div>
+          <div class="tng-loader__dot"></div>
+        </div>
+      }
+      
+      @case ('pulse') {
+        <div class="tng-loader__pulse"></div>
+      }
+    }
+
+    @if (label()) {
+      <div class="tng-loader__label">{{ label() }}</div>
+    }
+  </div>
+}

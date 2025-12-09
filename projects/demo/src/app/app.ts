@@ -8,7 +8,8 @@ import {
   TngMenuComponent,
   TngMenuItemComponent,
   TngMenuGroupComponent, 
-  TngSidebarComponent
+  TngSidebarComponent,
+  TngNotificationContainerComponent
 } from 'tecnualng';
 
 @Component({
@@ -22,7 +23,8 @@ import {
     TngMenuComponent,
     TngMenuItemComponent,
     TngMenuGroupComponent,
-    TngSidebarComponent
+    TngSidebarComponent,
+    TngNotificationContainerComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

@@ -1,0 +1,53 @@
+<div class="notification-demo">
+  <div class="page-container">
+    <h1>TngNotification</h1>
+    <p class="subtitle">A modular notification system with toast messages, positioning, and clipboard support.</p>
+
+    <!-- Basic Types -->
+    <div class="demo-section">
+      <h2>Basic Usage</h2>
+      <tng-card>
+        <h3>Types</h3>
+        <div class="button-group">
+          <button tngButton variant="success" (click)="showSuccess()">Success</button>
+          <button tngButton variant="error" (click)="showError()">Error</button>
+          <button tngButton variant="warning" (click)="showWarning()">Warning</button>
+          <button tngButton variant="primary" (click)="showInfo()">Info</button>
+        </div>
+      </tng-card>
+
+      <app-code-example [tabs]="usageCode"></app-code-example>
+    </div>
+
+    <!-- Interactions -->
+    <div class="demo-section">
+      <h2>Clipboard Interaction</h2>
+      <tng-card>
+        <h3>With Clipboard Copy</h3>
+        <div class="button-group">
+          <button tngButton variant="outlined" (click)="showWithClipboard()">Show Notification with Copy Button</button>
+        </div>
+        <p class="hint">Click copy icon in toast to see tooltip.</p>
+      </tng-card>
+
+      <app-code-example [tabs]="clipboardCode"></app-code-example>
+    </div>
+
+    <!-- Positioning -->
+    <div class="demo-section">
+      <h2>Positioning</h2>
+      <tng-card>
+        <h3>Positions</h3>
+        <div class="position-grid">
+          <button tngButton variant="basic" (click)="showCustomPosition('top-left')">Top Left</button>
+          <button tngButton variant="basic" (click)="showCustomPosition('top-center')">Top Center</button>
+          <button tngButton variant="basic" (click)="showCustomPosition('top-right')">Top Right</button>
+          
+          <button tngButton variant="basic" (click)="showCustomPosition('bottom-left')">Bottom Left</button>
+          <button tngButton variant="basic" (click)="showCustomPosition('bottom-center')">Bottom Center</button>
+          <button tngButton variant="basic" (click)="showCustomPosition('bottom-right')">Bottom Right</button>
+        </div>
+      </tng-card>
+    </div>
+  </div>
+</div>

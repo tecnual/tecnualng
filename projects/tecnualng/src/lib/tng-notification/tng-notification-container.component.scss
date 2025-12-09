@@ -1,0 +1,67 @@
+.tng-notification-container {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none; /* Allows clicking through */
+  padding: 16px;
+  gap: 12px;
+  max-width: 100vw;
+  box-sizing: border-box;
+
+  /* Positions */
+  &--top-left {
+    top: 0;
+    left: 0;
+    align-items: flex-start;
+  }
+
+  &--top-right {
+    top: 0;
+    right: 0;
+    align-items: flex-end;
+  }
+
+  &--top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+
+  &--bottom-left {
+    bottom: 0;
+    left: 0;
+    flex-direction: column-reverse; /* Stack upwards */
+    align-items: flex-start;
+  }
+
+  &--bottom-right {
+    bottom: 0;
+    right: 0;
+    flex-direction: column-reverse; /* Stack upwards */
+    align-items: flex-end;
+  }
+
+  &--bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: column-reverse; /* Stack upwards */
+    align-items: center;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 12px;
+    
+    &--top-left, &--top-right, &--top-center,
+    &--bottom-left, &--bottom-right, &--bottom-center {
+        left: 0;
+        right: 0;
+        transform: none;
+        align-items: center;
+    }
+  }
+}

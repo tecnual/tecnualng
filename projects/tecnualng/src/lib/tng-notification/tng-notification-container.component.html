@@ -1,0 +1,35 @@
+<div class="tng-notification-container tng-notification-container--top-left">
+  @for (notification of topLeft(); track notification.id) {
+    <tng-toast [config]="notification"></tng-toast>
+  }
+</div>
+
+<div class="tng-notification-container tng-notification-container--top-right">
+  @for (notification of topRight(); track notification.id) {
+    <tng-toast [config]="notification"></tng-toast>
+  }
+</div>
+
+<div class="tng-notification-container tng-notification-container--top-center">
+  @for (notification of topCenter(); track notification.id) {
+    <tng-toast [config]="notification"></tng-toast>
+  }
+</div>
+
+<div class="tng-notification-container tng-notification-container--bottom-left">
+  @for (notification of bottomLeft(); track notification.id) {
+    <tng-toast [config]="notification"></tng-toast>
+  }
+</div>
+
+<div class="tng-notification-container tng-notification-container--bottom-right">
+  @for (notification of bottomRight(); track notification.id) {
+    <tng-toast [config]="notification"></tng-toast>
+  }
+</div>
+
+<div class="tng-notification-container tng-notification-container--bottom-center">
+  @for (notification of bottomCenter(); track notification.id) {
+    <tng-toast [config]="notification"></tng-toast>
+  }
+</div>
