@@ -1,6 +1,6 @@
 {
   "name": "tecnualng",
-  "version": "21.0.28",
+  "version": "21.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

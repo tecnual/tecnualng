@@ -1,12 +1,20 @@
 {
   "name": "tecnualng",
-  "version": "21.0.28",
+  "version": "21.1.0",
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "homepage": "https://tecnualng.tecnual.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tecnual/tecnualng.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tecnual/tecnualng/issues"
   },
   "sideEffects": false,
   "exports": {
