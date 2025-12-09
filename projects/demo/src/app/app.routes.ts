@@ -81,6 +81,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/slider-demo/slider-demo.component').then(m => m.SliderDemoComponent)
   },
   {
+    path: 'loader',
+    loadComponent: () => import('./pages/loader-demo/loader-demo.component').then(m => m.LoaderDemoComponent)
+  },
+  {
     path: 'empty',
     component: Empty,
   },

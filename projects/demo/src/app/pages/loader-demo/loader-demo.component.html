@@ -1,0 +1,72 @@
+<div class="loader-demo">
+  <h2>TngLoader</h2>
+  <p>A configurable, accessible, and lightweight loader component animated purely with CSS.</p>
+
+  <div class="demo-grid">
+    <!-- Spinner Variant -->
+    <tng-card>
+      <h3>Spinner (Default)</h3>
+      <div class="loader-showcase">
+        <tng-loader type="spinner" size="sm"></tng-loader>
+        <tng-loader type="spinner" size="md"></tng-loader>
+        <tng-loader type="spinner" size="lg"></tng-loader>
+        <tng-loader type="spinner" size="xl" color="accent"></tng-loader>
+      </div>
+      <p>Sizes: sm, md, lg, xl</p>
+    </tng-card>
+
+    <!-- Bar Variant -->
+    <tng-card>
+      <h3>Progress Bar</h3>
+      <div class="loader-showcase column">
+        <tng-loader type="bar" color="primary"></tng-loader>
+        <tng-loader type="bar" [progress]="progress()" color="accent"></tng-loader>
+        <button tngButton variant="outlined" (click)="startProgress()">Start Progress</button>
+      </div>
+    </tng-card>
+
+    <!-- Dots Variant -->
+    <tng-card>
+      <h3>Dots</h3>
+      <div class="loader-showcase">
+        <tng-loader type="dots" size="sm" color="primary"></tng-loader>
+        <tng-loader type="dots" size="md" color="secondary"></tng-loader>
+        <tng-loader type="dots" size="lg" color="warn"></tng-loader>
+      </div>
+    </tng-card>
+
+    <!-- Pulse Variant -->
+    <tng-card>
+      <h3>Pulse</h3>
+      <div class="loader-showcase">
+        <tng-loader type="pulse" size="md" color="accent"></tng-loader>
+        <tng-loader type="pulse" size="lg" color="primary"></tng-loader>
+      </div>
+    </tng-card>
+
+    <!-- With Label -->
+    <tng-card>
+      <h3>With Label</h3>
+      <div class="loader-showcase">
+        <tng-loader type="spinner" label="Loading data..."></tng-loader>
+        <tng-loader type="dots" label="Please wait"></tng-loader>
+      </div>
+    </tng-card>
+
+     <!-- Fullscreen Demo -->
+     <tng-card>
+      <h3>Fullscreen Overlay</h3>
+      <button tngButton variant="primary" (click)="toggleFullscreen()">
+        Show Fullscreen Loader (3s)
+      </button>
+    </tng-card>
+  </div>
+
+  <tng-loader 
+    [fullscreen]="true" 
+    [hidden]="!fullscreenLoading()" 
+    type="spinner" 
+    label="FullScreen Loading..."
+    size="lg">
+  </tng-loader>
+</div>
