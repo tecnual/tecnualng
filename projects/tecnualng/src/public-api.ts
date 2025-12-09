@@ -23,3 +23,7 @@ export * from './lib/tng-sidebar/tng-sidebar.component';
 export * from './lib/tng-select';
 export * from './lib/tng-slider/tng-slider.component';
 export * from './lib/tng-loader/tng-loader.component';
+export * from './lib/tng-notification/tng-notification.service';
+export * from './lib/tng-notification/tng-notification.types';
+export * from './lib/tng-notification/tng-notification-container.component';
+export * from './lib/tng-notification/tng-toast.component';

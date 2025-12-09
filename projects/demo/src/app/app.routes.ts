@@ -85,6 +85,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/loader-demo/loader-demo.component').then(m => m.LoaderDemoComponent)
   },
   {
+    path: 'notification',
+    loadComponent: () => import('./pages/notification-demo/notification-demo.component').then(m => m.NotificationDemoComponent)
+  },
+  {
     path: 'empty',
     component: Empty,
   },

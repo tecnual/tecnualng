@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TngLoaderComponent, TngToolbarComponent, TngCardComponent, TngButton } from 'tecnualng';
+import { TngLoaderComponent, TngCardComponent, TngButton } from 'tecnualng';
 
 @Component({
   selector: 'app-loader-demo',
@@ -8,7 +8,6 @@ import { TngLoaderComponent, TngToolbarComponent, TngCardComponent, TngButton } 
   imports: [
     CommonModule,
     TngLoaderComponent,
-    TngToolbarComponent,
     TngCardComponent,
     TngButton
   ],

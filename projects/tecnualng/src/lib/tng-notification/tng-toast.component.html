@@ -1,0 +1,37 @@
+<div 
+  class="tng-toast" 
+  [class]="'tng-toast--' + config().type"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()">
+  
+  <div class="tng-toast__icon">
+    <i [class]="iconClass"></i>
+  </div>
+
+  <div class="tng-toast__content">
+    <div class="tng-toast__message">{{ config().message }}</div>
+  </div>
+
+  <div class="tng-toast__actions">
+    @if (config().clipboard) {
+      <div class="tng-toast__action-wrapper">
+        <button class="tng-toast__action-btn" (click)="copyToClipboard()" aria-label="Copy to clipboard">
+          <i class="fa fa-copy"></i>
+        </button>
+        @if (showCopiedTooltip()) {
+          <div class="tng-toast__tooltip">¡Texto copiado al portapapeles!</div>
+        }
+      </div>
+    }
+    
+    @if (config().closable) {
+      <button class="tng-toast__close-btn" (click)="close()" aria-label="Close notification">
+        <i class="fa fa-times"></i>
+      </button>
+    }
+  </div>
+
+  @if (config().duration! > 0) {
+    <div class="tng-toast__progress" [style.animation-duration]="config().duration + 'ms'"></div>
+  }
+</div>

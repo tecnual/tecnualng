@@ -1,0 +1,52 @@
+.notification-demo {
+  .page-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--tng-text, #333);
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    color: var(--tng-text-secondary, #666);
+    margin-bottom: 2rem;
+  }
+  
+  .demo-section {
+    margin-bottom: 3rem;
+    
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--tng-text, #333);
+    }
+  }
+
+  .button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .position-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    
+    button {
+      width: 100%;
+    }
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    margin-top: 8px;
+    color: var(--tng-text-secondary);
+  }
+}

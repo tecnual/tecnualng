@@ -1,0 +1,188 @@
+.tng-toast {
+  position: relative;
+  display: flex;
+  align-items: center; /* Changed from flex-start to center for better vertical alignment */
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--tng-surface, white);
+  box-shadow: var(--tng-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  min-width: 300px;
+  max-width: 400px;
+  gap: 12px;
+  pointer-events: auto;
+  border-left: 4px solid transparent;
+  color: var(--tng-text, #333);
+  backdrop-filter: blur(10px); /* Enhance look for semi-transparent surfaces */
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  animation: tng-toast-fade-in 0.3s ease-out forwards;
+
+  &__icon {
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    display: flex; /* Ensure icon itself is centered if it's a flex container */
+    align-items: center;
+    /* Removed margin-top: 2px */
+  }
+
+  &__content {
+    flex: 1;
+    word-break: break-word;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 8px;
+  }
+
+  &__action-btn,
+  &__close-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: inherit;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    border-radius: 4px;
+
+    &:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  /* Variants */
+  &--success {
+    border-left-color: var(--tng-success, #2e7d32);
+    .tng-toast__icon { color: var(--tng-success, #2e7d32); }
+  }
+
+  &--error {
+    border-left-color: var(--tng-error, #d32f2f);
+    .tng-toast__icon { color: var(--tng-error, #d32f2f); }
+  }
+
+  &--warning {
+    border-left-color: var(--tng-warning, #ed6c02);
+    .tng-toast__icon { color: var(--tng-warning, #ed6c02); }
+  }
+
+  &--info {
+    border-left-color: var(--tng-info, #0288d1);
+    .tng-toast__icon { color: var(--tng-info, #0288d1); }
+  }
+
+  &--default {
+    border-left-color: var(--tng-separator, #e0e0e0);
+    .tng-toast__icon { color: var(--tng-text-secondary, #757575); }
+  }
+}
+
+@keyframes tng-toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.tng-toast {
+  &__action-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__tooltip {
+    position: absolute;
+    bottom: 100%; /* Position above the button */
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    animation: tng-tooltip-fade 0.3s ease forwards;
+    pointer-events: none;
+    margin-bottom: 8px;
+    z-index: 10;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -4px;
+      border-width: 4px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+  }
+
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: var(--tng-toast-color, #ccc); /* Default fallback */
+    width: 100%;
+    transform-origin: left;
+    animation: tng-toast-progress linear forwards;
+    border-bottom-left-radius: 8px; /* Match container radius */
+    border-bottom-right-radius: 8px; /* Match container radius? Maybe just keep it rectangular inside? No, container has radius. */
+    /* To prevent overflow if container has radius, we can overflow: hidden on container or radius here. */
+    /* Container has overflow:visible because of tooltip/box-shadow? No. */
+  }
+  
+  /* Applying color variables to progress bar based on variants */
+  &--success {
+    --tng-toast-color: var(--tng-success, #2e7d32);
+  }
+  &--error {
+    --tng-toast-color: var(--tng-error, #d32f2f);
+  }
+  &--warning {
+    --tng-toast-color: var(--tng-warning, #ed6c02);
+  }
+  &--info {
+    --tng-toast-color: var(--tng-info, #0288d1);
+  }
+  &--default {
+    --tng-toast-color: var(--tng-text-secondary, #757575);
+  }
+
+  /* Pause animation on hover */
+  &:hover .tng-toast__progress {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes tng-toast-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes tng-tooltip-fade {
+  from {
+    opacity: 0;
+    transform: translateX(50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(50%) translateY(0);
+  }
+}
