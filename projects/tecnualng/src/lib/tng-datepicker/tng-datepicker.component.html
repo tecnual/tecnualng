@@ -1,13 +1,19 @@
 <div class="tng-datepicker-container" [class.focused]="isOpen()" [class.has-value]="formattedValue" [class.disabled]="disabled()">
   <!-- Trigger Field (Reusing Input Style) -->
-  <div class="tng-input-trigger" (click)="toggleCalendar()">
+  <div class="tng-input-trigger" (click)="toggleCalendar($event)">
     <fieldset class="tng-fieldset" aria-hidden="true">
       <legend class="tng-legend"><span>{{ label() }}</span></legend>
     </fieldset>
     <label class="tng-label">{{ label() }}</label>
-    <div class="tng-input-display">
-      {{ formattedValue || (isOpen() ? placeholder() : '') }}
-    </div>
+    <input
+      type="text"
+      class="tng-input-display"
+      [value]="formattedValue || (isOpen() ? '' : '')"
+      [placeholder]="isOpen() ? placeholder() : ''"
+      [disabled]="disabled()"
+      (input)="onManualInput($event)"
+      (click)="toggleCalendar($event)"
+    />
     <i class="fa-solid fa-calendar tng-icon"></i>
   </div>
 

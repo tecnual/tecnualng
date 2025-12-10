@@ -148,13 +148,14 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
   });
 
   get formattedValue(): string {
+    const locale = this.locale();
     if (this.mode() === 'single') {
-      return this.singleValue ? this.singleValue.toLocaleDateString() : '';
+      return this.singleValue ? this.singleValue.toLocaleDateString(locale) : '';
     } else {
       if (this.rangeValue.start && this.rangeValue.end) {
-        return `${this.rangeValue.start.toLocaleDateString()} - ${this.rangeValue.end.toLocaleDateString()}`;
+        return `${this.rangeValue.start.toLocaleDateString(locale)} - ${this.rangeValue.end.toLocaleDateString(locale)}`;
       } else if (this.rangeValue.start) {
-        return `${this.rangeValue.start.toLocaleDateString()} - ...`;
+        return `${this.rangeValue.start.toLocaleDateString(locale)} - ...`;
       }
       return '';
     }
@@ -173,8 +174,18 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
     }
   }
 
-  toggleCalendar() {
+  toggleCalendar(event?: Event) {
     if (this.disabled()) return;
+    
+    // If clicking the input itself, ensure we don't close if already open
+    if (event && (event.target as HTMLElement).tagName === 'INPUT') {
+      if (!this.isOpen()) {
+        this.isOpen.set(true);
+        this.viewMode.set('day');
+      }
+      return;
+    }
+
     if (!this.isOpen()) {
        // Reset to day view when opening
        this.viewMode.set('day');
@@ -230,18 +241,20 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
     this.viewMode.set('month');
   }
 
-  selectDate(date: Date) {
+  selectDate(date: Date, closeCalendar = true) {
     if (this.isDisabled(date)) return;
 
     if (this.mode() === 'single') {
       this.singleValue = date;
+      this.currentViewDate.set(new Date(date)); // Sync view
       this.onChange(date);
-      this.isOpen.set(false);
+      if (closeCalendar) this.isOpen.set(false);
     } else {
       // Range logic
       if (!this.rangeValue.start || (this.rangeValue.start && this.rangeValue.end)) {
         // Start new range
         this.rangeValue = { start: date, end: null };
+        this.currentViewDate.set(new Date(date)); // Sync view
       } else {
         // Complete range
         if (date < this.rangeValue.start) {
@@ -250,8 +263,69 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
           this.rangeValue = { ...this.rangeValue, end: date };
         }
         this.onChange(this.rangeValue);
-        this.isOpen.set(false);
+        if (closeCalendar) this.isOpen.set(false);
       }
+    }
+  }
+
+  private parseDate(value: string): Date | null {
+    if (!value) return null;
+    
+    const locale = this.locale();
+    // Use Intl to determine the order of parts
+    const parts = new Intl.DateTimeFormat(locale).formatToParts(new Date(2000, 10, 25)); // Nov 25, 2000
+    // Parts will contain type: 'day', 'month', 'year', 'literal'
+    
+    const formatOrder: string[] = [];
+    parts.forEach(p => {
+        if (p.type === 'day' || p.type === 'month' || p.type === 'year') {
+            formatOrder.push(p.type);
+        }
+    });
+    
+    // Split input by non-digit characters
+    const dateParts = value.split(/\D+/).filter(part => part.trim() !== '').map(p => parseInt(p, 10));
+    
+    if (dateParts.length !== 3) {
+        // Fallback to standard parse if structure doesn't match
+        const d = new Date(value);
+        return isNaN(d.getTime()) ? null : d;
+    }
+    
+    let day: number | undefined;
+    let month: number | undefined;
+    let year: number | undefined;
+    
+    // Map input parts to Day/Month/Year based on locale order
+    for (let i = 0; i < 3; i++) {
+        const type = formatOrder[i];
+        const val = dateParts[i];
+        if (type === 'day') day = val;
+        if (type === 'month') month = val - 1; // JS months are 0-indexed
+        if (type === 'year') year = val;
+    }
+    
+    if (day === undefined || month === undefined || year === undefined) return null;
+
+    // Validate year length (handle 2-digit years if needed, but let's stick to 4 for now or simple logic)
+    if (year < 100) year += 2000; // Very basic 2-digit handling
+    
+    const d = new Date(year, month, day);
+    if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === day) {
+        return d;
+    }
+    return null;
+  }
+
+  onManualInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    if (!value) return; 
+
+    // Try localized parse first
+    let date = this.parseDate(value);
+    
+    if (date) {
+      this.selectDate(date, false);
     }
   }
 
