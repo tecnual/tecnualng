@@ -29,7 +29,7 @@
       @switch (viewMode()) {
         @case ('day') {
           <div class="tng-calendar-grid">
-            @for (day of daysOfWeek; track day) {
+            @for (day of daysOfWeek(); track day) {
               <div class="day-name">{{ day }}</div>
             }
             @for (date of calendarDays(); track date.getTime()) {
@@ -51,7 +51,7 @@
         }
         @case ('month') {
           <div class="tng-month-grid">
-            @for (month of monthNames; track $index) {
+            @for (month of monthNames(); track $index) {
               <div 
                 class="month-cell"
                 [class.current]="currentViewDate().getMonth() === $index"

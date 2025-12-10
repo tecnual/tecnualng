@@ -56,6 +56,38 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
         
         <app-code-example [tabs]="rangeDateCode"></app-code-example>
       </div>
+
+      <div class="demo-section">
+        <h2>Internationalization</h2>
+        <p>Support for locales and configurable start of the week.</p>
+        <div class="demo-grid">
+          <tng-datepicker
+            label="Spanish (es-ES) - Mon"
+            locale="es-ES"
+            placeholder="Starts on Monday"
+            [ngModel]="localeDate1()"
+            (ngModelChange)="localeDate1.set($event)"
+          ></tng-datepicker>
+          
+          <tng-datepicker
+            label="US (en-US) - Sun"
+            locale="en-US"
+            placeholder="Starts on Sunday"
+            [ngModel]="localeDate2()"
+            (ngModelChange)="localeDate2.set($event)"
+          ></tng-datepicker>
+
+          <tng-datepicker
+            label="Custom Start (Sunday)"
+            [firstDayOfWeek]="0"
+            placeholder="Forced Sunday Start"
+            [ngModel]="customStart()"
+            (ngModelChange)="customStart.set($event)"
+          ></tng-datepicker>
+        </div>
+        
+        <app-code-example [tabs]="intlDateCode"></app-code-example>
+      </div>
       
       <div class="demo-section">
         <h2>Selected Values</h2>
@@ -134,6 +166,11 @@ export class DatepickerDemoComponent {
   protected vacationRange = signal<{start: Date | null, end: Date | null}>({start: null, end: null});
   protected projectRange = signal<{start: Date | null, end: Date | null}>({start: null, end: null});
   
+  // Intl Demo Signals
+  protected localeDate1 = signal<Date | null>(null);
+  protected localeDate2 = signal<Date | null>(null);
+  protected customStart = signal<Date | null>(null);
+  
   protected singleDateCode: CodeTab[] = [
     {
       label: 'TypeScript',
@@ -193,6 +230,45 @@ export class ExampleComponent {
   [ngModel]="vacationRange()"
   (ngModelChange)="vacationRange.set($event)"
 ></tng-datepicker>`
+    }
+  ];
+
+  protected intlDateCode: CodeTab[] = [
+    {
+      label: 'HTML',
+      language: 'html',
+      code: `<!-- Spanish Locale (starts Monday) -->
+<tng-datepicker
+  label="Spanish (es-ES)"
+  locale="es-ES"
+  [ngModel]="date1"
+></tng-datepicker>
+
+<!-- US Locale (starts Sunday) -->
+<tng-datepicker
+  label="US (en-US)"
+  locale="en-US"
+  [ngModel]="date2"
+></tng-datepicker>
+
+<!-- Custom Start Day (0=Sun, 1=Mon, etc) -->
+<tng-datepicker
+  label="Custom Start (Sunday)"
+  [firstDayOfWeek]="0"
+  [ngModel]="date3"
+></tng-datepicker>`
+    },
+    {
+      label: 'TypeScript',
+      language: 'typescript',
+      code: `// ... imports
+
+@Component({...})
+export class ExampleComponent {
+  date1 = signal<Date | null>(null);
+  date2 = signal<Date | null>(null);
+  date3 = signal<Date | null>(null);
+}`
     }
   ];
 }

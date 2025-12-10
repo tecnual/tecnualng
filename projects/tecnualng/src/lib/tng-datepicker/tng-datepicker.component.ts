@@ -32,6 +32,9 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
   disabled = model<boolean>(false);
   id = input<string>(`tng-datepicker-${Math.random().toString(36).substr(2, 9)}`);
 
+  locale = input<string>((typeof navigator !== 'undefined' ? navigator.language : 'en-US'));
+  firstDayOfWeek = input<0 | 1 | 2 | 3 | 4 | 5 | 6 | null>(null); // 0 = Sunday, 1 = Monday, etc.
+
   isOpen = signal(false);
   currentViewDate = signal(new Date()); // The month we are looking at
   
@@ -46,16 +49,61 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef) {}
 
+  private getEffectiveFirstDayOfWeek(): number {
+    const definedDay = this.firstDayOfWeek();
+    if (definedDay !== null) return definedDay;
+    
+    // Try to determine from locale
+    try {
+      // @ts-ignore: weekInfo is a newer API, might need a shim or ignore
+      const weekInfo = (new Intl.Locale(this.locale()) as any).weekInfo;
+      if (weekInfo && typeof weekInfo.firstDay === 'number') {
+        return weekInfo.firstDay;
+      }
+    } catch (e) {
+      // Fallback
+    }
+    // Default fallback: US=0 (Sun), others usually 1 (Mon). Simplified logic:
+    const l = this.locale().toLowerCase();
+    if (l.includes('us') || l.includes('en-ca') || l.includes('zh')) return 0;
+    return 1;
+  }
+
   // Calendar Logic
-  readonly daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  readonly monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  daysOfWeek = computed(() => {
+    const firstDay = this.getEffectiveFirstDayOfWeek();
+    const days: string[] = [];
+    // Create a date that is definitely a valid day index to start iterating.
+    // 2024-01-07 is a Sunday. 
+    // We want to generate names: Sun, Mon, etc.
+    // Let's iterate 7 days starting from a known Sunday + offset
+    const baseDate = new Date(2024, 0, 7); // Jan 7, 2024 is Sunday
+    const formatter = new Intl.DateTimeFormat(this.locale(), { weekday: 'short' });
+
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(baseDate);
+        d.setDate(baseDate.getDate() + (firstDay + i));
+        // Remove dot usually found in some locales (e.g. es-ES "lun.") if desired or keep it.
+        // Let's keep it clean
+        days.push(formatter.format(d).replace('.', '')); 
+    }
+    return days;
+  });
+
+  monthNames = computed(() => {
+     const formatter = new Intl.DateTimeFormat(this.locale(), { month: 'long' });
+     const months: string[] = [];
+     for(let i=0; i<12; i++) {
+         const d = new Date(2024, i, 1);
+         months.push(formatter.format(d));
+     }
+     return months;
+  });
   
   calendarDays = computed(() => {
     const year = this.currentViewDate().getFullYear();
     const month = this.currentViewDate().getMonth();
+    const firstDayIndex = this.getEffectiveFirstDayOfWeek();
     
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
@@ -63,8 +111,14 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
     const days: Date[] = [];
     
     // Padding days from previous month
-    const startDay = firstDayOfMonth.getDay();
-    for (let i = startDay - 1; i >= 0; i--) {
+    // Calculate how many days to fallback:
+    // current day of week (0-6) - firstDayIndex
+    // if result < 0, add 7
+    let startDayOfWeek = firstDayOfMonth.getDay(); 
+    let daysToBacktrack = startDayOfWeek - firstDayIndex;
+    if (daysToBacktrack < 0) daysToBacktrack += 7;
+
+    for (let i = daysToBacktrack - 1; i >= 0; i--) {
       days.push(new Date(year, month, -i));
     }
     
@@ -73,8 +127,8 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
       days.push(new Date(year, month, i));
     }
     
-    // Padding days for next month (to fill 6 rows usually, or just enough to finish week)
-    const remaining = 42 - days.length; // 6 rows * 7 days
+    // Padding days for next month to fill complete rows (usually 6 rows total 42 days)
+    const remaining = 42 - days.length; 
     for (let i = 1; i <= remaining; i++) {
       days.push(new Date(year, month + 1, i));
     }
@@ -109,7 +163,7 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
   get headerLabel(): string {
     const d = this.currentViewDate();
     if (this.viewMode() === 'day') {
-      return d.toLocaleString('default', { month: 'long', year: 'numeric' });
+      return d.toLocaleString(this.locale(), { month: 'long', year: 'numeric' });
     } else if (this.viewMode() === 'month') {
       return d.getFullYear().toString();
     } else {
