@@ -149,6 +149,21 @@
   animation: fadeIn 0.2s ease;
   border: 1px solid var(--tng-border, #eee);
   color: var(--tng-text, #333);
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 350px;
+    margin-top: 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 100vmax rgba(0, 0, 0, 0.4); // Shadow + Backdrop
+    z-index: 10000; // High z-index for mobile modal
+    
+    // Ensure animation works with center transform
+    animation: fadeInMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
 
 @keyframes fadeIn {
@@ -159,6 +174,17 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInMobile {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
@@ -224,7 +250,7 @@
 }
 
 .day-cell {
-  height: 36px;
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -16,6 +16,7 @@
   "bugs": {
     "url": "https://github.com/tecnual/tecnualng/issues"
   },
+  "license": "Hippocratic-3.0",
   "sideEffects": false,
   "exports": {
     "./styles": {
