@@ -8,42 +8,74 @@
     <div class="tng-input-display">
       {{ formattedValue || (isOpen() ? placeholder() : '') }}
     </div>
-    <span class="material-icons tng-icon">calendar_today</span>
+    <i class="fa-solid fa-calendar tng-icon"></i>
   </div>
 
   <!-- Calendar Popup -->
   @if (isOpen()) {
     <div class="tng-calendar-popup">
       <div class="tng-calendar-header">
-        <button type="button" class="nav-btn" (click)="prevMonth($event)">
-          <span class="material-icons">chevron_left</span>
+        <button type="button" class="nav-btn" (click)="prev($event)">
+          <i class="fa-solid fa-chevron-left"></i>
         </button>
-        <span class="current-month">{{ currentMonthYear }}</span>
-        <button type="button" class="nav-btn" (click)="nextMonth($event)">
-          <span class="material-icons">chevron_right</span>
+        <button type="button" class="header-label-btn" (click)="onHeaderClick()">
+          {{ headerLabel }}
+        </button>
+        <button type="button" class="nav-btn" (click)="next($event)">
+          <i class="fa-solid fa-chevron-right"></i>
         </button>
       </div>
 
-      <div class="tng-calendar-grid">
-        @for (day of daysOfWeek; track day) {
-          <div class="day-name">{{ day }}</div>
-        }
-        @for (date of calendarDays(); track date.getTime()) {
-          <div
-            class="day-cell"
-            [class.not-current-month]="!isCurrentMonth(date)"
-            [class.today]="isToday(date)"
-            [class.selected]="isSelected(date)"
-            [class.in-range]="isInRange(date)"
-            [class.range-start]="mode() === 'range' && isSameDay(date, rangeValue.start)"
-            [class.range-end]="mode() === 'range' && isSameDay(date, rangeValue.end)"
-            [class.disabled]="isDisabled(date)"
-            (click)="selectDate(date)"
-          >
-            {{ date.getDate() }}
+      @switch (viewMode()) {
+        @case ('day') {
+          <div class="tng-calendar-grid">
+            @for (day of daysOfWeek; track day) {
+              <div class="day-name">{{ day }}</div>
+            }
+            @for (date of calendarDays(); track date.getTime()) {
+              <div
+                class="day-cell"
+                [class.not-current-month]="!isCurrentMonth(date)"
+                [class.today]="isToday(date)"
+                [class.selected]="isSelected(date)"
+                [class.in-range]="isInRange(date)"
+                [class.range-start]="mode() === 'range' && isSameDay(date, rangeValue.start)"
+                [class.range-end]="mode() === 'range' && isSameDay(date, rangeValue.end)"
+                [class.disabled]="isDisabled(date)"
+                (click)="selectDate(date)"
+              >
+                {{ date.getDate() }}
+              </div>
+            }
           </div>
         }
-      </div>
+        @case ('month') {
+          <div class="tng-month-grid">
+            @for (month of monthNames; track $index) {
+              <div 
+                class="month-cell"
+                [class.current]="currentViewDate().getMonth() === $index"
+                (click)="selectMonth($index)"
+              >
+                {{ month.substring(0, 3) }}
+              </div>
+            }
+          </div>
+        }
+        @case ('year') {
+          <div class="tng-year-grid">
+            @for (year of yearsList(); track year) {
+              <div 
+                class="year-cell"
+                [class.current]="currentViewDate().getFullYear() === year"
+                (click)="selectYear(year)"
+              >
+                {{ year }}
+              </div>
+            }
+          </div>
+        }
+      }
     </div>
   }
 </div>

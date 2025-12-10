@@ -1,5 +1,8 @@
 :host {
   display: block;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
 }
 
 .tng-select-panel {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostListener, forwardRef, signal, computed, input, model } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, HostListener, forwardRef, signal, computed, input, model, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { addYears } from '../utils/date-utils';
@@ -20,7 +20,8 @@ export interface DateRange {
       useExisting: forwardRef(() => TecnualDatepickerComponent),
       multi: true
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TecnualDatepickerComponent implements ControlValueAccessor {
   label = input('');
@@ -34,6 +35,8 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
   isOpen = signal(false);
   currentViewDate = signal(new Date()); // The month we are looking at
   
+  viewMode = signal<'day' | 'month' | 'year'>('day');
+
   // Value storage
   singleValue: Date | null = null;
   rangeValue: DateRange = { start: null, end: null };
@@ -45,6 +48,10 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
 
   // Calendar Logic
   readonly daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  readonly monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
   
   calendarDays = computed(() => {
     const year = this.currentViewDate().getFullYear();
@@ -75,6 +82,17 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
     return days;
   });
 
+  yearsList = computed(() => {
+    // Generate a 12-year grid centered somewhat around the current view date
+    const centerYear = this.currentViewDate().getFullYear();
+    const startYear = centerYear - 6;
+    const years: number[] = [];
+    for (let i = 0; i < 12; i++) {
+      years.push(startYear + i);
+    }
+    return years;
+  });
+
   get formattedValue(): string {
     if (this.mode() === 'single') {
       return this.singleValue ? this.singleValue.toLocaleDateString() : '';
@@ -88,30 +106,74 @@ export class TecnualDatepickerComponent implements ControlValueAccessor {
     }
   }
 
-  get currentMonthYear(): string {
-    return this.currentViewDate().toLocaleString('default', { month: 'long', year: 'numeric' });
+  get headerLabel(): string {
+    const d = this.currentViewDate();
+    if (this.viewMode() === 'day') {
+      return d.toLocaleString('default', { month: 'long', year: 'numeric' });
+    } else if (this.viewMode() === 'month') {
+      return d.getFullYear().toString();
+    } else {
+      // Year range
+      const years = this.yearsList();
+      return `${years[0]} - ${years[years.length - 1]}`;
+    }
   }
 
   toggleCalendar() {
     if (this.disabled()) return;
+    if (!this.isOpen()) {
+       // Reset to day view when opening
+       this.viewMode.set('day');
+    }
     this.isOpen.update(v => !v);
-    if (this.isOpen()) {
-      // Focus logic if needed
-    } else {
+    if (!this.isOpen()) {
       this.onTouched();
     }
   }
 
-  prevMonth(e: Event) {
-    e.stopPropagation();
-    const d = this.currentViewDate();
-    this.currentViewDate.set(new Date(d.getFullYear(), d.getMonth() - 1, 1));
+  onHeaderClick() {
+    // Drill up: Day -> Month -> Year
+    if (this.viewMode() === 'day') {
+      this.viewMode.set('month');
+    } else if (this.viewMode() === 'month') {
+      this.viewMode.set('year');
+    }
   }
 
-  nextMonth(e: Event) {
+  prev(e: Event) {
     e.stopPropagation();
     const d = this.currentViewDate();
-    this.currentViewDate.set(new Date(d.getFullYear(), d.getMonth() + 1, 1));
+    if (this.viewMode() === 'day') {
+      this.currentViewDate.set(new Date(d.getFullYear(), d.getMonth() - 1, 1));
+    } else if (this.viewMode() === 'month') {
+      this.currentViewDate.set(new Date(d.getFullYear() - 1, d.getMonth(), 1));
+    } else {
+      this.currentViewDate.set(new Date(d.getFullYear() - 12, d.getMonth(), 1));
+    }
+  }
+
+  next(e: Event) {
+    e.stopPropagation();
+    const d = this.currentViewDate();
+    if (this.viewMode() === 'day') {
+      this.currentViewDate.set(new Date(d.getFullYear(), d.getMonth() + 1, 1));
+    } else if (this.viewMode() === 'month') {
+      this.currentViewDate.set(new Date(d.getFullYear() + 1, d.getMonth(), 1));
+    } else {
+      this.currentViewDate.set(new Date(d.getFullYear() + 12, d.getMonth(), 1));
+    }
+  }
+  
+  selectMonth(monthIndex: number) {
+    const d = this.currentViewDate();
+    this.currentViewDate.set(new Date(d.getFullYear(), monthIndex, 1));
+    this.viewMode.set('day');
+  }
+
+  selectYear(year: number) {
+    const d = this.currentViewDate();
+    this.currentViewDate.set(new Date(year, d.getMonth(), 1));
+    this.viewMode.set('month');
   }
 
   selectDate(date: Date) {
