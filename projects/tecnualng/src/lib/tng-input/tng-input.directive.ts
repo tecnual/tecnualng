@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, signal, inject, computed, input, effect, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, signal, inject, computed, input, effect } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -14,7 +14,6 @@ import { NgControl } from '@angular/forms';
 })
 export class TngInputDirective {
   private el = inject(ElementRef<HTMLInputElement | HTMLTextAreaElement>);
-  private renderer = inject(Renderer2);
   public ngControl = inject(NgControl, { optional: true, self: true });
 
   // Inputs
@@ -45,12 +44,12 @@ export class TngInputDirective {
     // Initialize value on creation
     effect(() => {
       this.updateValue();
-    }, { allowSignalWrites: true });
+    });
 
     // Detect input type after view init
     effect(() => {
       this.detectInputType();
-    }, { allowSignalWrites: true });
+    });
   }
 
   @HostListener('focus')

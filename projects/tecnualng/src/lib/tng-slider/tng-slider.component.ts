@@ -66,7 +66,7 @@ export class TngSliderComponent implements ControlValueAccessor {
       if (val !== clamped) {
         this.value.set(clamped);
       }
-    }, { allowSignalWrites: true });
+    });
   }
 
   // CVA Implementation

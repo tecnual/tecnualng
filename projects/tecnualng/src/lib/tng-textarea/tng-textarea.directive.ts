@@ -40,7 +40,7 @@ export class TngTextareaDirective {
   constructor() {
     effect(() => {
       this.updateValue();
-    }, { allowSignalWrites: true });
+    });
   }
 
   @HostListener('focus')

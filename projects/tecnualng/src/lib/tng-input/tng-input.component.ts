@@ -1,10 +1,9 @@
-import { Component, Input, forwardRef, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef, input, model } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tng-input',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './tng-input.component.html',
   styleUrls: ['./tng-input.component.scss'],
@@ -14,7 +13,8 @@ import { CommonModule } from '@angular/common';
       useExisting: forwardRef(() => TecnualInputComponent),
       multi: true
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TecnualInputComponent implements ControlValueAccessor {
   label = input('');
