@@ -1,8 +1,10 @@
 @mixin tng-theme-futuristic {
   // Colors - Neon accents on dark background
   --tng-primary: #00f2ff;
+  --tng-primary-hover: #00f2ff44;
   --tng-primary-contrast: #000000;
   --tng-secondary: #bc13fe;
+  --tng-secondary-hover: #bc13fe44;
   --tng-secondary-contrast: #ffffff;
   
   // Glassmorphism surface
