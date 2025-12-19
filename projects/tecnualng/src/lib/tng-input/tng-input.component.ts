@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, forwardRef, input, model } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, inject, input, model, signal } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,16 +7,11 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, FormsModule],
   templateUrl: './tng-input.component.html',
   styleUrls: ['./tng-input.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TecnualInputComponent),
-      multi: true
-    }
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TecnualInputComponent implements ControlValueAccessor {
+  private ngControl = inject(NgControl, { optional: true, self: true });
+
   label = input('');
   type = input<'text' | 'number' | 'password' | 'email' | 'tel'>('text');
   placeholder = input('');
@@ -24,33 +19,40 @@ export class TecnualInputComponent implements ControlValueAccessor {
   disabled = model<boolean>(false);
   id = input<string>(`tng-input-${Math.random().toString(36).substr(2, 9)}`);
 
-  value: any = '';
-  isFocused: boolean = false;
+  value = signal<any>('');
+  isFocused = signal<boolean>(false);
+
+  hasValue = computed(() => {
+    const v = this.value();
+    return v !== null && v !== undefined && v !== '';
+  });
 
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  get hasValue(): boolean {
-    return this.value !== null && this.value !== undefined && this.value !== '';
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
 
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
-    this.value = input.value;
-    this.onChange(this.value);
+    this.value.set(input.value);
+    this.onChange(input.value);
   }
 
   onFocus(): void {
-    this.isFocused = true;
+    this.isFocused.set(true);
   }
 
   onBlur(): void {
-    this.isFocused = false;
+    this.isFocused.set(false);
     this.onTouched();
   }
 
   writeValue(value: any): void {
-    this.value = value;
+    this.value.set(value);
   }
 
   registerOnChange(fn: any): void {
@@ -62,6 +64,6 @@ export class TecnualInputComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled.update(() => isDisabled);
+    this.disabled.set(isDisabled);
   }
 }
