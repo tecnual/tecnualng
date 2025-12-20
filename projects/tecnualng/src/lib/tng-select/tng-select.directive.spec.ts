@@ -43,7 +43,7 @@ class TestHostComponent {
 })
 class TestReactiveFormComponent {
   enableMulti = false;
-  control = new FormControl(null);
+  control = new FormControl<any>(null);
 }
 
 describe('TngSelectDirective', () => {
@@ -290,10 +290,17 @@ describe('TngSelectDirective', () => {
 
       const select = reactiveFixture.nativeElement.querySelector('select');
       expect(select.value).toBe('b');
+
+      const directive = reactiveFixture.debugElement.query(
+        (el) => el.nativeElement === select
+      ).injector.get(TngSelectDirective);
+      expect(directive.displayText()).toBe('Option B');
     });
 
     it('should handle multi-select with FormControl', () => {
       reactiveComponent.enableMulti = true;
+      reactiveFixture.detectChanges(); // Propagate input change to directive
+
       reactiveComponent.control.setValue(['a', 'c']);
       reactiveFixture.detectChanges();
 
