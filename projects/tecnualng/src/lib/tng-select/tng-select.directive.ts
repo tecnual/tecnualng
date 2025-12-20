@@ -13,8 +13,12 @@ import {
   model,
   AfterViewInit,
   HostBinding,
-  booleanAttribute
+  booleanAttribute,
+  OnInit,
+  DestroyRef,
+  untracked
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
 import { TngSelectPanelComponent } from './tng-select-panel.component';
 
@@ -37,10 +41,11 @@ export interface SelectOption {
     '[attr.aria-multiselectable]': 'isMulti()'
   }
 })
-export class TngSelectDirective implements AfterViewInit, OnDestroy {
+export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
   private el = inject(ElementRef<HTMLSelectElement>);
   private viewContainerRef = inject(ViewContainerRef);
   public ngControl = inject(NgControl, { optional: true, self: true });
+  private destroyRef = inject(DestroyRef);
 
   // Inputs
   enableMulti = input<boolean>(false);
@@ -60,7 +65,13 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
   isOpen = signal(false);
   searchQuery = signal('');
   private _options = signal<SelectOption[]>([]);
-  private _selectedIndices = signal<number[]>([]);
+  private _selectedIndices = signal<number[]>([], { equal: (a, b) => {
+    if (a === b) return true;
+    if (a.length !== b.length) return false;
+    const sortedA = [...a].sort();
+    const sortedB = [...b].sort();
+    return sortedA.every((val, index) => val === sortedB[index]);
+  }});
 
   // Component reference for the panel
   private panelRef: ComponentRef<TngSelectPanelComponent> | null = null;
@@ -105,10 +116,24 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
   });
 
   constructor() {
-    // Sync selected values with model
+    // Sync selected values with model (Output)
     effect(() => {
       const selected = this.selectedOptions();
+      // Use untracked to avoid loop if selectedValues write triggers immediate read dependency? No.
       this.selectedValues.set(selected.map(opt => opt.value));
+    });
+
+    // Sync model with internal (Input)
+    effect(() => {
+        const values = this.selectedValues();
+        // Avoid infinite loop by checking if values actally represent a change
+        const currentSelected = untracked(() => this.selectedOptions());
+        const currentValues = currentSelected.map(o => o.value);
+        
+        // Simple equality check (value-based)
+        if (values.length !== currentValues.length || !values.every((v, i) => v == currentValues[i])) { // weak eq
+            this.updateSelectionFromValue(values);
+        }
     });
 
     // Update form control value
@@ -116,6 +141,7 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
       if (this.ngControl?.control) {
         const values = this.selectedValues();
         const newValue = this.isMulti() ? values : (values[0] ?? null);
+        // Only setValue if changed? internal control handles checks usually
         this.ngControl.control.setValue(newValue, { emitEvent: false });
       }
     });
@@ -143,6 +169,36 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
         }
       }
     });
+  }
+
+  ngOnInit() {
+    if (this.ngControl) {
+      this.ngControl.valueChanges?.pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe((val) => {
+        // Find indices matching value
+        this.updateSelectionFromValue(val);
+      });
+    }
+  }
+
+  private updateSelectionFromValue(value: any) {
+    const opts = this._options();
+    const indices: number[] = [];
+    
+    if (this.isMulti()) {
+      const valArray = Array.isArray(value) ? value : (value ? [value] : []);
+      valArray.forEach((v: any) => {
+        const idx = opts.findIndex(o => o.value == v); // weak equality for numbers/strings?
+        if (idx !== -1) indices.push(idx);
+      });
+    } else {
+      const idx = opts.findIndex(o => o.value == value);
+      if (idx !== -1) indices.push(idx);
+    }
+    
+    this._selectedIndices.set(indices);
+    this.updateNativeSelect(false);
   }
 
   ngAfterViewInit() {
@@ -392,7 +448,7 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
     this.updateNativeSelect();
   }
 
-  private updateNativeSelect() {
+  private updateNativeSelect(emitEvents = true) {
     const selectEl = this.el.nativeElement;
     const selectedIndices = this._selectedIndices();
     
@@ -407,11 +463,13 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy {
         selectEl.options[idx].selected = true;
       }
     });
-    
-    // Trigger change event
-    selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-    // Also trigger input event for some frameworks
-    selectEl.dispatchEvent(new Event('input', { bubbles: true }));
+
+    if (emitEvents) {
+      // Trigger change event
+      selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+      // Also trigger input event for some frameworks
+      selectEl.dispatchEvent(new Event('input', { bubbles: true }));
+    }
   }
 
   private onDocumentClick = (event: Event) => {

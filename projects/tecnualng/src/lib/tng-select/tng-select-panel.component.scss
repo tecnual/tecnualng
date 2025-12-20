@@ -38,6 +38,7 @@
   border-radius: var(--tng-border-radius, 4px);
   font-size: 0.9rem;
   color: var(--tng-text, #333);
+  background-color: var(--tng-surface, #ffffff);
   outline: none;
   transition: border-color 0.2s ease;
 }
