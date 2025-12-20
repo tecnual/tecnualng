@@ -1,6 +1,6 @@
 {
   "name": "tecnualng",
-  "version": "21.1.8",
+  "version": "21.1.9",
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0"
