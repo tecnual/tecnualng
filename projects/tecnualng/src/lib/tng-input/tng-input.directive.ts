@@ -1,4 +1,5 @@
-import { Directive, ElementRef, HostListener, signal, inject, computed, input, effect } from '@angular/core';
+import { Directive, ElementRef, HostListener, signal, inject, computed, input, effect, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -12,9 +13,10 @@ import { NgControl } from '@angular/forms';
     '[attr.placeholder]': 'computedPlaceholder()'
   }
 })
-export class TngInputDirective {
+export class TngInputDirective implements OnInit {
   private el = inject(ElementRef<HTMLInputElement | HTMLTextAreaElement>);
   public ngControl = inject(NgControl, { optional: true, self: true });
+  private destroyRef = inject(DestroyRef);
 
   // Inputs
   disabled = input<boolean>(false);
@@ -50,6 +52,16 @@ export class TngInputDirective {
     effect(() => {
       this.detectInputType();
     });
+  }
+
+  ngOnInit() {
+    if (this.ngControl) {
+      this.ngControl.valueChanges?.pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe((val) => {
+        this._value.set(val);
+      });
+    }
   }
 
   @HostListener('focus')
@@ -95,6 +107,7 @@ export class TngInputDirective {
   }
 
   private updateValue() {
-    this._value.set(this.el.nativeElement.value);
+    const val = this.el.nativeElement.value;
+    this._value.set(val);
   }
 }

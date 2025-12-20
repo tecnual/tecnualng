@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef, input, model, signal, computed, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, inject, input, model, signal, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TngFormFieldComponent } from '../tng-form-field/tng-form-field.component';
 import { TngTextareaDirective } from './tng-textarea.directive';
@@ -10,16 +10,11 @@ import { TngTextareaDirective } from './tng-textarea.directive';
   imports: [CommonModule, FormsModule, TngFormFieldComponent, TngTextareaDirective],
   templateUrl: './tng-textarea.component.html',
   styleUrls: ['./tng-textarea.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TngTextareaComponent),
-      multi: true
-    }
-  ],
   encapsulation: ViewEncapsulation.None
 })
 export class TngTextareaComponent implements ControlValueAccessor {
+  private ngControl = inject(NgControl, { optional: true, self: true });
+
   label = input('');
   placeholder = input('');
   required = input<boolean>(false);
@@ -31,6 +26,12 @@ export class TngTextareaComponent implements ControlValueAccessor {
   
   onChange: any = () => {};
   onTouched: any = () => {};
+
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   onInput(event: Event): void {
     const input = event.target as HTMLTextAreaElement;
@@ -55,6 +56,6 @@ export class TngTextareaComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled.update(() => isDisabled);
+    this.disabled.set(isDisabled);
   }
 }
