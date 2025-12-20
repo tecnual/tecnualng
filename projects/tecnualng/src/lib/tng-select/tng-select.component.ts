@@ -1,25 +1,20 @@
-import { Component, input, model, ChangeDetectionStrategy, computed, forwardRef, effect, signal, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, input, model, ChangeDetectionStrategy, computed, forwardRef, effect, signal, viewChild, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, ControlValueAccessor, NgControl } from '@angular/forms';
 import { TngSelectDirective, SelectOption } from './tng-select.directive';
 
 @Component({
   selector: 'tng-select',
   standalone: true,
   imports: [CommonModule, FormsModule, TngSelectDirective],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TngSelectComponent),
-      multi: true
-    }
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: './tng-select.component.html',
   styleUrl: './tng-select.component.scss'
 })
 export class TngSelectComponent implements ControlValueAccessor {
+  private ngControl = inject(NgControl, { optional: true, self: true });
+
   // Inputs
   label = input<string>('');
   options = input.required<SelectOption[]>();
@@ -61,17 +56,21 @@ export class TngSelectComponent implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   constructor() {
-    // Sync model changes to CVA
-    effect(() => {
-      const val = this.value();
-      // Avoid circular updates if possible, but for now just emit
-      if (this.enableMulti()) {
-        this.onChange(val);
-      } else {
-        this.onChange(val.length > 0 ? val[0] : null);
-      }
-      this.onTouched();
-    });
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  onSelectionChange(newValues: any[]) {
+    this.value.set(newValues);
+    
+    // Avoid circular updates if possible, but for now just emit
+    if (this.enableMulti()) {
+      this.onChange(newValues);
+    } else {
+      this.onChange(newValues.length > 0 ? newValues[0] : null);
+    }
+    this.onTouched();
   }
 
   onDisplayClick(event: Event) {

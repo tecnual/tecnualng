@@ -15,7 +15,8 @@
       [customTrigger]="true"
       [multiple]="enableMulti()"
       [triggerRef]="triggerDisplay"
-      [(selectedValues)]="value"
+      [selectedValues]="value()"
+      (selectedValuesChange)="onSelectionChange($event)"
       [disabled]="effectiveDisabled()"
       [attr.aria-label]="ariaLabel() || label()"
     >
