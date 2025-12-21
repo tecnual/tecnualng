@@ -1,7 +1,7 @@
 import { Component, signal, output, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SelectOption } from './tng-select.directive';
+import { SelectOption, PanelItem } from './tng-select.directive';
 
 @Component({
   selector: 'tng-select-panel',
@@ -13,7 +13,7 @@ import { SelectOption } from './tng-select.directive';
 })
 export class TngSelectPanelComponent {
   // Inputs
-  options = signal<SelectOption[]>([]);
+  items = signal<PanelItem[]>([]);
   selectedIndices = signal<number[]>([]);
   enableMulti = signal<boolean>(false);
   enableSearch = signal<boolean>(false);
@@ -30,12 +30,13 @@ export class TngSelectPanelComponent {
     this.searchQueryChanged.emit(input.value);
   }
 
-  isSelected(index: number): boolean {
+  isSelected(index: number | undefined): boolean {
+    if (index === undefined) return false;
     return this.selectedIndices().includes(index);
   }
 
-  onOptionClick(index: number, option: SelectOption) {
-    if (option.disabled) {
+  onOptionClick(index: number | undefined, option: SelectOption) {
+    if (index === undefined || option.disabled) {
       return;
     }
     this.optionSelected.emit(index);

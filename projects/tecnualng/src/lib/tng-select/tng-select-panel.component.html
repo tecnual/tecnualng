@@ -1,50 +1,54 @@
-<div class="tng-select-panel" 
-     role="listbox"
-     [attr.aria-multiselectable]="enableMulti()">
-  
+<div class="tng-select-panel" role="listbox" [attr.aria-multiselectable]="enableMulti()">
   @if (enableSearch()) {
-    <div class="tng-select-search">
-      <input 
-        type="text"
-        class="tng-select-search-input"
-        [value]="searchQuery()"
-        (input)="onSearchInput($event)"
-        placeholder="Search..."
-        aria-label="Search options"
-        (click)="$event.stopPropagation()"
-      />
-      <i class="fa fa-search tng-select-search-icon"></i>
-    </div>
+  <div class="tng-select-search">
+    <input
+      type="text"
+      class="tng-select-search-input"
+      [value]="searchQuery()"
+      (input)="onSearchInput($event)"
+      placeholder="Search..."
+      aria-label="Search options"
+      (click)="$event.stopPropagation()"
+    />
+    <i class="fa fa-search tng-select-search-icon"></i>
+  </div>
   }
-  
+
   <div class="tng-select-options" role="list">
-    @if (options().length === 0) {
-      <div class="tng-select-no-results">
-        No options found
-      </div>
-    }
-    
-    @for (option of options(); track $index) {
-      <div 
-        class="tng-select-option"
-        [class.selected]="isSelected($index)"
-        [class.disabled]="option.disabled"
-        role="option"
-        [attr.aria-selected]="isSelected($index)"
-        [attr.aria-disabled]="option.disabled"
-        (click)="onOptionClick($index, option)"
-      >
-        @if (enableMulti()) {
-          <input 
-            type="checkbox"
-            class="tng-select-checkbox"
-            [checked]="isSelected($index)"
-            [disabled]="option.disabled"
-            tabindex="-1"
-          />
-        }
-        <span class="tng-select-option-label">{{ option.label }}</span>
-      </div>
-    }
+    @if (items().length === 0) {
+    <div class="tng-select-no-results">No options found</div>
+    } @for (item of items(); track $index) { @if (item.type === 'header') {
+    <div class="tng-select-group-header" role="presentation">
+      {{ item.label }}
+    </div>
+    } @else {
+    <div
+      class="tng-select-option"
+      [class.tng-select-option-grouped]="item.option.group"
+      [class.selected]="isSelected(item.option.index)"
+      [class.disabled]="item.option.disabled"
+      role="option"
+      [attr.aria-selected]="isSelected(item.option.index)"
+      [attr.aria-disabled]="item.option.disabled"
+      (click)="onOptionClick(item.option.index, item.option)"
+    >
+      @if (enableMulti()) {
+      <input
+        type="checkbox"
+        class="tng-select-checkbox"
+        [checked]="isSelected(item.option.index)"
+        [disabled]="item.option.disabled"
+        tabindex="-1"
+      />
+      }
+      <!-- Prefer HTML content if available, otherwise label -->
+      <!-- We rely on directive parsing to set html. -->
+      @if (item.option.html) {
+      <span class="tng-select-option-label" [innerHTML]="item.option.html"></span>
+      } @else {
+      <span class="tng-select-option-label">{{ item.option.label }}</span>
+      }
+    </div>
+    } }
   </div>
 </div>
