@@ -230,9 +230,12 @@ describe('TngSelectDirective', () => {
       directive.searchQuery.set('option 1');
       fixture.detectChanges();
 
-      const filtered = directive.filteredOptions();
+      const filtered = directive.filteredItems();
       expect(filtered.length).toBe(1);
-      expect(filtered[0].label).toBe('Option 1');
+      expect(filtered[0].type).toBe('option');
+      if (filtered[0].type === 'option') {
+        expect(filtered[0].option.label).toBe('Option 1');
+      }
     });
 
     it('should be case-insensitive', () => {
@@ -243,7 +246,7 @@ describe('TngSelectDirective', () => {
       directive.searchQuery.set('OPTION');
       fixture.detectChanges();
 
-      expect(directive.filteredOptions().length).toBe(3);
+      expect(directive.filteredItems().length).toBe(3);
     });
 
     it('should reset search query when panel closes', () => {
@@ -309,6 +312,58 @@ describe('TngSelectDirective', () => {
       ).injector.get(TngSelectDirective);
 
       expect(directive.selectedValues()).toEqual(['a', 'c']);
+    });
+  });
+  });
+
+  describe('Grouping', () => {
+    it('should parse optgroups', () => {
+      // Create a select with optgroups manually since dynamic template is hard in test host
+      const hostFixture = TestBed.createComponent(TestHostComponent);
+      const hostComp = hostFixture.componentInstance;
+      const select = hostFixture.nativeElement.querySelector('select');
+      
+      // Clear existing
+      select.innerHTML = '';
+      
+      const group = document.createElement('optgroup');
+      group.label = 'Group A';
+      
+      const opt1 = document.createElement('option');
+      opt1.value = 'g1';
+      opt1.text = 'Grouped 1';
+      
+      group.appendChild(opt1);
+      select.appendChild(group);
+      
+      const opt2 = document.createElement('option');
+      opt2.value = 'u1';
+      opt2.text = 'Ungrouped';
+      select.appendChild(opt2);
+      
+      hostFixture.detectChanges();
+      
+      const directive = hostFixture.debugElement.query(
+        (el) => el.nativeElement === select
+      ).injector.get(TngSelectDirective);
+      
+      // Force reload options as MutationObserver specific behavior might rely on async
+      directive['loadOptionsFromSelect']();
+      
+      const opts = directive.options();
+      expect(opts.length).toBe(2);
+      expect(opts[0].group).toBe('Group A');
+      expect(opts[0].label).toBe('Grouped 1');
+      expect(opts[1].group).toBeUndefined();
+      
+      // Check Items structure
+      const items = directive.filteredItems();
+      // Should have Header, Option, Option
+      expect(items.length).toBe(3);
+      expect(items[0].type).toBe('header');
+      expect(items[0].label).toBe('Group A');
+      expect(items[1].type).toBe('option');
+      expect(items[2].type).toBe('option');
     });
   });
 });

@@ -116,6 +116,36 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
       </div>
 
       <div class="demo-section">
+        <h2>Groups & Projection</h2>
+        <p class="section-description">Support for <code>optgroup</code> and rich HTML content via projection</p>
+        
+        <div class="demo-grid">
+          <tng-select
+            label="Categorized Items"
+            [(value)]="groupedValue"
+            placeholder="Select an item"
+            [enableSearch]="true"
+          >
+            <optgroup label="Fruits">
+              <option value="apple">🍎 Apple</option>
+              <option value="banana">🍌 Banana</option>
+            </optgroup>
+            <optgroup label="Vegetables">
+              <option value="carrot">🥕 Carrot</option>
+              <option value="broccoli">🥦 Broccoli</option>
+            </optgroup>
+            <option value="other">📦 Other</option>
+          </tng-select>
+          
+          <div class="value-display">
+            Selected: <strong>{{ groupedValue[0] || 'None' }}</strong>
+          </div>
+        </div>
+        
+        <app-code-example [tabs]="groupedCode"></app-code-example>
+      </div>
+
+      <div class="demo-section">
         <h2>Directive Usage</h2>
         <p class="section-description">Use <code>tngSelect</code> directive directly on a native <code>select</code> element</p>
         
@@ -124,8 +154,10 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
             <label>Native Select with Directive</label>
             <select tngSelect [enableSearch]="true" multiple [enableMulti]="true" [(ngModel)]="nativeValue">
               <option value="" disabled selected>Select an option</option>
-              <option value="opt1">Option 1</option>
-              <option value="opt2">Option 2</option>
+              <optgroup label="Group 1">
+                  <option value="opt1">Option 1</option>
+                  <option value="opt2">Option 2</option>
+              </optgroup>
               <option value="opt3">Option 3</option>
             </select>
           </div>
@@ -269,6 +301,7 @@ export class SelectDemoComponent {
   selectedFruit: any[] = [];
   selectedCountry: any[] = [];
   selectedSkills: any[] = [];
+  groupedValue: any[] = [];
   nativeValue = '';
   
   // Reactive Form
@@ -342,6 +375,30 @@ selectedFruit = [];`
       label: 'TypeScript',
       language: 'typescript',
       code: `roleControl = new FormControl('viewer');`
+    }
+  ];
+
+
+
+  groupedCode: CodeTab[] = [
+    {
+      label: 'HTML',
+      language: 'html',
+      code: `<tng-select
+  label="Categorized Items"
+  [(value)]="groupedValue"
+  placeholder="Select an item"
+>
+  <optgroup label="Fruits">
+    <option value="apple">🍎 Apple</option>
+    <option value="banana">🍌 Banana</option>
+  </optgroup>
+  <optgroup label="Vegetables">
+    <option value="carrot">🥕 Carrot</option>
+    <!-- ... -->
+  </optgroup>
+  <option value="other">📦 Other</option>
+</tng-select>`
     }
   ];
 

@@ -25,8 +25,22 @@ import { TngSelectPanelComponent } from './tng-select-panel.component';
 export interface SelectOption {
   value: any;
   label: string;
+  html?: string;
+  disabled?: boolean;
+  group?: string;
+  index?: number;
+}
+
+export interface SelectGroup {
+  label: string;
+  options: SelectOption[];
   disabled?: boolean;
 }
+
+export type PanelItem = 
+  | { type: 'header', label: string, disabled?: boolean }
+  | { type: 'option', option: SelectOption };
+
 
 @Directive({
   selector: 'select[tngSelect]',
@@ -65,6 +79,7 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
   isOpen = signal(false);
   searchQuery = signal('');
   private _options = signal<SelectOption[]>([]);
+  private _groups = signal<SelectGroup[]>([]); // Store structural representation if needed
   private _selectedIndices = signal<number[]>([], { equal: (a, b) => {
     if (a === b) return true;
     if (a.length !== b.length) return false;
@@ -88,18 +103,60 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
 
   options = computed(() => this._options());
   
-  filteredOptions = computed(() => {
+  filteredItems = computed<PanelItem[]>(() => {
     const query = this.searchQuery().toLowerCase();
     const opts = this._options();
+    const showAll = !query || !this.enableSearch();
     
-    if (!query || !this.enableSearch()) {
-      return opts;
-    }
+    const items: PanelItem[] = [];
+    let currentGroup: string | undefined = undefined;
     
-    return opts.filter(opt => 
-      opt.label.toLowerCase().includes(query)
-    );
+    // We rebuild the structure from the flat list which has group info
+    // This assumes options are sorted by group as they come from DOM
+    
+    // Better approach: track groups and filter
+    const grouped: { [key: string]: SelectOption[] } = {};
+    const ungrouped: SelectOption[] = [];
+    
+    // 1. Organize
+    opts.forEach(opt => {
+      if (opt.group) {
+        if (!grouped[opt.group]) grouped[opt.group] = [];
+        grouped[opt.group].push(opt);
+      } else {
+        ungrouped.push(opt);
+      }
+    });
+    
+    // 2. Filter and Build Items
+    
+    // Ungrouped first (or mapped by original order? strict DOM order is better)
+    // To maintain DOM order, we should just iterate opts.
+    
+    let lastGroup: string | undefined = undefined;
+    
+    opts.forEach(opt => {
+      // Filter check
+      const matches = showAll || opt.label.toLowerCase().includes(query);
+      if (!matches) return;
+
+      // Group Header Handling
+      if (opt.group !== lastGroup) {
+         if (opt.group) {
+             items.push({ type: 'header', label: opt.group });
+         }
+         lastGroup = opt.group;
+      }
+      
+      items.push({ type: 'option', option: opt });
+    });
+    
+    return items;
   });
+
+  filteredOptions = computed(() => this._options()); // Legacy support if needed, or remove?
+  // Panel expects items now. We will need to update panel interaction.
+
 
   selectedOptions = computed(() => {
     const indices = this._selectedIndices();
@@ -142,8 +199,18 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
         const values = this.selectedValues();
         const newValue = this.isMulti() ? values : (values[0] ?? null);
         // Only setValue if changed? internal control handles checks usually
+        // Use emitEvent: false to prevent circular loop back to updating internal model
         this.ngControl.control.setValue(newValue, { emitEvent: false });
       }
+    });
+
+    // Observe childList changes to update options if DOM changes
+    effect((onCleanup) => {
+        const observer = new MutationObserver(() => {
+            this.loadOptionsFromSelect();
+        });
+        observer.observe(this.el.nativeElement, { childList: true, subtree: true });
+        onCleanup(() => observer.disconnect());
     });
 
     // Update generated trigger text and state
@@ -224,6 +291,10 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     });
     this.mutationObserver.observe(this.el.nativeElement, { attributes: true });
 
+    // Initial load
+    this.loadOptionsFromSelect();
+
+
     if (!this.customTrigger()) {
       this.createTrigger();
     }
@@ -291,15 +362,40 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
   private loadOptionsFromSelect() {
     const selectEl = this.el.nativeElement;
     const options: SelectOption[] = [];
+    let globalIndex = 0;
     
-    for (let i = 0; i < selectEl.options.length; i++) {
-      const option = selectEl.options[i];
-      options.push({
-        value: option.value,
-        label: option.text,
-        disabled: option.disabled
-      });
-    }
+    const children = Array.from(selectEl.children) as HTMLElement[];
+    
+    children.forEach(child => {
+      if (child.tagName === 'OPTGROUP') {
+        const groupLabel = (child as HTMLOptGroupElement).label;
+        const groupDisabled = (child as HTMLOptGroupElement).disabled;
+        const groupOptions = Array.from(child.children) as HTMLOptionElement[];
+        
+        groupOptions.forEach(optNode => {
+          if (optNode.tagName === 'OPTION') {
+             const opt = optNode as HTMLOptionElement;
+             options.push({
+               value: opt.value,
+               label: opt.text,
+               html: opt.innerHTML, // Capture inner HTML
+               disabled: opt.disabled || groupDisabled,
+               group: groupLabel,
+               index: globalIndex++
+             });
+          }
+        });
+      } else if (child.tagName === 'OPTION') {
+        const opt = child as HTMLOptionElement;
+        options.push({
+          value: opt.value,
+          label: opt.text,
+          html: opt.innerHTML,
+          disabled: opt.disabled,
+          index: globalIndex++
+        });
+      }
+    });
     
     this._options.set(options);
   }
@@ -342,7 +438,8 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     this.panelRef = this.viewContainerRef.createComponent(TngSelectPanelComponent);
     
     // Configure the panel
-    this.panelRef.instance.options.set(this.filteredOptions());
+    this.panelRef.instance.items.set(this.filteredItems());
+
     this.panelRef.instance.selectedIndices.set(this._selectedIndices());
     this.panelRef.instance.enableMulti.set(this.isMulti());
     this.panelRef.instance.enableSearch.set(this.enableSearch());
@@ -359,7 +456,8 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     const sub2 = this.panelRef.instance.searchQueryChanged.subscribe((query: string) => {
       this.searchQuery.set(query);
       // Update filtered options in the panel
-      this.panelRef!.instance.options.set(this.filteredOptions());
+      this.panelRef!.instance.items.set(this.filteredItems());
+
     });
     
     const sub3 = this.panelRef.instance.closeRequested.subscribe(() => {

@@ -17,7 +17,7 @@ export class TngSelectComponent implements ControlValueAccessor {
 
   // Inputs
   label = input<string>('');
-  options = input.required<SelectOption[]>();
+  options = input<SelectOption[]>([]);
   enableMulti = input<boolean>(false);
   enableSearch = input<boolean>(false);
   placeholder = input<string>('Select an option');
@@ -40,6 +40,13 @@ export class TngSelectComponent implements ControlValueAccessor {
   effectiveDisabled = computed(() => this.disabled() || this.cvaDisabled());
 
   displayText = computed(() => {
+    const directive = this.selectDirective();
+    if (directive) {
+      return directive.displayText();
+    }
+    
+    // Fallback if directive not ready (e.g. initial render before view init)
+    // We can try to compute it from inputs if provided
     const values = this.value();
     const opts = this.options();
     
@@ -47,8 +54,12 @@ export class TngSelectComponent implements ControlValueAccessor {
       return this.placeholder();
     }
     
-    const selectedOpts = opts.filter(opt => values.includes(opt.value));
-    return selectedOpts.map(opt => opt.label).join(', ');
+    if (opts.length > 0) {
+        const selectedOpts = opts.filter(opt => values.includes(opt.value));
+        return selectedOpts.map(opt => opt.label).join(', ');
+    }
+
+    return this.placeholder();
   });
 
   // CVA callbacks

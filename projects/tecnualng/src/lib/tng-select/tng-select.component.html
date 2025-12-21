@@ -20,10 +20,14 @@
       [disabled]="effectiveDisabled()"
       [attr.aria-label]="ariaLabel() || label()"
     >
-      @for (option of options(); track option.value) {
-      <option [value]="option.value" [disabled]="option.disabled">
-        {{ option.label }}
-      </option>
+      @if (options().length > 0) {
+        @for (option of options(); track option.value) {
+        <option [value]="option.value" [disabled]="option.disabled">
+          {{ option.label }}
+        </option>
+        }
+      } @else {
+        <ng-content select="option, optgroup"></ng-content>
       }
     </select>
 
