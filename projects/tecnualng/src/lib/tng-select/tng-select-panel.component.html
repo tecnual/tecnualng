@@ -39,6 +39,7 @@
         [checked]="isSelected(item.option.index)"
         [disabled]="item.option.disabled"
         tabindex="-1"
+        (click)="$event.stopPropagation(); onOptionClick(item.option.index, item.option)"
       />
       }
       <!-- Prefer HTML content if available, otherwise label -->

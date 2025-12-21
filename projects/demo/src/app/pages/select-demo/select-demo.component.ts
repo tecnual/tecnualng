@@ -124,10 +124,11 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
             label="Categorized Items"
             [(value)]="groupedValue"
             placeholder="Select an item"
+            [enableMulti]="true"
             [enableSearch]="true"
           >
             <optgroup label="Fruits">
-              <option value="apple">🍎 Apple</option>
+              <option value="apple" selected>🍎 Apple</option>
               <option value="banana">🍌 Banana</option>
             </optgroup>
             <optgroup label="Vegetables">
@@ -152,8 +153,8 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
         <div class="demo-grid">
           <div class="native-wrapper">
             <label>Native Select with Directive</label>
-            <select tngSelect [enableSearch]="true" multiple [enableMulti]="true" [(ngModel)]="nativeValue">
-              <option value="" disabled selected>Select an option</option>
+            <select tngSelect [enableSearch]="true" multiple [enableMulti]="true" [(selectedValues)]="nativeValue">
+              <option value="" disabled>Select an option</option>
               <optgroup label="Group 1">
                   <option value="opt1">Option 1</option>
                   <option value="opt2">Option 2</option>
@@ -163,7 +164,7 @@ import { CodeExampleComponent, CodeTab } from '../../components/code-example/cod
           </div>
           
           <div class="value-display">
-            Selected: <strong>{{ nativeValue || 'None' }}</strong>
+            Selected: <strong>{{ nativeValue.join(', ') || 'None' }}</strong>
           </div>
         </div>
         
@@ -302,7 +303,7 @@ export class SelectDemoComponent {
   selectedCountry: any[] = [];
   selectedSkills: any[] = [];
   groupedValue: any[] = [];
-  nativeValue = '';
+  nativeValue: any[] = [];
   
   // Reactive Form
   roleControl = new FormControl('viewer');
