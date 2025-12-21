@@ -52,7 +52,8 @@ export type PanelItem =
     '[class.tng-select-open]': 'isOpen()',
     '[attr.aria-expanded]': 'isOpen()',
     '[attr.aria-haspopup]': '"listbox"',
-    '[attr.aria-multiselectable]': 'isMulti()'
+    '[attr.aria-multiselectable]': 'isMulti()',
+    '[multiple]': 'isMulti()'
   }
 })
 export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
@@ -175,6 +176,9 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
   constructor() {
     // Sync selected values with model (Output)
     effect(() => {
+      // Don't sync back to model if we have no options loaded yet (initialization race)
+      if (this._options().length === 0) return;
+      
       const selected = this.selectedOptions();
       // Use untracked to avoid loop if selectedValues write triggers immediate read dependency? No.
       this.selectedValues.set(selected.map(opt => opt.value));
@@ -251,6 +255,7 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
 
   private updateSelectionFromValue(value: any) {
     const opts = this._options();
+
     const indices: number[] = [];
     
     if (this.isMulti()) {
@@ -265,6 +270,12 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     }
     
     this._selectedIndices.set(indices);
+    
+    // Update panel if open
+    if (this.panelRef) {
+      this.panelRef.instance.selectedIndices.set(indices);
+    }
+
     this.updateNativeSelect(false);
   }
 
@@ -402,21 +413,41 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
 
   private loadInitialSelection() {
     const selectEl = this.el.nativeElement;
+    // Always respect model if present
+    const currentModel = this.selectedValues();
+
+    if (currentModel.length > 0) {
+        this.updateSelectionFromValue(currentModel);
+        return;
+    }
+
     const selectedIndices: number[] = [];
-    
-    if (this.isMulti()) {
-      for (let i = 0; i < selectEl.options.length; i++) {
-        if (selectEl.options[i].selected) {
+    let hasExplicitSelection = false;
+
+    // Strict check: only respect explicit selection (attribute or property set explicitly)
+    // using defaultSelected (attribute presence/setup) is a good proxy for "User meant this" 
+    // vs "Browser defaulted this".
+    for (let i = 0; i < selectEl.options.length; i++) {
+        if (selectEl.options[i].defaultSelected) {
           selectedIndices.push(i);
+          hasExplicitSelection = true;
         }
-      }
-    } else {
-      if (selectEl.selectedIndex >= 0) {
-        selectedIndices.push(selectEl.selectedIndex);
-      }
     }
     
-    this._selectedIndices.set(selectedIndices);
+    // If we found nothing explicit, and model is empty, FORCE empty state
+    if (!hasExplicitSelection) {
+        selectEl.selectedIndex = -1;
+        this._selectedIndices.set([]);
+    } else {
+        // If single mode but multiple found (weird DOM), take last or first? Native typically takes last.
+        // But for directive, we just set what we found.
+        if (!this.isMulti() && selectedIndices.length > 1) {
+             // Fallback to last one like browser
+             this._selectedIndices.set([selectedIndices[selectedIndices.length - 1]]);
+        } else {
+             this._selectedIndices.set(selectedIndices);
+        }
+    }
   }
 
   public togglePanel() {
@@ -569,6 +600,7 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
       selectEl.dispatchEvent(new Event('input', { bubbles: true }));
     }
   }
+
 
   private onDocumentClick = (event: Event) => {
     const target = event.target as HTMLElement;

@@ -313,6 +313,25 @@ describe('TngSelectDirective', () => {
 
       expect(directive.selectedValues()).toEqual(['a', 'c']);
     });
+    
+    it('should sync panel selection when value changes externally', () => {
+      // Open panel first
+      const select = reactiveFixture.nativeElement.querySelector('select');
+      const directive = reactiveFixture.debugElement.query(
+        (el) => el.nativeElement === select
+      ).injector.get(TngSelectDirective);
+      
+      directive.togglePanel();
+      reactiveFixture.detectChanges();
+      
+      const panel = directive['panelRef']!.instance;
+      
+      // Update form control
+      reactiveComponent.control.setValue('b');
+      reactiveFixture.detectChanges();
+      
+      expect(panel.selectedIndices()).toEqual([1]);
+    });
   });
   });
 
@@ -361,9 +380,11 @@ describe('TngSelectDirective', () => {
       // Should have Header, Option, Option
       expect(items.length).toBe(3);
       expect(items[0].type).toBe('header');
-      expect(items[0].label).toBe('Group A');
+      if (items[0].type === 'header') {
+          expect(items[0].label).toBe('Group A');
+      }
       expect(items[1].type).toBe('option');
       expect(items[2].type).toBe('option');
     });
   });
-});
+
