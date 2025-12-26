@@ -18,6 +18,7 @@ import {
   DestroyRef,
   untracked
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
 import { TngSelectPanelComponent } from './tng-select-panel.component';
@@ -57,6 +58,7 @@ export type PanelItem =
   }
 })
 export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
+  private document = inject(DOCUMENT);
   private el = inject(ElementRef<HTMLSelectElement>);
   private viewContainerRef = inject(ViewContainerRef);
   public ngControl = inject(NgControl, { optional: true, self: true });
@@ -174,20 +176,14 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
   });
 
   constructor() {
-    // Sync selected values with model (Output)
-    effect(() => {
-      // Don't sync back to model if we have no options loaded yet (initialization race)
-      if (this._options().length === 0) return;
-      
-      const selected = this.selectedOptions();
-      // Use untracked to avoid loop if selectedValues write triggers immediate read dependency? No.
-      this.selectedValues.set(selected.map(opt => opt.value));
-    });
-
     // Sync model with internal (Input)
     effect(() => {
         const values = this.selectedValues();
+        // Also depend on options so we re-map indices when options change/load
+        const opts = this._options(); 
+        
         // Avoid infinite loop by checking if values actally represent a change
+        // AND check if current internal selection reflects the values (options might have changed)
         const currentSelected = untracked(() => this.selectedOptions());
         const currentValues = currentSelected.map(o => o.value);
         
@@ -195,6 +191,24 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
         if (values.length !== currentValues.length || !values.every((v, i) => v == currentValues[i])) { // weak eq
             this.updateSelectionFromValue(values);
         }
+    });
+
+    // Sync selected values with model (Output)
+    effect(() => {
+      // Don't sync back to model if we have no options loaded yet (initialization race)
+      if (this._options().length === 0) return;
+      
+      const selected = this.selectedOptions();
+      const newValues = selected.map(opt => opt.value);
+
+      // Use untracked to avoid loop? 
+      // Actually we want to check equality to avoid notification loop
+      // We also check against current model to avoid feedback loops
+      const currentModel = untracked(this.selectedValues);
+      
+      if (newValues.length !== currentModel.length || !newValues.every((v, i) => v == currentModel[i])) {
+         this.selectedValues.set(newValues);
+      }
     });
 
     // Update form control value
@@ -476,6 +490,9 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     this.panelRef.instance.enableSearch.set(this.enableSearch());
     this.panelRef.instance.searchQuery.set(this.searchQuery());
     
+    // Move panel to body to avoid z-index/overflow issues
+    this.document.body.appendChild(this.panelRef.location.nativeElement);
+
     // Position the panel
     this.positionPanel();
     
@@ -516,6 +533,14 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     subs.forEach((sub: any) => sub.unsubscribe());
     
     // Destroy the panel
+    // Since we moved the element to body, we should ensure it is removed.
+    // destroy() removes the view from change detection and should detach from DOM 
+    // if it was in a generic view container. Since we moved it, we manually remove ensure cleanup.
+    const panelEl = this.panelRef.location.nativeElement;
+    if (panelEl && panelEl.parentNode) {
+      panelEl.parentNode.removeChild(panelEl);
+    }
+    
     this.panelRef.destroy();
     this.panelRef = null;
     
@@ -535,19 +560,18 @@ export class TngSelectDirective implements AfterViewInit, OnDestroy, OnInit {
     const anchor = this.triggerRef() || this.triggerEl || this.el.nativeElement;
     const panelEl = this.panelRef.location.nativeElement;
     
-    // Calculate position relative to offset parent to support scrolling
-    const offsetParent = anchor.offsetParent as HTMLElement || document.body;
+    // Calculate position relative to viewport + scroll since it is on body
     const anchorRect = anchor.getBoundingClientRect();
-    const parentRect = offsetParent.getBoundingClientRect();
     
-    const top = anchorRect.bottom - parentRect.top;
-    const left = anchorRect.left - parentRect.left;
+    const top = anchorRect.bottom + window.scrollY;
+    // const left = anchorRect.left + window.scrollX; // This might need direction support later
+    const left = anchorRect.left + window.scrollX;
     
     panelEl.style.position = 'absolute';
-    panelEl.style.top = `${top + 4}px`;
+    panelEl.style.top = `${top + 4}px`; // 4px gap
     panelEl.style.left = `${left}px`;
     panelEl.style.width = `${anchorRect.width}px`;
-    panelEl.style.zIndex = '1000';
+    panelEl.style.zIndex = '1000'; // Ensure high z-index
   }
 
   private onOptionSelected(index: number) {
