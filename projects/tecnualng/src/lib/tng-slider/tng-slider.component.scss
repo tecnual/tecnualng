@@ -1,4 +1,3 @@
-
 @use '../styles/definitions/futuristic' as *;
 
 :host {
@@ -12,7 +11,15 @@
   gap: 0.5rem;
   padding: 1rem 0;
   user-select: none;
-  
+  position: relative;
+  z-index: 1;
+  transition: z-index 0s; // Instant z-index
+
+  &:hover,
+  &.dragging {
+    z-index: 500; // Rise above everything when interacting
+  }
+
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -41,18 +48,18 @@
   position: relative;
   width: 100%;
   height: 6px;
-  background: rgba(var(--tng-primary), 0.2); // This might fail if var isn't rgb. 
+  background: rgba(var(--tng-primary), 0.2); // This might fail if var isn't rgb.
   // Wait, css vars usually hold hex or just color. rgba(var(...)) only works if var has numbers.
   // The variables in futuristic are hex: --tng-primary: #00f2ff;
   // So rgba(var(--tng-primary), 0.2) is INVALID CSS.
   // I should use color-mix or opacity.
-  
+
   background: color-mix(in srgb, var(--tng-primary), transparent 80%);
-  
+
   border-radius: 3px;
   backdrop-filter: blur(4px);
   overflow: visible;
-  
+
   // Glass effect for track
   border: 1px solid color-mix(in srgb, var(--tng-primary), transparent 90%);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -66,8 +73,8 @@
   background: linear-gradient(90deg, var(--tng-primary), var(--tng-secondary));
   border-radius: 3px;
   // Disable transition when dragging for instant responsiveness
-  transition: width 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-  
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
   // Glowing effect
   box-shadow: 0 0 10px color-mix(in srgb, var(--tng-primary), transparent 50%);
 }
@@ -82,8 +89,8 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
-  transition: left 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-  
+  transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
   &-knob {
     width: 20px;
     height: 20px;
@@ -92,7 +99,7 @@
     border-radius: 50%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     transition: transform 0.1s ease, box-shadow 0.2s ease;
-    
+
     // Gradient border trick or inner glow
     &::after {
       content: '';
@@ -107,12 +114,12 @@
       opacity: 0.5;
     }
   }
-  
+
   &-label {
     position: absolute;
     top: -35px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(0.8);
     background: color-mix(in srgb, var(--tng-surface), transparent 10%);
     color: var(--tng-primary);
     padding: 4px 8px;
@@ -122,37 +129,43 @@
     border: 1px solid color-mix(in srgb, var(--tng-primary), transparent 70%);
     pointer-events: none;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
-    opacity: 1;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
   }
 }
 
 // Hover and Active States
-.tng-slider-container:hover .tng-slider-thumb-knob {
-  box-shadow: 0 0 15px color-mix(in srgb, var(--tng-primary), transparent 60%);
+.tng-slider-container:hover,
+.tng-slider-container.dragging {
+  .tng-slider-thumb-label {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  .tng-slider-thumb-knob {
+    box-shadow: 0 0 15px color-mix(in srgb, var(--tng-primary), transparent 60%);
+  }
 }
-
-
 
 .tng-slider-container.dragging {
   .tng-slider-fill,
   .tng-slider-thumb {
     transition: none; // Disable transition for instant follow
   }
-  
+
   .tng-slider-thumb-knob {
     transform: scale(1.1);
     background: var(--tng-primary);
     border-color: var(--tng-text);
     box-shadow: 0 0 20px color-mix(in srgb, var(--tng-primary), transparent 40%);
-    
+
     &::after {
       background: var(--tng-text);
       opacity: 1;
     }
   }
-  
+
   .tng-slider-track {
     cursor: grabbing;
   }
@@ -180,28 +193,34 @@
     width: 100%;
     bottom: 0;
     top: auto;
-    transition: height 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .tng-slider-thumb {
     top: auto;
     left: 50%;
     transform: translate(-50%, 50%); // Center exactly (50% down since bottom origin)
-    transition: bottom 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-    
+    transition: bottom 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
     &-label {
-        top: 50%;
-        left: 35px; // To the right
-        transform: translateY(-50%);
+      top: 50%;
+      left: 35px; // To the right
+      transform: translateY(-50%) scale(0.8);
     }
   }
 
-
+  // Vertical visible state override
+  &:hover,
+  &.dragging {
+    .tng-slider-thumb-label {
+      transform: translateY(-50%) scale(1);
+    }
+  }
 
   &.dragging {
     .tng-slider-fill,
     .tng-slider-thumb {
-        transition: none;
+      transition: none;
     }
   }
 }
